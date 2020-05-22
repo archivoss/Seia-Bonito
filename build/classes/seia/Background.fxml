@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
    <children>
-      <Button fx:id="addFileButton" layoutX="500.0" layoutY="40.0" mnemonicParsing="false" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
+      <Button fx:id="addFileButton" layoutX="38.0" layoutY="246.0" mnemonicParsing="false" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #43B581;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -26,9 +26,17 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="50.0" layoutY="115.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
-      <Canvas fx:id="contenidoPDF" height="750.0" layoutX="50.0" layoutY="115.0" width="1100.0" />
-      <Button fx:id="drawButton" layoutX="59.0" layoutY="44.0" mnemonicParsing="false" onAction="#drawButtonAction" prefHeight="45.0" prefWidth="90.0" text="Dibujar" />
-      <Canvas fx:id="drawPane" height="750.0" layoutX="50.0" layoutY="115.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" width="1100.0" />
+      <Pane layoutX="257.0" layoutY="9.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
+      <Canvas fx:id="contenidoPDF" height="750.0" layoutX="257.0" layoutY="9.0" width="1100.0" />
+      <Button fx:id="drawButton" layoutX="37.0" layoutY="405.0" mnemonicParsing="false" onAction="#drawButtonAction" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #43B581;" text="Dibujar">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
+      <Canvas fx:id="drawPane" height="750.0" layoutX="257.0" layoutY="9.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" width="1100.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="37.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/Captura.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
