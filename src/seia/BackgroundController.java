@@ -5,7 +5,6 @@
  */
 package seia;
 
-import java.awt.BasicStroke;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -15,19 +14,16 @@ import javafx.scene.input.MouseEvent;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 /**
  * FXML Controller class
@@ -35,7 +31,7 @@ import javafx.scene.shape.Rectangle;
  * @author Gama
  */
 public class BackgroundController implements Initializable {
-    Rectangle rec;
+    String pdfToText;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
     GraphicsContext gc;
@@ -54,7 +50,7 @@ public class BackgroundController implements Initializable {
     private AnchorPane anchorPane;
     
     @FXML
-    private TextArea contenidoPDF;
+    private Canvas contenidoPDF;
     
     @FXML
     private Button drawButton;
@@ -65,28 +61,25 @@ public class BackgroundController implements Initializable {
         seleccionarArchivo.showOpenDialog(null);
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
         LeerPdf pdfTextParserObj = new LeerPdf();
-        String pdfToText = pdfTextParserObj.pdftoText(archivoSeleccionado);
-        String[] cualquierwea = pdfToText.split("\n");
-        char[] caracteres;
-        caracteres = cualquierwea[0].toCharArray();
-        System.out.println(caracteres.length);
-        for (int i = 0; i < caracteres.length; i++) {
-            System.out.print(caracteres[i]);
-        }
-        contenidoPDF.setText(pdfToText);
+        pdfToText = pdfTextParserObj.pdftoText(archivoSeleccionado);
+        gc = contenidoPDF.getGraphicsContext2D();
+        gc.setFont(Font.font("Monospaced", 24.0));
+        gc.setLineWidth(1);
+        gc.strokeText(pdfToText, 20, 30);
+        gc = drawPane.getGraphicsContext2D();
     }
     
     @FXML
     private void drawButtonAction(ActionEvent event) {
+        
     }
     
     @FXML
     private void drawPressed(MouseEvent event) {
-        gc = drawPane.getGraphicsContext2D();
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(2);
+        gc.setLineWidth(1);
         x = event.getX();
         y = event.getY();  
+        
     }
     
     @FXML
@@ -99,7 +92,7 @@ public class BackgroundController implements Initializable {
         
         // Abajo izquierda
         if (event.getX() <  x && event.getY() > y) {
-            gc.clearRect(0, 0, 1100, 750);
+            gc.clearRect(0, 0, 1100, 750);        
             gc.strokeRect(x - (x - event.getX()), y, x - event.getX(), event.getY() - y);
         }
         

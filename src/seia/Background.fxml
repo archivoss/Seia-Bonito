@@ -3,10 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
@@ -26,14 +26,8 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextArea fx:id="contenidoPDF" layoutX="50.0" layoutY="115.0" prefHeight="750.0" prefWidth="1100.0">
-         <font>
-            <Font name="Monospaced Regular" size="24.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </TextArea>
+      <Pane layoutX="50.0" layoutY="115.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
+      <Canvas fx:id="contenidoPDF" height="750.0" layoutX="50.0" layoutY="115.0" width="1100.0" />
       <Button fx:id="drawButton" layoutX="59.0" layoutY="44.0" mnemonicParsing="false" onAction="#drawButtonAction" prefHeight="45.0" prefWidth="90.0" text="Dibujar" />
       <Canvas fx:id="drawPane" height="750.0" layoutX="50.0" layoutY="115.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" width="1100.0" />
    </children>
