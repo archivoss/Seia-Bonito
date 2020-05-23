@@ -17,7 +17,6 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
@@ -106,8 +105,7 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void drawReleased(MouseEvent event) {
-        gc = contenidoPDF.getGraphicsContext2D();
-        
+        gc = contenidoPDF.getGraphicsContext2D();   
         // Abajo derecha
         if (event.getX() > x && event.getY() > y) {
             gc.strokeRect(x, y, event.getX() - x, event.getY() - y);
