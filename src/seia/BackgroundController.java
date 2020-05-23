@@ -14,10 +14,13 @@ import javafx.scene.input.MouseEvent;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.*;
@@ -40,6 +43,7 @@ public class BackgroundController implements Initializable {
     double y;
     double currentX;
     double currentY;
+    ArrayList <Rectangulo> rectangulos;
 
     @FXML
     private Button addFileButton;
@@ -55,6 +59,26 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Button drawButton;
+    
+     //Necesario para borrar un rectangulo
+    @FXML 
+    private Button borrarbtn;
+    
+    @FXML 
+    private TextField borrarText;
+    
+    
+    @FXML
+    private void borrarR(ActionEvent event){
+        
+        String rec = borrarText.getText();
+        if(!rec.equals(null)){
+            int borrar = parseInt(rec);
+            Rectangulo n = rectangulos.get(borrar);
+            gc.clearRect(n.getX(), n.getY(), n.getAncho(), n.getAlto());
+        }
+        
+    }
     
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException {
@@ -140,6 +164,52 @@ public class BackgroundController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-    }    
+    }   
+    class Rectangulo{
+        double x, y, ancho, alto;
+        
+        public Rectangulo(){
+            
+        }
+        public Rectangulo(double x, double y, double ancho , double alto){
+            this.x = x;
+            this.y = y;
+            this.ancho = ancho; 
+            this.alto = alto;
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public void setX(double x) {
+            this.x = x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public void setY(double y) {
+            this.y = y;
+        }
+
+        public double getAncho() {
+            return ancho;
+        }
+
+        public void setAncho(double ancho) {
+            this.ancho = ancho;
+        }
+
+        public double getAlto() {
+            return alto;
+        }
+
+        public void setAlto(double alto) {
+            this.alto = alto;
+        }
+        
+    }
     
 }
