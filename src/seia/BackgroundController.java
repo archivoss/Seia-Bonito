@@ -5,6 +5,10 @@
  */
 package seia;
 
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -13,17 +17,26 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javax.swing.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import static java.lang.System.out;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
+import javax.imageio.ImageIO;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
 
 /**
  * FXML Controller class
@@ -56,6 +69,12 @@ public class BackgroundController implements Initializable {
     private Button drawButton;
     
     @FXML
+    private Region region;
+    
+    @FXML
+    private ImageView display;
+    
+    @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException {
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
@@ -70,9 +89,43 @@ public class BackgroundController implements Initializable {
     }
     
     @FXML
-    private void drawButtonAction(ActionEvent event) {
-        
-    }
+    private void drawButtonAction(ActionEvent event) throws AWTException, IOException {
+        Robot robot = new Robot();
+        Rectangle rec = new Rectangle((int) x + 410, (int) y + 180, (int) currentX, (int) currentY);
+        BufferedImage image = robot.createScreenCapture(rec);
+        Image myImage = SwingFXUtils.toFXImage(image, null);
+        display.setImage(myImage);
+        ObjectOutputStream oos = null;
+        File imageFile = new File("screen.jpg");
+        oos.defaultWriteObject();
+        ImageIO.write(image, "png", out); // png is lossless
+        String fileName = "pdfWithImage.pdf";
+        String imageName = "screen.jpg";
+        try {
+
+            PDDocument doc = new PDDocument();
+            PDPage page = new PDPage();
+
+            doc.addPage(page);
+
+            PDXObjectImage imagex = new PDJpeg(doc, new FileInputStream(imageName));
+
+            PDPageContentStream content = new PDPageContentStream(doc, page);
+
+            content.drawImage(imagex, 180, 700);
+
+            content.close();
+
+            doc.save(fileName);
+
+            doc.close();
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        System.out.println("funciono!!!");
+    }   
+    
     
     @FXML
     private void drawPressed(MouseEvent event) {
@@ -106,7 +159,9 @@ public class BackgroundController implements Initializable {
         if (event.getX() > x && event.getY() < y) {
             gc.clearRect(0, 0, 1100, 750);
             gc.strokeRect(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
-        }         
+        }
+        currentX = event.getX() - x;
+        currentY = event.getY() - y;
     }
     
     @FXML

@@ -1,0 +1,33 @@
+Robot robot = new Robot();
+        Rectangle rec = new Rectangle((int) x + 410, (int) y + 180, (int) currentX, (int) currentY);
+        BufferedImage image = robot.createScreenCapture(rec);
+        Image myImage = SwingFXUtils.toFXImage(image, null);
+        display.setImage(myImage);
+        ObjectOutputStream oos;
+        File imageFile = new File("screen.jpg");
+        ImageIO.write(image, "png", out); // png is lossless
+        String fileName = "pdfWithImage.pdf";
+        String imageName = "screen.jpg";
+        try {
+
+            PDDocument doc = new PDDocument();
+            PDPage page = new PDPage();
+
+            doc.addPage(page);
+
+            PDXObjectImage imagex = new PDJpeg(doc, new FileInputStream(imageName));
+
+            PDPageContentStream content = new PDPageContentStream(doc, page);
+
+            content.drawImage(imagex, 180, 700);
+
+            content.close();
+
+            doc.save(fileName);
+
+            doc.close();
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        System.out.println("funciono!!!");
