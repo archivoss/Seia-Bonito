@@ -14,10 +14,13 @@ import javafx.scene.input.MouseEvent;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 /**
@@ -30,6 +33,7 @@ public class BackgroundController implements Initializable {
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
     GraphicsContext gc;
+    List<Rectangle> listRec;
     LeerPdf pdfTextParserObj;
     double x;
     double y;
@@ -56,7 +60,8 @@ public class BackgroundController implements Initializable {
         gc = contenidoPDF.getGraphicsContext2D();
         gc.setFont(Font.font("Monospaced", 24.0));
         gc.setLineWidth(1);
-        gc.strokeText(pdfToText, 20, 30);        
+        gc.strokeText(pdfToText, 20, 30); 
+        listRec = new ArrayList<>();
     }
     
     @FXML
@@ -107,24 +112,30 @@ public class BackgroundController implements Initializable {
     private void drawReleased(MouseEvent event) {
         gc = contenidoPDF.getGraphicsContext2D();   
         // Abajo derecha
+        Rectangle rec = new Rectangle();
         if (event.getX() > x && event.getY() > y) {
             gc.strokeRect(x, y, event.getX() - x, event.getY() - y);
+            rec.resizeRelocate(x, y, event.getX() - x, event.getY() - y);
         }   
         
         // Abajo izquierda
-        if (event.getX() <  x && event.getY() > y) {      
+        else if (event.getX() <  x && event.getY() > y) {      
             gc.strokeRect(x - (x - event.getX()), y, x - event.getX(), event.getY() - y);
+            rec.resizeRelocate(x - (x - event.getX()), y, x - event.getX(), event.getY() - y);
         }
         
         //Arriba izquierda
-        if (event.getX() <  x && event.getY() < y) {
+        else if (event.getX() <  x && event.getY() < y) {
             gc.strokeRect(event.getX(), event.getY(), x - event.getX(), y - event.getY());
+            rec.resizeRelocate(event.getX(), event.getY(), x - event.getX(), y - event.getY());
         }
         
         //Arriba derecha
-        if (event.getX() > x && event.getY() < y) {
+        else if (event.getX() > x && event.getY() < y) {
             gc.strokeRect(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
+            rec.resizeRelocate(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
         }
+        listRec.add(rec);
     }
     
     @FXML
