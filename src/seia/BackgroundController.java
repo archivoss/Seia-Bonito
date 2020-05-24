@@ -74,8 +74,13 @@ public class BackgroundController implements Initializable {
         String rec = borrarText.getText();
         if(!rec.equals(null)){
             int borrar = parseInt(rec);
-            Rectangulo n = rectangulos.get(borrar);
-            gc.clearRect(n.getX(), n.getY(), n.getAncho(), n.getAlto());
+            Rectangulo n = rectangulos.get(borrar-1);
+            if(rectangulos.contains(n)){
+                rectangulos.remove(n);
+            }
+            //IMPRESION
+            
+            //gc.clearRect(n.getX(), n.getY(), n.getAncho(), n.getAlto());
         }
         
     }
@@ -92,6 +97,7 @@ public class BackgroundController implements Initializable {
         gc.setLineWidth(1);
         gc.strokeText(pdfToText, 20, 30);
         gc = drawPane.getGraphicsContext2D();
+        rectangulos = new ArrayList();
     }
     
     @FXML
