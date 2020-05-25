@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
@@ -12,6 +11,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
    <children>
+      <Pane layoutX="50.0" layoutY="115.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
       <Button fx:id="addFileButton" layoutX="500.0" layoutY="40.0" mnemonicParsing="false" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -27,22 +27,33 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="50.0" layoutY="115.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
-      <Canvas fx:id="contenidoPDF" height="750.0" layoutX="50.0" layoutY="115.0" width="1100.0" />
-      <Button fx:id="drawButton" layoutX="50.0" layoutY="20.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="80.0" prefWidth="230.0" style="-fx-background-color: #FFFFFF;" text="Dibujar">
+      <Canvas fx:id="contenidoPDF" disable="true" height="750.0" layoutX="50.0" layoutY="115.0" onMouseClicked="#selectRectangle" width="1100.0" />
+      <Canvas fx:id="drawPane" disable="true" height="750.0" layoutX="50.0" layoutY="115.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1100.0" />
+      <Button fx:id="drawButton" disable="true" layoutX="50.0" layoutY="20.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="Dibujar">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="80.0" fitWidth="80.0">
+            <ImageView fitHeight="80.0" fitWidth="80.0" translateX="-10.0">
                <image>
-                  <Image url="@../Resources/pencil.png" />
+                  <Image url="@../Resources/pencilIcon.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="S_RESIZE" />
-               </cursor>
             </ImageView>
          </graphic></Button>
-      <Canvas fx:id="drawPane" disable="true" height="750.0" layoutX="50.0" layoutY="115.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1100.0" />
+      <Button fx:id="selectButton" disable="true" graphicTextGap="0.0" layoutX="280.0" layoutY="20.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#selectButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="Seleccionar">
+         <graphic>
+            <ImageView fitHeight="80.0" fitWidth="80.0" scaleX="0.8" scaleY="0.8">
+               <image>
+                  <Image url="@../Resources/selectIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
    </children>
 </AnchorPane>

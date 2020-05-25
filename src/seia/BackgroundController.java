@@ -19,7 +19,6 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
@@ -35,6 +34,7 @@ public class BackgroundController implements Initializable {
     GraphicsContext gc;
     List<Rectangle> listRec;
     LeerPdf pdfTextParserObj;
+    Rectangle rec;
     double x;
     double y;
     
@@ -42,10 +42,13 @@ public class BackgroundController implements Initializable {
     private Button button;
     
     @FXML
-    private Canvas drawPane;
+    private Button selectButton;
     
     @FXML
-    private AnchorPane anchorPane;
+    private Button drawButton;
+    
+    @FXML
+    private Canvas drawPane;
     
     @FXML
     private Canvas contenidoPDF;
@@ -62,17 +65,50 @@ public class BackgroundController implements Initializable {
         gc.setLineWidth(1);
         gc.strokeText(pdfToText, 20, 30); 
         listRec = new ArrayList<>();
+        drawButton.setDisable(false);
+        selectButton.setDisable(false);
+    }
+     
+   @FXML
+    private void selectRectangle(MouseEvent event){
+        x = event.getX();
+        y = event.getY();
+        for (int i = 0; i < listRec.size(); i++) {
+            if (listRec.get(i).getY() < y && listRec.get(i).getX() < x &&
+                    listRec.get(i).getY() + listRec.get(i).getHeight() > y &&
+                    listRec.get(i).getX() + listRec.get(i).getWidth() > x) {
+                rec =  listRec.get(i);
+            }
+        }
     }
     
     @FXML
     private void drawButtonAction(ActionEvent event){
-        if (drawPane.disableProperty().getValue().equals(true)) {
+        contenidoPDF.setDisable(true);
+        if (drawPane.disableProperty().getValue()) {
             drawPane.setDisable(false);
         }
         else{
             drawPane.setDisable(true);
         }
+        if (!selectButton.getStyle().equals("-fx-background-color: #FFFFFF")) {
+            selectButton.setStyle("-fx-background-color: #FFFFFF");
+        }  
     }     
+    
+    @FXML
+    private void selectButtonAction(ActionEvent event){
+        drawPane.setDisable(true);
+        if (contenidoPDF.disableProperty().getValue()) {
+            contenidoPDF.setDisable(false);
+        }
+        else{
+            contenidoPDF.setDisable(true);
+        }
+        if (!drawButton.getStyle().equals("-fx-background-color: #FFFFFF")) {
+            drawButton.setStyle("-fx-background-color: #FFFFFF");
+        }
+    }    
     
     @FXML
     private void drawPressed(MouseEvent event) {
@@ -112,28 +148,28 @@ public class BackgroundController implements Initializable {
     private void drawReleased(MouseEvent event) {
         gc = contenidoPDF.getGraphicsContext2D();   
         // Abajo derecha
-        Rectangle rec = new Rectangle();
+        rec = null;
         if (event.getX() > x && event.getY() > y) {
             gc.strokeRect(x, y, event.getX() - x, event.getY() - y);
-            rec.resizeRelocate(x, y, event.getX() - x, event.getY() - y);
+            rec = new Rectangle(x, y, event.getX() - x, event.getY() - y);
         }   
         
         // Abajo izquierda
         else if (event.getX() <  x && event.getY() > y) {      
             gc.strokeRect(x - (x - event.getX()), y, x - event.getX(), event.getY() - y);
-            rec.resizeRelocate(x - (x - event.getX()), y, x - event.getX(), event.getY() - y);
+            rec = new Rectangle(x - (x - event.getX()), y, x - event.getX(), event.getY() - y);
         }
         
         //Arriba izquierda
         else if (event.getX() <  x && event.getY() < y) {
             gc.strokeRect(event.getX(), event.getY(), x - event.getX(), y - event.getY());
-            rec.resizeRelocate(event.getX(), event.getY(), x - event.getX(), y - event.getY());
+            rec = new Rectangle(event.getX(), event.getY(), x - event.getX(), y - event.getY());
         }
         
         //Arriba derecha
         else if (event.getX() > x && event.getY() < y) {
             gc.strokeRect(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
-            rec.resizeRelocate(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
+            rec = new Rectangle(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
         }
         listRec.add(rec);
     }
@@ -141,7 +177,7 @@ public class BackgroundController implements Initializable {
     @FXML
     private void enter(MouseEvent event){
         button = (Button) event.getPickResult().getIntersectedNode();
-        if (!button.getId().equals("drawButton")) {
+        if (!button.getId().equals("drawButton") && !button.getId().equals("selectButton")) {
             button.setStyle("-fx-background-color: #CCCCCC;");
         }
         else{
@@ -153,7 +189,7 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void release(MouseEvent event){
-        if (!button.getId().equals("drawButton")) {
+        if (!button.getId().equals("drawButton") && !button.getId().equals("selectButton")) {
             button.setStyle("-fx-background-color: #CCCCCC;");
         }
         else{
@@ -165,7 +201,7 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void exit(MouseEvent event){
-        if (!button.getId().equals("drawButton")) {
+        if (!button.getId().equals("drawButton") && !button.getId().equals("selectButton")) {
             button.setStyle("-fx-background-color: #FFFFFF;");
         }
         else{
@@ -177,7 +213,7 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void press(MouseEvent event){
-        if (button.getId().equals("drawButton")) {
+        if (button.getId().equals("drawButton") || button.getId().equals("selectButton")) {
             if (button.getStyle().equals("-fx-background-color: #8b008b")) {
                 button.setStyle("-fx-background-color: #FFFFFF");
             }
@@ -192,7 +228,6 @@ public class BackgroundController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }    
     
 }
