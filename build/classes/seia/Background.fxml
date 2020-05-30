@@ -27,7 +27,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Canvas fx:id="contenidoPDF" disable="true" height="750.0" layoutX="50.0" layoutY="115.0" onMouseClicked="#selectRectangle" width="1100.0" />
+      <Canvas fx:id="contenidoPDF" disable="true" height="750.0" layoutX="50.0" layoutY="115.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1100.0" />
       <Canvas fx:id="drawPane" disable="true" height="750.0" layoutX="50.0" layoutY="115.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1100.0" />
       <Button fx:id="drawButton" disable="true" layoutX="50.0" layoutY="20.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="Dibujar">
          <font>
