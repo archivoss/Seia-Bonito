@@ -20,7 +20,7 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -50,6 +50,9 @@ public class BackgroundController implements Initializable {
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+    
+    @FXML
+    private TextArea textPDF;
        
     @FXML
     private Button button;
@@ -70,20 +73,13 @@ public class BackgroundController implements Initializable {
     private Canvas contenidoPDF;
     
     @FXML
-    private Pane paneid;
-    
-    @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException {
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
         pdfTextParserObj = new LeerPdf();
         pdfToText = pdfTextParserObj.pdftoText(archivoSeleccionado);
-        gc = contenidoPDF.getGraphicsContext2D();
-        gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
-        gc.setFont(Font.font("Monospaced", 18.0));
-        gc.setLineWidth(1);
-        gc.strokeText(pdfToText, 20, 30); 
+        textPDF.setText(pdfToText);
         listRec = new ArrayList<>();
         drawButton.setDisable(false);
         selectButton.setDisable(false);
@@ -99,12 +95,10 @@ public class BackgroundController implements Initializable {
                 }
             }
             gc = drawPane.getGraphicsContext2D();
-            gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+            gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
             gc = contenidoPDF.getGraphicsContext2D();
-            gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+            gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
             gc.setLineWidth(1);    
-            gc.setFont(Font.font("Monospaced", 18.0));       
-            gc.strokeText(pdfToText, 20, 30);
             for (int i = 0; i < listRec.size(); i++) {
                 gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
                 listRec.get(i).getWidth(), listRec.get(i).getHeight());
@@ -116,10 +110,8 @@ public class BackgroundController implements Initializable {
     private void selectRectangle(MouseEvent event){
         modificarRec = new ArrayList<>();
         gc = contenidoPDF.getGraphicsContext2D();
-        gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+        gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
         gc.setLineWidth(1);    
-        gc.setFont(Font.font("Monospaced", 18.0));       
-        gc.strokeText(pdfToText, 20, 30); 
         rec = new Rectangle();
         for (int i = 0; i < listRec.size(); i++) {
             gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
@@ -181,7 +173,7 @@ public class BackgroundController implements Initializable {
                 rec.setY(event.getY());
                 rec.setWidth((auxX + auxW) - event.getX());
                 rec.setHeight((auxY + auxH) - event.getY());             
-                gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
                     rec.setX(auxX + auxW);
@@ -200,7 +192,7 @@ public class BackgroundController implements Initializable {
                         rec.setWidth(event.getX() - (auxX + auxW));                                             
                         rec.setHeight(event.getY() - (auxY + auxH));
                     }
-                    gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                    gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
                 break;
@@ -209,7 +201,7 @@ public class BackgroundController implements Initializable {
                 rec.setY(event.getY());
                 rec.setWidth(event.getX() - auxX);
                 rec.setHeight((auxY + auxH) - event.getY());             
-                gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());                
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
                     rec.setX(event.getX());
@@ -226,7 +218,7 @@ public class BackgroundController implements Initializable {
                         rec.setY(auxH + auxY);
                         rec.setHeight(event.getY() - (auxY + auxH));
                     }
-                    gc.clearRect(0, 0,screenWidth - 250, screenHeight-18);
+                    gc.clearRect(0, 0,screenWidth - 275, screenHeight - 135);
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
                 break;
@@ -235,7 +227,7 @@ public class BackgroundController implements Initializable {
                 rec.setY(auxY);
                 rec.setWidth((auxX + auxW) - event.getX());
                 rec.setHeight(event.getY() - auxY);             
-                gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
                     rec.setX(auxX + auxW);
@@ -254,7 +246,7 @@ public class BackgroundController implements Initializable {
                         rec.setWidth(event.getX() - (auxX + auxW));
                         rec.setHeight(auxY - event.getY());                     
                     }
-                    gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                    gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
                 break;
@@ -263,7 +255,7 @@ public class BackgroundController implements Initializable {
                 rec.setY(auxY);
                 rec.setWidth(event.getX() - auxX);
                 rec.setHeight(event.getY() - auxY);             
-                gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
                     rec.setX(auxX);
@@ -282,7 +274,7 @@ public class BackgroundController implements Initializable {
                         rec.setWidth(auxX - event.getX());
                         rec.setHeight(event.getY() - auxY);                     
                     }
-                    gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                    gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
                 break;
@@ -312,7 +304,7 @@ public class BackgroundController implements Initializable {
                             rec.setX(auxX + (event.getX() - x));
                             rec.setY(auxY + (event.getY() - y));
                         }
-                        gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+                        gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                         gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());           
                     }
                 }
@@ -327,10 +319,8 @@ public class BackgroundController implements Initializable {
     private void drawButtonAction(ActionEvent event){
         drawPane.toFront();
         gc = contenidoPDF.getGraphicsContext2D();
-        gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
-        gc.setLineWidth(1);    
-        gc.setFont(Font.font("Monospaced", 18.0));       
-        gc.strokeText(pdfToText, 20, 30); 
+        gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
+        gc.setLineWidth(1);
         for (int i = 0; i < listRec.size(); i++) {
             gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
             listRec.get(i).getWidth(), listRec.get(i).getHeight());
@@ -373,25 +363,25 @@ public class BackgroundController implements Initializable {
         gc = drawPane.getGraphicsContext2D();
         // Abajo derecha
         if (event.getX() > x && event.getY() > y) {
-            gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+            gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
             gc.strokeRect(x, y, event.getX() - x, event.getY() - y);
         }   
         
         // Abajo izquierda
         if (event.getX() <  x && event.getY() > y) {
-            gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);        
+            gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);        
             gc.strokeRect(x - (x - event.getX()), y, x - event.getX(), event.getY() - y);
         }
         
         //Arriba izquierda
         if (event.getX() <  x && event.getY() < y) {
-            gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+            gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
             gc.strokeRect(event.getX(), event.getY(), x - event.getX(), y - event.getY());
         }
         
         //Arriba derecha
         if (event.getX() > x && event.getY() < y) {
-            gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
+            gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
             gc.strokeRect(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
         }
     }
@@ -485,11 +475,11 @@ public class BackgroundController implements Initializable {
         // Paneles ajustables al tamaño de la pantalla.
         System.out.println(screenWidth);
         System.out.println(screenHeight);
-        drawPane.setWidth(screenWidth - 250);
-        drawPane.setHeight(screenHeight - 28);
-        contenidoPDF.setWidth(screenWidth - 250);
-        contenidoPDF.setHeight(screenHeight - 28);
-        paneid.setPrefSize(screenWidth - 250, screenHeight - 28);
+        drawPane.setWidth(screenWidth - 275);
+        drawPane.setHeight(screenHeight - 135);
+        contenidoPDF.setWidth(screenWidth - 275);
+        contenidoPDF.setHeight(screenHeight - 135);
+        textPDF.setPrefSize(screenWidth - 250, screenHeight - 110);
     }    
     
 }
