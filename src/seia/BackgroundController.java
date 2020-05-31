@@ -20,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import static javafx.scene.paint.Color.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
@@ -60,14 +59,6 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Canvas drawPane;
-    
-     //Necesario para borrar un rectangulo
-    @FXML 
-    private Button borrarbtn;
-    
-    @FXML 
-    private TextField borrarText;
-    
     
     @FXML
     private Canvas contenidoPDF;
@@ -114,6 +105,7 @@ public class BackgroundController implements Initializable {
      
     @FXML
     private void selectRectangle(MouseEvent event){
+        modificarRec = new ArrayList<>();
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, 1100, 750);
         gc.setLineWidth(1);    
@@ -128,23 +120,24 @@ public class BackgroundController implements Initializable {
         y = event.getY();
         for (int i = 0; i < listRec.size(); i++) {
             if (listRec.get(i).getY() < y && listRec.get(i).getX() < x &&
-                    listRec.get(i).getY() + listRec.get(i).getHeight() > y &&
-                    listRec.get(i).getX() + listRec.get(i).getWidth() > x) {
-                rec = listRec.get(i);               
+                listRec.get(i).getY() + listRec.get(i).getHeight() > y &&
+                listRec.get(i).getX() + listRec.get(i).getWidth() > x) {
+                rec = listRec.get(i);   
+                modificarRec.add(new Rectangle(rec.getX() - 5, rec.getY() - 5, 10, 10));  
+                modificarRec.add(new Rectangle(rec.getX() + rec.getWidth() - 5, rec.getY() - 5, 10, 10));
+                modificarRec.add(new Rectangle(rec.getX() - 5, rec.getY() + rec.getHeight() - 5, 10, 10));                   
+                modificarRec.add(new Rectangle(rec.getX() + rec.getWidth() - 5, rec.getY() + rec.getHeight() - 5, 10, 10));
+                gc.setFill(Color.WHITE);
+                for (int j = 0; j < modificarRec.size(); j++) {
+                    gc.fillRect(modificarRec.get(j).getX(), modificarRec.get(j).getY(),
+                    modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());
+                    gc.strokeRect(modificarRec.get(j).getX(), modificarRec.get(j).getY(),
+                    modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());        
+                }
             }
         }
-        modificarRec = new ArrayList<>();
-        modificarRec.add(new Rectangle(rec.getX() - 5, rec.getY() - 5, 10, 10));  
-        modificarRec.add(new Rectangle(rec.getX() + rec.getWidth() - 5, rec.getY() - 5, 10, 10));
-        modificarRec.add(new Rectangle(rec.getX() - 5, rec.getY() + rec.getHeight() - 5, 10, 10));                   
-        modificarRec.add(new Rectangle(rec.getX() + rec.getWidth() - 5, rec.getY() + rec.getHeight() - 5, 10, 10));
-        gc.setFill(Color.WHITE);
-        for (int i = 0; i < modificarRec.size(); i++) {
-            gc.fillRect(modificarRec.get(i).getX(), modificarRec.get(i).getY(),
-                   modificarRec.get(i).getWidth(), modificarRec.get(i).getHeight());
-            gc.strokeRect(modificarRec.get(i).getX(), modificarRec.get(i).getY(),
-                   modificarRec.get(i).getWidth(), modificarRec.get(i).getHeight());        
-        }
+        
+        
     }
     
     @FXML
@@ -331,7 +324,7 @@ public class BackgroundController implements Initializable {
         gc.strokeText(pdfToText, 20, 30); 
         for (int i = 0; i < listRec.size(); i++) {
             gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
-                   listRec.get(i).getWidth(), listRec.get(i).getHeight());
+            listRec.get(i).getWidth(), listRec.get(i).getHeight());
         }
         contenidoPDF.setDisable(true);
         if (drawPane.disableProperty().getValue()) {
@@ -422,6 +415,7 @@ public class BackgroundController implements Initializable {
             rec = new Rectangle(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
         }
         listRec.add(rec);
+        rec = null;
     }
     
     @FXML
