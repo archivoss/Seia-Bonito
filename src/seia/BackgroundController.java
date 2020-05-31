@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import static javafx.scene.paint.Color.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
@@ -59,6 +60,14 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Canvas drawPane;
+    
+     //Necesario para borrar un rectangulo
+    @FXML 
+    private Button borrarbtn;
+    
+    @FXML 
+    private TextField borrarText;
+    
     
     @FXML
     private Canvas contenidoPDF;
