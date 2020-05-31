@@ -5,23 +5,15 @@
  */
 package seia;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.
 PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentInformation;
-import org.apache.pdfbox.util.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripper;
 
 public class LeerPdf {  
-
-    PDFParser parser;
-    String parsedText;
-    PDFTextStripper pdfStripper;
-    PDDocument pdDoc;
-    COSDocument cosDoc;
-    PDDocumentInformation pdDocInfo;
-
+    
     // PDFTextParser Constructor
     public LeerPdf() {
     }
@@ -32,38 +24,8 @@ public class LeerPdf {
      * @param f
      * @return 
      */
-    public String pdftoText(File f) {
-
-        if (!f.isFile()) {
-            System.out.println("File " + f.getName() + " does not exist.");
-            return null;
-        }
-
-        try {
-            parser = new PDFParser(new FileInputStream(f));
-        } catch (Exception e) {
-            System.out.println("Unable to open PDF Parser.");
-            return null;
-        }
-
-        try {
-            parser.parse();
-            cosDoc = parser.getDocument();
-            pdfStripper = new PDFTextStripper();
-            pdDoc = new PDDocument(cosDoc);
-            parsedText = pdfStripper.getText(pdDoc);
-        } catch (Exception e) {
-            System.out.println("An exception occured in parsing the PDF Document.");
-            e.printStackTrace();
-        try {
-            if (cosDoc != null) cosDoc.close();
-            if (pdDoc != null) pdDoc.close();
-            } catch (Exception e1) {
-                e.printStackTrace();
-        }
-        return null;
-        }
-        System.out.println("Done.");
-        return parsedText;
+    public String pdftoText(File f) throws IOException {
+        PDDocument doc = PDDocument.load(f);
+        return new PDFTextStripper().getText(doc);
     }
 }

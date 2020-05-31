@@ -84,6 +84,7 @@ public class BackgroundController implements Initializable {
         drawButton.setDisable(false);
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
+        System.out.println(pdfToText);
     }
     
     @FXML
