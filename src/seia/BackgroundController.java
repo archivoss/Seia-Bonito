@@ -81,7 +81,7 @@ public class BackgroundController implements Initializable {
         pdfToText = pdfTextParserObj.pdftoText(archivoSeleccionado);
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
-        gc.setFont(Font.font("Monospaced", 24.0));
+        gc.setFont(Font.font("Monospaced", 18.0));
         gc.setLineWidth(1);
         gc.strokeText(pdfToText, 20, 30); 
         listRec = new ArrayList<>();
@@ -103,7 +103,7 @@ public class BackgroundController implements Initializable {
             gc = contenidoPDF.getGraphicsContext2D();
             gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
             gc.setLineWidth(1);    
-            gc.setFont(Font.font("Monospaced", 24.0));       
+            gc.setFont(Font.font("Monospaced", 18.0));       
             gc.strokeText(pdfToText, 20, 30);
             for (int i = 0; i < listRec.size(); i++) {
                 gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
@@ -118,7 +118,7 @@ public class BackgroundController implements Initializable {
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
         gc.setLineWidth(1);    
-        gc.setFont(Font.font("Monospaced", 24.0));       
+        gc.setFont(Font.font("Monospaced", 18.0));       
         gc.strokeText(pdfToText, 20, 30); 
         rec = new Rectangle();
         for (int i = 0; i < listRec.size(); i++) {
@@ -329,7 +329,7 @@ public class BackgroundController implements Initializable {
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, screenWidth - 250, screenHeight-18);
         gc.setLineWidth(1);    
-        gc.setFont(Font.font("Monospaced", 24.0));       
+        gc.setFont(Font.font("Monospaced", 18.0));       
         gc.strokeText(pdfToText, 20, 30); 
         for (int i = 0; i < listRec.size(); i++) {
             gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
