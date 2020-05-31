@@ -55,5 +55,20 @@
             <Insets />
          </opaqueInsets>
       </Button>
+      <Button fx:id="deleteButton" disable="true" graphicTextGap="0.0" layoutX="720.0" layoutY="20.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#deleteButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="Eliminar">
+         <graphic>
+            <ImageView fitHeight="80.0" fitWidth="80.0" scaleX="0.8" scaleY="0.8">
+               <image>
+                  <Image url="@../Resources/deleteIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
    </children>
 </AnchorPane>

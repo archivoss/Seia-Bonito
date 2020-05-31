@@ -55,6 +55,9 @@ public class BackgroundController implements Initializable {
     private Button drawButton;
     
     @FXML
+    private Button deleteButton;
+    
+    @FXML
     private Canvas drawPane;
     
     @FXML
@@ -68,12 +71,36 @@ public class BackgroundController implements Initializable {
         pdfTextParserObj = new LeerPdf();
         pdfToText = pdfTextParserObj.pdftoText(archivoSeleccionado);
         gc = contenidoPDF.getGraphicsContext2D();
+        gc.clearRect(0, 0, 1100, 750);
         gc.setFont(Font.font("Monospaced", 24.0));
         gc.setLineWidth(1);
         gc.strokeText(pdfToText, 20, 30); 
         listRec = new ArrayList<>();
         drawButton.setDisable(false);
         selectButton.setDisable(false);
+        deleteButton.setDisable(false);
+    }
+    
+    @FXML
+    private void deleteButtonAction(ActionEvent event){
+        if (rec != null) {
+            for (int i = 0; i < listRec.size(); i++) {
+                if (rec.equals(listRec.get(i))) {
+                    listRec.remove(rec);
+                }
+            }
+            gc = drawPane.getGraphicsContext2D();
+            gc.clearRect(0, 0, 1100, 750);
+            gc = contenidoPDF.getGraphicsContext2D();
+            gc.clearRect(0, 0, 1100, 750);
+            gc.setLineWidth(1);    
+            gc.setFont(Font.font("Monospaced", 24.0));       
+            gc.strokeText(pdfToText, 20, 30);
+            for (int i = 0; i < listRec.size(); i++) {
+                gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
+                listRec.get(i).getWidth(), listRec.get(i).getHeight());
+            }
+        }   
     }
      
     @FXML
@@ -114,20 +141,24 @@ public class BackgroundController implements Initializable {
     @FXML
     private void modifyPressed(MouseEvent event){
         gc = drawPane.getGraphicsContext2D();
+        aux = 0;
         if (modificarRec != null) {
             x = event.getX();
             y = event.getY();
             for (int i = 0; i < modificarRec.size(); i++) {
+                auxW = rec.getWidth();
+                auxH = rec.getHeight();
+                auxX = rec.getX();
+                auxY = rec.getY();
                 if (modificarRec.get(i).getY() < y && modificarRec.get(i).getX() < x &&
                         modificarRec.get(i).getY() + modificarRec.get(i).getHeight() > y &&
                         modificarRec.get(i).getX() + modificarRec.get(i).getWidth() > x) {
-                    auxW = rec.getWidth();
-                    auxH = rec.getHeight();
-                    auxX = rec.getX();
-                    auxY = rec.getY();
                     aux = i + 1;
                 }
-            }    
+                else if (auxY < y && auxX < x && auxY + auxH > y && auxX + auxW > x){
+                    aux = 5;
+                }
+            }
         }    
     }
     
@@ -135,60 +166,27 @@ public class BackgroundController implements Initializable {
     private void modifyDragged(MouseEvent event){
         switch (aux) {
             case 1:
-                System.out.println(1);
-                // Abajo derecha
-                if (event.getX() > auxX && event.getY() > auxY) {
-                    rec.setX(auxX + auxW);
-                    rec.setY(auxY + auxH);
-                    rec.setWidth(event.getX() - (auxX + auxW));
-                    rec.setHeight(event.getY() - (auxY + auxH));             
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }   
-
-                // Abajo izquierda
-                if (event.getX() <  auxX && event.getY() > auxY) {
-                    rec.setX(event.getX());
-                    rec.setY(auxY + auxH);
-                    rec.setWidth((auxX + auxW) - event.getX());
-                    rec.setHeight(event.getY() - (auxY + auxH));
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-
-                //Arriba izquierda
-                if (event.getX() <  auxX && event.getY() < auxY) {
-                    rec.setX(event.getX());
-                    rec.setY(event.getY());
-                    rec.setWidth(auxW + (auxX - event.getX()));
-                    rec.setHeight(auxH + (auxY - event.getY()));
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-
-                //Arriba derecha
-                if (event.getX() > auxX && event.getY() < auxY) {
-                    rec.setX(auxX + auxW);
-                    rec.setY(event.getY());
-                    rec.setWidth(event.getX() - (auxX + auxW));
-                    rec.setHeight((auxY + auxH) - event.getY());
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-
+                rec.setX(event.getX());
+                rec.setY(event.getY());
+                rec.setWidth((auxX + auxW) - event.getX());
+                rec.setHeight((auxY + auxH) - event.getY());             
+                gc.clearRect(0, 0, 1100, 750);
+                gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
-                    rec.setX(event.getX());
+                    rec.setX(auxX + auxW);
                     rec.setY(event.getY());
-                    rec.setWidth((auxW + auxX) - event.getX());
-                    rec.setHeight((auxH + auxY) - event.getY()); 
+                    rec.setWidth(event.getX() - (auxX + auxW));
+                    rec.setHeight((auxY + auxH) - event.getY()); 
                     if (rec.getWidth() < 0) {
-                        rec.setX(auxX + auxW);
-                        rec.setWidth(event.getX() - (auxX + auxW));                                             
-                        rec.setHeight((auxY + auxH) - event.getY());
+                        rec.setX(event.getX());
+                        rec.setY(auxY + auxH);
+                        rec.setWidth((auxX + auxW) - event.getX());                                             
+                        rec.setHeight(event.getY() - (auxY + auxH));
                     }
                     else if (rec.getHeight() < 0) {
-                        rec.setY(auxH + auxY);
-                        rec.setWidth((auxX + auxW) - event.getX());
+                        rec.setX(auxX + auxW);
+                        rec.setY(auxY + auxH);
+                        rec.setWidth(event.getX() - (auxX + auxW));                                             
                         rec.setHeight(event.getY() - (auxY + auxH));
                     }
                     gc.clearRect(0, 0, 1100, 750);
@@ -196,60 +194,25 @@ public class BackgroundController implements Initializable {
                 }
                 break;
             case 2:
-                System.out.println(2);
-                // Abajo derecha
-                if (event.getX() > auxX && event.getY() > auxY) {
-                    rec.setX(auxX + auxW);
-                    rec.setY(auxY + auxH);
-                    rec.setWidth(event.getX() - (auxX + auxW));
-                    rec.setHeight(event.getY() - (auxY + auxH));             
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }   
-
-                // Abajo izquierda
-                if (event.getX() <  auxX && event.getY() > auxY) {
-                    rec.setX(event.getX());
-                    rec.setY(auxY + auxH);
-                    rec.setWidth((auxX + auxW) - event.getX());
-                    rec.setHeight(event.getY() - (auxY + auxH));
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-
-                //Arriba izquierda
-                if (event.getX() <  auxX && event.getY() < auxY) {
-                    rec.setX(event.getX());
-                    rec.setY(event.getY());
-                    rec.setWidth(auxW + (auxX - event.getX()));
-                    rec.setHeight(auxH + (auxY - event.getY()));
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-
-                //Arriba derecha
-                if (event.getX() > auxX && event.getY() < auxY) {
-                    rec.setX(auxX + auxW);
-                    rec.setY(event.getY());
-                    rec.setWidth(event.getX() - (auxX + auxW));
-                    rec.setHeight((auxY + auxH) - event.getY());
-                    gc.clearRect(0, 0, 1100, 750);
-                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-
+                rec.setX(auxX);
+                rec.setY(event.getY());
+                rec.setWidth(event.getX() - auxX);
+                rec.setHeight((auxY + auxH) - event.getY());             
+                gc.clearRect(0, 0, 1100, 750);
+                gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());                
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
                     rec.setX(event.getX());
                     rec.setY(event.getY());
-                    rec.setWidth((auxW + auxX) - event.getX());
+                    rec.setWidth(auxX - event.getX());
                     rec.setHeight((auxH + auxY) - event.getY()); 
                     if (rec.getWidth() < 0) {
-                        rec.setX(auxX + auxW);
-                        rec.setWidth(event.getX() - (auxX + auxW));                                             
-                        rec.setHeight((auxY + auxH) - event.getY());
+                        rec.setX(auxX);
+                        rec.setY(auxY + auxH);
+                        rec.setWidth(event.getX() - auxX);                                             
+                        rec.setHeight(event.getY() - (auxY + auxH));
                     }
                     else if (rec.getHeight() < 0) {
                         rec.setY(auxH + auxY);
-                        rec.setWidth((auxX + auxW) - event.getX());
                         rec.setHeight(event.getY() - (auxY + auxH));
                     }
                     gc.clearRect(0, 0, 1100, 750);
@@ -257,11 +220,91 @@ public class BackgroundController implements Initializable {
                 }
                 break;
             case 3:
-                System.out.println(3);
+                rec.setX(event.getX());
+                rec.setY(auxY);
+                rec.setWidth((auxX + auxW) - event.getX());
+                rec.setHeight(event.getY() - auxY);             
+                gc.clearRect(0, 0, 1100, 750);
+                gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
+                if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
+                    rec.setX(auxX + auxW);
+                    rec.setY(auxY);
+                    rec.setWidth(event.getX() - (auxX + auxW));
+                    rec.setHeight(event.getY() - auxY);
+                    if (rec.getWidth() < 0) {
+                        rec.setX(event.getX());
+                        rec.setY(event.getY());
+                        rec.setWidth((auxX + auxW) - event.getX());                                             
+                        rec.setHeight(auxY - event.getY());
+                    }
+                    else if (rec.getHeight() < 0) {
+                        rec.setX(auxX + auxW);
+                        rec.setY(event.getY());
+                        rec.setWidth(event.getX() - (auxX + auxW));
+                        rec.setHeight(auxY - event.getY());                     
+                    }
+                    gc.clearRect(0, 0, 1100, 750);
+                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
+                }
                 break;
             case 4:
-                System.out.println(4);
+                rec.setX(auxX);
+                rec.setY(auxY);
+                rec.setWidth(event.getX() - auxX);
+                rec.setHeight(event.getY() - auxY);             
+                gc.clearRect(0, 0, 1100, 750);
+                gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
+                if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
+                    rec.setX(auxX);
+                    rec.setY(event.getY());
+                    rec.setWidth(event.getX() - auxX);
+                    rec.setHeight(auxY - event.getY());
+                    if (rec.getWidth() < 0) {
+                        rec.setX(event.getX());
+                        rec.setY(event.getY());
+                        rec.setWidth(auxX - event.getX());                                             
+                        rec.setHeight(auxY - event.getY());
+                    }
+                    if (rec.getHeight() < 0) {
+                        rec.setX(event.getX());
+                        rec.setY(auxY);
+                        rec.setWidth(auxX - event.getX());
+                        rec.setHeight(event.getY() - auxY);                     
+                    }
+                    gc.clearRect(0, 0, 1100, 750);
+                    gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
+                }
                 break;
+            case 5:
+                for (int i = 0; i < listRec.size(); i++) {
+                    if (auxY < y && auxX < x && auxY + auxH > y && auxX + auxW > x) {
+                        //arriba izquierda
+                        if (event.getX() <= x && event.getY() <= y) {
+                            rec.setX(auxX - (x - event.getX()));
+                            rec.setY(auxY - (y - event.getY()));
+                        }
+                        
+                        //arriba derecha
+                        if (event.getX() >= x && event.getY() <= y) {
+                            rec.setX(auxX + (event.getX() - x));
+                            rec.setY(auxY - (y - event.getY()));
+                        }
+                        
+                        //abajo izquierda
+                        if (event.getX() <= x && event.getY() >= y) {
+                            rec.setX(auxX - (x - event.getX()));
+                            rec.setY(auxY + (event.getY() - y));
+                        }
+                                                                      
+                        //abajo derecha
+                        if (event.getX() >= x && event.getY() >= y) {
+                            rec.setX(auxX + (event.getX() - x));
+                            rec.setY(auxY + (event.getY() - y));
+                        }
+                        gc.clearRect(0, 0, 1100, 750);
+                        gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());           
+                    }
+                }
             default:
                 break;
         }
