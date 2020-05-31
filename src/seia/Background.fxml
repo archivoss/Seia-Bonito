@@ -10,8 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
    <children>
+      <Pane fx:id="paneid" layoutX="257.0" layoutY="9.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
       <Button fx:id="addFileButton" layoutX="37.0" layoutY="178.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -62,7 +63,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="257.0" layoutY="9.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
       <Canvas fx:id="contenidoPDF" height="750.0" layoutX="257.0" layoutY="9.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1100.0" />
       <Canvas fx:id="drawPane" disable="true" height="750.0" layoutX="257.0" layoutY="9.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1100.0" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="37.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">

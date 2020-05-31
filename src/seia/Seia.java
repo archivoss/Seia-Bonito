@@ -5,6 +5,7 @@
  */
 package seia;
 
+import java.awt.Dimension;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +21,10 @@ public class Seia extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Background.fxml"));       
+        
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 

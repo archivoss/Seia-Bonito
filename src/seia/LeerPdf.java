@@ -27,6 +27,11 @@ public class LeerPdf {
     }
 
     // Extract text from PDF Document
+    /**
+     * 
+     * @param f
+     * @return 
+     */
     public String pdftoText(File f) {
 
         if (!f.isFile()) {
