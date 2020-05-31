@@ -114,7 +114,7 @@ public class BackgroundController implements Initializable {
         rec = new Rectangle();
         for (int i = 0; i < listRec.size(); i++) {
             gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
-                   listRec.get(i).getWidth(), listRec.get(i).getHeight());
+            listRec.get(i).getWidth(), listRec.get(i).getHeight());
         }
         x = event.getX();
         y = event.getY();
