@@ -152,6 +152,8 @@ public class BackgroundController implements Initializable {
         addFileButton.setStyle("-fx-background-color: #43B581;");
         Color c = Color.rgb(54,57,63);
         addFileButton.setTextFill(c);
+        
+        
     }
     
     @FXML
