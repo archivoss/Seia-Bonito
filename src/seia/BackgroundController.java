@@ -46,7 +46,8 @@ public class BackgroundController implements Initializable {
     LeerPdf pdfTextParserObj;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
-    Stack<List> stackU = new Stack<>();
+    Stack<List<Rectangle>> stackundo = new Stack<>();
+    Stack<List> stackredo = new Stack<>();
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
@@ -72,6 +73,36 @@ public class BackgroundController implements Initializable {
     @FXML
     private Canvas contenidoPDF;
     
+    
+    
+    @FXML
+    private void undoButtonAction(ActionEvent event){
+        if (!stackundo.isEmpty()){
+            gc = contenidoPDF.getGraphicsContext2D();
+            gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
+            gc = drawPane.getGraphicsContext2D();
+            gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
+            System.out.println(listRec);
+            stackundo.pop();
+            System.out.println(stackundo.pop());
+            for (int k = 0; k < stackundo.size(); k++) {
+                gc.strokeRect(stackundo.get(k).get(k).getX(), stackundo.get(k).get(k).getY(),
+                stackundo.get(k).get(k).getWidth(), stackundo.get(k).get(k).getHeight());
+                
+            }  
+            
+              
+                 
+        }
+        else{
+            System.out.println("vacio");
+        }
+    }
+    @FXML
+    private void redoButtonAction(ActionEvent event){
+       
+    }
+    
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException {
         seleccionarArchivo = new JFileChooser();
@@ -90,7 +121,7 @@ public class BackgroundController implements Initializable {
     private void deleteButtonAction(ActionEvent event){
         if (rec != null) {
             for (int i = 0; i < listRec.size(); i++) {
-                if (rec.equals(listRec.get(i))) {
+                if (rec.equals(listRec.get(i))) {           
                     listRec.remove(rec);
                 }
             }
@@ -108,6 +139,7 @@ public class BackgroundController implements Initializable {
      
     @FXML
     private void selectRectangle(MouseEvent event){
+        
         modificarRec = new ArrayList<>();
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
@@ -200,6 +232,7 @@ public class BackgroundController implements Initializable {
                     gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
+                
                 break;
             case 2:
                 rec.setX(auxX);
@@ -418,7 +451,10 @@ public class BackgroundController implements Initializable {
             gc.strokeRect(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
             rec = new Rectangle(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
         }
+
+        
         listRec.add(rec);
+        stackundo.push(listRec);
         rec = null;
     }
     
