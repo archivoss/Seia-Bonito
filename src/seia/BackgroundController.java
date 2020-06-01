@@ -5,7 +5,6 @@
  */
 package seia;
 
-import java.awt.Dimension;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,13 +16,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.stage.Screen;
 
 /**
@@ -47,6 +46,7 @@ public class BackgroundController implements Initializable {
     LeerPdf pdfTextParserObj;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
+    Stack<List> stackU = new Stack<>();
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
@@ -84,7 +84,6 @@ public class BackgroundController implements Initializable {
         drawButton.setDisable(false);
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
-        System.out.println(pdfToText);
     }
     
     @FXML
@@ -164,6 +163,11 @@ public class BackgroundController implements Initializable {
                 }
             }
         }    
+    }
+    
+    @FXML
+    private void modifyReleased(MouseEvent event){
+        System.out.println("pene");
     }
     
     @FXML
@@ -474,13 +478,12 @@ public class BackgroundController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         // Paneles ajustables al tamaño de la pantalla.
-        System.out.println(screenWidth);
-        System.out.println(screenHeight);
         drawPane.setWidth(screenWidth - 275);
         drawPane.setHeight(screenHeight - 135);
         contenidoPDF.setWidth(screenWidth - 275);
         contenidoPDF.setHeight(screenHeight - 135);
         textPDF.setPrefSize(screenWidth - 250, screenHeight - 110);
+        System.out.println(stackU.isEmpty());
     }    
     
 }

@@ -6,9 +6,6 @@
 package seia;
 import java.io.File;
 import java.io.IOException;
-import org.apache.pdfbox.cos.COSDocument;
-import org.apache.pdfbox.pdfparser.
-PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
