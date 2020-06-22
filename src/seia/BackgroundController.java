@@ -5,25 +5,31 @@
  */
 package seia;
 
+import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFPage;
+import com.sun.pdfview.PagePanel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
+import javax.swing.JFileChooser;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  * FXML Controller class
@@ -38,12 +44,15 @@ public class BackgroundController implements Initializable {
     double auxH;
     double auxX;
     double auxY;
+    VisualizarPDF p;
     String pdfToText;
     Rectangle rec;  
+    PagePanel panelPDF;
     List<Rectangle> modificarRec;
     List<Rectangle> listRec;
     GraphicsContext gc;
-    LeerPdf pdfTextParserObj;
+    PDFPage PDF;
+    PDFFile pdfFile;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
     Stack<List<Rectangle>> stackundo = new Stack<>();
@@ -51,10 +60,7 @@ public class BackgroundController implements Initializable {
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
-    
-    @FXML
-    private TextArea textPDF;
-       
+          
     @FXML
     private Button button;
     
@@ -108,9 +114,11 @@ public class BackgroundController implements Initializable {
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
-        pdfTextParserObj = new LeerPdf();
-        pdfToText = pdfTextParserObj.pdftoText(archivoSeleccionado);
-        textPDF.setText(pdfToText);
+        p = new VisualizarPDF(archivoSeleccionado);
+        p.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        p.setVisible(true);
+        p.setBounds(0, 0, 500, 500);
+        p.setLocationRelativeTo(null);
         listRec = new ArrayList<>();
         drawButton.setDisable(false);
         selectButton.setDisable(false);
@@ -518,7 +526,6 @@ public class BackgroundController implements Initializable {
         drawPane.setHeight(screenHeight - 135);
         contenidoPDF.setWidth(screenWidth - 275);
         contenidoPDF.setHeight(screenHeight - 135);
-        textPDF.setPrefSize(screenWidth - 250, screenHeight - 110);
     }    
     
 }
