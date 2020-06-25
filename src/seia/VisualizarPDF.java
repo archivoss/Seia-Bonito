@@ -19,8 +19,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import javax.swing.*;
 import com.sun.pdfview.*;
-import javafx.fxml.FXML;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 
 public class VisualizarPDF extends JFrame {
