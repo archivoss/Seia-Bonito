@@ -4,18 +4,17 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
    <children>
-      <Button fx:id="addFileButton" layoutX="37.0" layoutY="178.0" mnemonicParsing="false" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #43B581;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
+      <Button fx:id="addFileButton" layoutX="25.0" layoutY="178.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
          <padding>
             <Insets left="20.0" />
@@ -28,55 +27,70 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="257.0" layoutY="9.0" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" />
-      <Canvas fx:id="contenidoPDF" height="750.0" layoutX="257.0" layoutY="9.0" width="1100.0" />
-      <Button fx:id="drawButton" graphicTextGap="30.0" layoutX="37.0" layoutY="267.0" mnemonicParsing="false" onAction="#drawButtonAction" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #43B581;" text="DIBUJAR">
+      <Button fx:id="drawButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="267.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="DIBUJAR">
          <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Button>
-      <Canvas fx:id="drawPane" height="750.0" layoutX="257.0" layoutY="9.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" width="1100.0" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="37.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Resources/pencilIcon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="deleteButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="484.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deleteButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="BORRAR">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/basura.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="selectButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="573.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#selectButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="SELECCIONAR">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/selectIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Pane fx:id="panelPDF" layoutX="240.0" layoutY="10.0" prefHeight="750.0" prefWidth="1030.0" style="-fx-background-color: #FFFFFF;" />
+      <Canvas fx:id="contenidoPDF" height="750.0" layoutX="240.0" layoutY="10.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1030.0" />
+      <Canvas fx:id="drawPane" disable="true" height="750.0" layoutX="240.0" layoutY="10.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1030.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/Captura.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="51.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="35.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHAA.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="163.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="150.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHA.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="53.0" layoutY="409.0" text="UNDO" textFill="#43b581">
+      <Label layoutX="40.0" layoutY="409.0" text="UNDO" textFill="#43b581">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="undobtn" layoutX="50.0" layoutY="372.0" mnemonicParsing="false" opacity="0.0" text="Button" />
-      <Label layoutX="167.0" layoutY="409.0" text="REDO" textFill="#43b581">
+      <Button fx:id="undobtn" layoutX="35.0" layoutY="372.0" mnemonicParsing="false" onAction="#undoButtonAction" opacity="0.0" text="Button" />
+      <Label layoutX="150.0" layoutY="409.0" text="REDO" textFill="#43b581">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="redobtn" layoutX="162.0" layoutY="372.0" mnemonicParsing="false" opacity="0.0" text="Button" />
-      <TextField fx:id="borrarText" layoutX="36.0" layoutY="559.0" prefHeight="37.0" prefWidth="200.0" promptText="Borrar Rectangulo n°" style="-fx-background-color: #F0F0F0;" />
-      <Button fx:id="borrarbtn" graphicTextGap="10.0" layoutX="36.0" layoutY="484.0" mnemonicParsing="false" onAction="#borrarR" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #43B581;" text="BORRAR">
-         <font>
-            <Font name="System Bold Italic" size="15.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="46.0" fitWidth="54.0" layoutX="50.0" layoutY="491.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/basura.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="46.0" fitWidth="49.0" layoutX="50.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/pencil.png" />
-         </image>
-      </ImageView>
+      <Button fx:id="redobtn" layoutX="150.0" layoutY="372.0" mnemonicParsing="false" onAction="#redoButtonAction" opacity="0.0" text="Button" />
    </children>
 </AnchorPane>
