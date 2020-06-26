@@ -5,31 +5,36 @@
  */
 package seia;
 
-import com.sun.pdfview.PDFFile;
-import com.sun.pdfview.PDFPage;
-import com.sun.pdfview.PagePanel;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Stack;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javax.swing.JFileChooser;
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
+
+
+
+
+
 
 /**
  * FXML Controller class
@@ -44,15 +49,11 @@ public class BackgroundController implements Initializable {
     double auxH;
     double auxX;
     double auxY;
-    VisualizarPDF p;
     String pdfToText;
     Rectangle rec;  
-    PagePanel panelPDF;
     List<Rectangle> modificarRec;
     List<Rectangle> listRec;
     GraphicsContext gc;
-    PDFPage PDF;
-    PDFFile pdfFile;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
     Stack<List<Rectangle>> stackundo = new Stack<>();
@@ -60,6 +61,9 @@ public class BackgroundController implements Initializable {
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+    
+    @FXML
+    private StackPane panelPDF;
           
     @FXML
     private Button button;
@@ -93,12 +97,8 @@ public class BackgroundController implements Initializable {
             System.out.println(stackundo.pop());
             for (int k = 0; k < stackundo.size(); k++) {
                 gc.strokeRect(stackundo.get(k).get(k).getX(), stackundo.get(k).get(k).getY(),
-                stackundo.get(k).get(k).getWidth(), stackundo.get(k).get(k).getHeight());
-                
-            }  
-            
-              
-                 
+                stackundo.get(k).get(k).getWidth(), stackundo.get(k).get(k).getHeight());               
+            }                  
         }
         else{
             System.out.println("vacio");
@@ -110,15 +110,22 @@ public class BackgroundController implements Initializable {
     }
     
     @FXML
-    private void addFileButtonAction(ActionEvent event) throws IOException {
+    private void addFileButtonAction(ActionEvent event) throws IOException{
+        panelPDF.getChildren().clear();
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
-        p = new VisualizarPDF(archivoSeleccionado);
-        p.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        p.setVisible(true);
-        p.setBounds(0, 0, 500, 500);
-        p.setLocationRelativeTo(null);
+        BufferedImage bim = null;
+        try (PDDocument document = PDDocument.load(archivoSeleccionado)) {
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+            for (int page = 0; page < document.getNumberOfPages(); ++page)
+            {
+                bim = pdfRenderer.renderImage(page);
+            }
+        }
+        Image i = SwingFXUtils.toFXImage(bim, null);
+        ImageView v = new ImageView(i);
+        panelPDF.getChildren().add(v);
         listRec = new ArrayList<>();
         drawButton.setDisable(false);
         selectButton.setDisable(false);
