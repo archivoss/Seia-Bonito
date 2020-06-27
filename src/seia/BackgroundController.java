@@ -55,8 +55,8 @@ public class BackgroundController implements Initializable {
     PDFFile pdfFile;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
-    Stack<List<Rectangle>> stackundo = new Stack<>();
-    Stack<List> stackredo = new Stack<>();
+    Stack stackundo = new Stack<>();
+    Stack stackredo = new Stack<>();
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
@@ -88,17 +88,21 @@ public class BackgroundController implements Initializable {
             gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
             gc = drawPane.getGraphicsContext2D();
             gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
-            System.out.println(listRec);
+            System.out.println(stackundo);
+            stackredo.push(stackundo.peek());
             stackundo.pop();
-            System.out.println(stackundo.pop());
-            for (int k = 0; k < stackundo.size(); k++) {
-                gc.strokeRect(stackundo.get(k).get(k).getX(), stackundo.get(k).get(k).getY(),
-                stackundo.get(k).get(k).getWidth(), stackundo.get(k).get(k).getHeight());
-                
-            }  
+            System.out.println(stackundo);
+            System.out.println(stackredo);
             
-              
-                 
+            for (int i = 0; i <= listRec.size(); i++) {
+                if (i == listRec.size()-1){
+                    listRec.remove(i);           
+                }
+            }      
+            for (int i = 0; i < listRec.size(); i++) {
+                gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
+                listRec.get(i).getWidth(), listRec.get(i).getHeight());
+            }        
         }
         else{
             System.out.println("vacio");
@@ -106,7 +110,26 @@ public class BackgroundController implements Initializable {
     }
     @FXML
     private void redoButtonAction(ActionEvent event){
-       
+       if (!stackredo.isEmpty()){
+            gc = contenidoPDF.getGraphicsContext2D();
+            gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
+            gc = drawPane.getGraphicsContext2D();
+            gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
+            System.out.println(stackundo);
+            stackundo.push(stackredo.peek());
+            listRec.add((Rectangle) stackredo.peek());
+            stackredo.pop();
+            System.out.println(stackundo);
+            System.out.println(stackredo);
+            
+            for (int i = 0; i < listRec.size(); i++) {
+                gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
+                listRec.get(i).getWidth(), listRec.get(i).getHeight());
+            }
+            
+              
+                 
+        }
     }
     
     @FXML
@@ -462,7 +485,7 @@ public class BackgroundController implements Initializable {
 
         
         listRec.add(rec);
-        stackundo.push(listRec);
+        stackundo.push(rec);
         rec = null;
     }
     

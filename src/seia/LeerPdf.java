@@ -7,11 +7,12 @@ package seia;
 import java.io.File;
 import java.io.FileInputStream;
 import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.io.RandomAccessRead;
 import org.apache.pdfbox.pdfparser.
 PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
-import org.apache.pdfbox.util.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripper;
 
 public class LeerPdf {  
 
@@ -35,7 +36,7 @@ public class LeerPdf {
         }
 
         try {
-            parser = new PDFParser(new FileInputStream(f));
+            parser = new PDFParser((RandomAccessRead) new FileInputStream(f));
         } catch (Exception e) {
             System.out.println("Unable to open PDF Parser.");
             return null;
