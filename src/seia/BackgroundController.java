@@ -5,6 +5,7 @@
  */
 package seia;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -82,9 +83,7 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Canvas contenidoPDF;
-    
-    
-    
+       
     @FXML
     private void undoButtonAction(ActionEvent event){
         if (!stackundo.isEmpty()){
@@ -92,16 +91,13 @@ public class BackgroundController implements Initializable {
             gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
             gc = drawPane.getGraphicsContext2D();
             gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
-            System.out.println(listRec);
             stackundo.pop();
-            System.out.println(stackundo.pop());
             for (int k = 0; k < stackundo.size(); k++) {
                 gc.strokeRect(stackundo.get(k).get(k).getX(), stackundo.get(k).get(k).getY(),
                 stackundo.get(k).get(k).getWidth(), stackundo.get(k).get(k).getHeight());               
             }                  
         }
         else{
-            System.out.println("vacio");
         }
     }
     @FXML
@@ -122,7 +118,7 @@ public class BackgroundController implements Initializable {
                 bim = pdfRenderer.renderImage(page, 2);
             }           
         }
-        tamañoPDF.prefWidth(bim.getWidth());
+        tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
         contenidoPDF.setWidth(bim.getWidth());
@@ -134,6 +130,7 @@ public class BackgroundController implements Initializable {
         drawButton.setDisable(false);
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
+        
     }
     
     @FXML
@@ -217,7 +214,6 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void modifyReleased(MouseEvent event){
-        System.out.println("pene");
     }
     
     @FXML
@@ -368,9 +364,7 @@ public class BackgroundController implements Initializable {
                 break;
         }
     }
-    
-   
-    
+        
     @FXML
     private void drawButtonAction(ActionEvent event){
         drawPane.toFront();
@@ -469,7 +463,6 @@ public class BackgroundController implements Initializable {
             gc.strokeRect(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
             rec = new Rectangle(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
         }
-
         
         listRec.add(rec);
         stackundo.push(listRec);
@@ -530,7 +523,7 @@ public class BackgroundController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tamañoPDF.prefHeight(screenHeight - 120);
-        panelPDF.prefHeight(screenHeight - 120);
+        tamañoPDF.setPrefHeight(screenHeight - 120);
+        panelPDF.setPrefHeight(screenHeight - 120);       
     }       
 }
