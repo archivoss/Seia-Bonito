@@ -5,9 +5,11 @@
  */
 package seia;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import com.sun.pdfview.PDFFile;
 import com.sun.pdfview.PDFPage;
 import com.sun.pdfview.PagePanel;
+import java.awt.event.KeyListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -30,7 +32,12 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
-
+import javafx.event.EventHandler;
+import javafx.event.Event;
+import javafx.event.EventType;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javax.xml.ws.handler.Handler;
 /**
  * FXML Controller class
  *
@@ -58,11 +65,21 @@ public class BackgroundController implements Initializable {
     Stack stackundo = new Stack<>();
     Stack stackredo = new Stack<>();
     
+    EventHandler ev;
+    
+    
+    
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
           
     @FXML
     private Button button;
+    
+    @FXML
+    private Button undobtn;
+    
+    @FXML
+    private Button redobtn;
     
     @FXML
     private Button selectButton;
@@ -81,18 +98,18 @@ public class BackgroundController implements Initializable {
     
     
     
+   
+    
     @FXML
-    private void undoButtonAction(ActionEvent event){
+    private void undoButtonAction(){
+        
         if (!stackundo.isEmpty()){
             gc = contenidoPDF.getGraphicsContext2D();
             gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
             gc = drawPane.getGraphicsContext2D();
             gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
-            System.out.println(stackundo);
             stackredo.push(stackundo.peek());
             stackundo.pop();
-            System.out.println(stackundo);
-            System.out.println(stackredo);
             
             for (int i = 0; i <= listRec.size(); i++) {
                 if (i == listRec.size()-1){
@@ -104,33 +121,26 @@ public class BackgroundController implements Initializable {
                 listRec.get(i).getWidth(), listRec.get(i).getHeight());
             }        
         }
-        else{
-            System.out.println("vacio");
-        }
     }
+    
     @FXML
-    private void redoButtonAction(ActionEvent event){
+    private void redoButtonAction(){
        if (!stackredo.isEmpty()){
             gc = contenidoPDF.getGraphicsContext2D();
             gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
             gc = drawPane.getGraphicsContext2D();
             gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
-            System.out.println(stackundo);
             stackundo.push(stackredo.peek());
             listRec.add((Rectangle) stackredo.peek());
             stackredo.pop();
-            System.out.println(stackundo);
-            System.out.println(stackredo);
             
             for (int i = 0; i < listRec.size(); i++) {
                 gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
                 listRec.get(i).getWidth(), listRec.get(i).getHeight());
-            }
-            
-              
-                 
+            }     
         }
     }
+    
     
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException {
@@ -263,6 +273,7 @@ public class BackgroundController implements Initializable {
                     gc.clearRect(0, 0, screenWidth - 275, screenHeight - 135);
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
+               
                 
                 break;
             case 2:
@@ -525,6 +536,21 @@ public class BackgroundController implements Initializable {
             }
         }
     }
+    @FXML
+    private void keyPress(KeyEvent event) {
+        if (event.isControlDown() == true) {
+            if (event.getText().equals("z")) {
+                undobtn.fire();
+                System.out.println("con z");
+            }
+        }
+        if (event.isControlDown() == true) {
+            if (event.getText().equals("y")) {
+                redobtn.fire();
+                System.out.println("con z");
+            }
+        }
+    }
     
     @FXML
     private void press(MouseEvent event){
@@ -549,6 +575,11 @@ public class BackgroundController implements Initializable {
         drawPane.setHeight(screenHeight - 135);
         contenidoPDF.setWidth(screenWidth - 275);
         contenidoPDF.setHeight(screenHeight - 135);
-    }    
+       
+        
+    }
+    
     
 }
+
+
