@@ -51,7 +51,7 @@ public class Convertir {
         }
         
     }
-    public void lectura(){
+    public ArrayList<Rectangle> lectura(){
         String fichero = "";
         try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
             String linea;
@@ -59,11 +59,13 @@ public class Convertir {
                 fichero += linea;
             }
             ArrayList<Rectangle> n = gson.fromJson(fichero, ArrayList.class);
+            return n;
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        return null;
     }
 
     public ArrayList<Rectangle> getRectangulos() {
