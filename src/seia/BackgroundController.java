@@ -65,8 +65,6 @@ public class BackgroundController implements Initializable {
     Stack stackundo = new Stack<>();
     Stack stackredo = new Stack<>();
     
-    EventHandler ev;
-    
     
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
@@ -95,15 +93,11 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Canvas contenidoPDF;
-    
-    
-    
    
     
     @FXML
-    private void undoButtonAction(){
-        
-        if (!stackundo.isEmpty()){
+    private void undoButtonAction(){    
+        if(!stackundo.isEmpty()){
             gc = contenidoPDF.getGraphicsContext2D();
             gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
             gc = drawPane.getGraphicsContext2D();
@@ -115,11 +109,11 @@ public class BackgroundController implements Initializable {
                 if (i == listRec.size()-1){
                     listRec.remove(i);           
                 }
-            }      
+            }   
             for (int i = 0; i < listRec.size(); i++) {
                 gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
                 listRec.get(i).getWidth(), listRec.get(i).getHeight());
-            }        
+            }
         }
     }
     
@@ -141,6 +135,19 @@ public class BackgroundController implements Initializable {
         }
     }
     
+    @FXML
+    private void keyPress(KeyEvent event) {
+        if (event.isControlDown() == true) {
+            if (event.getText().equals("z")) {
+                undobtn.fire();
+            }
+        }
+        if (event.isControlDown() == true) {
+            if (event.getText().equals("y")) {
+                redobtn.fire();
+            }
+        }
+    }
     
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException {
@@ -162,7 +169,7 @@ public class BackgroundController implements Initializable {
     private void deleteButtonAction(ActionEvent event){
         if (rec != null) {
             for (int i = 0; i < listRec.size(); i++) {
-                if (rec.equals(listRec.get(i))) {           
+                if (rec.equals(listRec.get(i))) {
                     listRec.remove(rec);
                 }
             }
@@ -493,7 +500,6 @@ public class BackgroundController implements Initializable {
             gc.strokeRect(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
             rec = new Rectangle(x, y - (y - event.getY()), event.getX() - x, y - event.getY());
         }
-
         
         listRec.add(rec);
         stackundo.push(rec);
@@ -533,21 +539,6 @@ public class BackgroundController implements Initializable {
         else{
             if (!button.getStyle().equals("-fx-background-color: #8b008b")) {
                 button.setStyle("-fx-background-color: #FFFFFF");
-            }
-        }
-    }
-    @FXML
-    private void keyPress(KeyEvent event) {
-        if (event.isControlDown() == true) {
-            if (event.getText().equals("z")) {
-                undobtn.fire();
-                System.out.println("con z");
-            }
-        }
-        if (event.isControlDown() == true) {
-            if (event.getText().equals("y")) {
-                redobtn.fire();
-                System.out.println("con z");
             }
         }
     }
