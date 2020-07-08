@@ -5,12 +5,9 @@
  */
 package seia;
 
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.KeyListener;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +22,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -34,9 +32,6 @@ import javafx.stage.Screen;
 import javax.swing.JFileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
-
-import javafx.scene.input.KeyEvent;
-import javafx.event.Event;
 /**
  * FXML Controller class
  *
@@ -143,6 +138,7 @@ public class BackgroundController implements Initializable {
         if (event.isControlDown() == true) {
             if (event.getText().equals("z")) {
                 undobtn.fire();
+          
             }
         }
         if (event.isControlDown() == true) {
