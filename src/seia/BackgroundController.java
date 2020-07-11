@@ -32,6 +32,7 @@ import javafx.stage.Screen;
 import javax.swing.JFileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+
 /**
  * FXML Controller class
  *
@@ -105,7 +106,7 @@ public class BackgroundController implements Initializable {
             
             for (int i = 0; i <= listRec.size(); i++) {
                 if (i == listRec.size()-1){
-                    listRec.remove(i);           
+                    listRec.remove(i);   
                 }
             }   
             for (int i = 0; i < listRec.size(); i++) {
