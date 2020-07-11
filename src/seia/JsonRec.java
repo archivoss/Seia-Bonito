@@ -4,40 +4,36 @@
  * and open the template in the editor.
  */
 package seia;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.awt.Rectangle;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Arrays;
 
 /**
  *
  * @author queve
  */
-public class Convertir {
+public class JsonRec {
     Gson gson;
     ArrayList<Rectangle> r;
     String ruta;
     String archivo;
     
-    public Convertir(ArrayList<Rectangle> n){
+    public JsonRec(ArrayList<Rectangle> n){
         this.archivo = "";
-        this.ruta = "Rectangulos.json";
+        this.ruta = "";
         this.r = n;
         gson = new Gson();
     }
     
-    public void escritura() throws IOException{
+    public void escritura(String nombre) throws IOException{
+        this.ruta = nombre;
         archivo = gson.toJson(r);
          try {
             File fichero = new File(ruta);
@@ -51,14 +47,22 @@ public class Convertir {
         }
         
     }
-    public ArrayList<Rectangle> lectura(){
+    public ArrayList<Rectangle> lectura(String nombre){
         String fichero = "";
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(nombre))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 fichero += linea;
             }
-            ArrayList<Rectangle> n = gson.fromJson(fichero, ArrayList.class);
+            
+            
+            System.out.println(fichero);
+            Rectangle[] na = gson.fromJson(fichero, Rectangle[].class);  
+            ArrayList<Rectangle> n = new ArrayList<>();
+                        
+            n.addAll(Arrays.asList(na));
+            
+            
             return n;
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
