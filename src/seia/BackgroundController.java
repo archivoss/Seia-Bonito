@@ -469,11 +469,11 @@ public class BackgroundController implements Initializable {
     } 
     
     @FXML
-    private void acceptSaveButtonAction(ActionEvent event){
+    private void acceptSaveButtonAction(ActionEvent event) throws IOException{
         disableButton.setVisible(false);
         fileName.setText(fileName.getText() + ".json");
-        JsonRec json = new JsonRec(listRec);
-        json.escritura(fileName.getText());
+        JsonRec jsonFile = new JsonRec(new ArrayList<Rectangle>(listRec));
+        jsonFile.escritura(fileName.getText());
         savePane.setVisible(false);
     }  
     

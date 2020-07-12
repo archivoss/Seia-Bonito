@@ -22,11 +22,11 @@ import javafx.scene.shape.Rectangle;
  */
 public class JsonRec {
     Gson gson;
-    List<Rectangle> r;
+    ArrayList<Rectangle> r;
     String ruta;
     String archivo;
     
-    public JsonRec(List<Rectangle> n){
+    public JsonRec(ArrayList<Rectangle> n){
         this.archivo = "";
         this.ruta = "";
         this.r = n;
@@ -36,7 +36,7 @@ public class JsonRec {
     public void escritura(String nombre) throws IOException{
         this.ruta = nombre;
         archivo = gson.toJson(r);
-         try {
+        try {
             File fichero = new File(ruta);
             try (FileWriter escribir = new FileWriter(fichero, true)) {
                 escribir.write(archivo);
