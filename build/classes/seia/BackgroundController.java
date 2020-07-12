@@ -5,11 +5,10 @@
  */
 package seia;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.KeyListener;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +33,6 @@ import javax.swing.JFileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
-import javafx.scene.input.KeyEvent;
-import javafx.event.Event;
 /**
  * FXML Controller class
  *
@@ -57,10 +54,8 @@ public class BackgroundController implements Initializable {
     GraphicsContext gc;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
-    Stack stackundo = new Stack<>();
-    Stack stackredo = new Stack<>();
-    
-    
+    Stack<List<Rectangle>> stackundo = new Stack<>();
+    Stack<List> stackredo = new Stack<>();
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
@@ -73,12 +68,6 @@ public class BackgroundController implements Initializable {
           
     @FXML
     private Button button;
-    
-    @FXML
-    private Button undobtn;
-    
-    @FXML
-    private Button redobtn;
     
     @FXML
     private Button selectButton;
@@ -94,61 +83,26 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Canvas contenidoPDF;
-    
-    
-    
+       
     @FXML
-    private void undoButtonAction(){    
-        if(!stackundo.isEmpty()){
+    private void undoButtonAction(ActionEvent event){
+        if (!stackundo.isEmpty()){
             gc = contenidoPDF.getGraphicsContext2D();
             gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
             gc = drawPane.getGraphicsContext2D();
-            gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
-            stackredo.push(stackundo.peek());
+            gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
             stackundo.pop();
-            
-            for (int i = 0; i <= listRec.size(); i++) {
-                if (i == listRec.size()-1){
-                    listRec.remove(i);           
-                }
-            }   
-            for (int i = 0; i < listRec.size(); i++) {
-                gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
-                listRec.get(i).getWidth(), listRec.get(i).getHeight());
-            }
+            for (int k = 0; k < stackundo.size(); k++) {
+                gc.strokeRect(stackundo.get(k).get(k).getX(), stackundo.get(k).get(k).getY(),
+                stackundo.get(k).get(k).getWidth(), stackundo.get(k).get(k).getHeight());               
+            }                  
+        }
+        else{
         }
     }
-    
     @FXML
-    private void redoButtonAction(){
-       if (!stackredo.isEmpty()){
-            gc = contenidoPDF.getGraphicsContext2D();
-            gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
-            gc = drawPane.getGraphicsContext2D();
-            gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
-            stackundo.push(stackredo.peek());
-            listRec.add((Rectangle) stackredo.peek());
-            stackredo.pop();
-            
-            for (int i = 0; i < listRec.size(); i++) {
-                gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
-                listRec.get(i).getWidth(), listRec.get(i).getHeight());
-            }     
-        }
-    }
-    
-    @FXML
-    private void keyPress(KeyEvent event) {
-        if (event.isControlDown() == true) {
-            if (event.getText().equals("z")) {
-                undobtn.fire();
-            }
-        }
-        if (event.isControlDown() == true) {
-            if (event.getText().equals("y")) {
-                redobtn.fire();
-            }
-        }
+    private void redoButtonAction(ActionEvent event){
+       
     }
     
     @FXML
@@ -183,7 +137,7 @@ public class BackgroundController implements Initializable {
     private void deleteButtonAction(ActionEvent event){
         if (rec != null) {
             for (int i = 0; i < listRec.size(); i++) {
-                if (rec.equals(listRec.get(i))) {
+                if (rec.equals(listRec.get(i))) {           
                     listRec.remove(rec);
                 }
             }
@@ -292,7 +246,6 @@ public class BackgroundController implements Initializable {
                     gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
-               
                 
                 break;
             case 2:
@@ -512,7 +465,7 @@ public class BackgroundController implements Initializable {
         }
         
         listRec.add(rec);
-        stackundo.push(rec);
+        stackundo.push(listRec);
         rec = null;
     }
     
@@ -574,5 +527,3 @@ public class BackgroundController implements Initializable {
         panelPDF.setPrefHeight(screenHeight - 120);       
     }       
 }
-
-
