@@ -31,7 +31,6 @@ public class Seia extends Application {
         
         stage.setMaximized(true);
         stage.show();
-      
     }
 
     
