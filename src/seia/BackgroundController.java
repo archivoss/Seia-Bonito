@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -66,10 +67,16 @@ public class BackgroundController implements Initializable {
     private AnchorPane tamañoPDF;
     
     @FXML
+    private AnchorPane savePane;
+    
+    @FXML
     private StackPane panelPDF;
           
     @FXML
     private Button button;
+    
+    @FXML
+    private Button saveButton;
     
     @FXML
     private Button undobtn;
@@ -87,10 +94,16 @@ public class BackgroundController implements Initializable {
     private Button deleteButton;
     
     @FXML
+    private Button disableButton;
+    
+    @FXML
     private Canvas drawPane;
     
     @FXML
     private Canvas contenidoPDF;
+    
+    @FXML
+    private TextField fileName;
     
     
     
@@ -174,7 +187,7 @@ public class BackgroundController implements Initializable {
         drawButton.setDisable(false);
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
-        
+        saveButton.setDisable(false);
     }
     
     @FXML
@@ -445,7 +458,37 @@ public class BackgroundController implements Initializable {
         if (!drawButton.getStyle().equals("-fx-background-color: #FFFFFF")) {
             drawButton.setStyle("-fx-background-color: #FFFFFF");
         }
-    }    
+    } 
+    
+    @FXML
+    private void saveButtonAction(ActionEvent event){
+        disableButton.setVisible(true);
+        savePane.toFront();
+        savePane.setVisible(true);
+        fileName.clear();
+    } 
+    
+    @FXML
+    private void acceptSaveButtonAction(ActionEvent event){
+        disableButton.setVisible(false);
+        fileName.setText(fileName.getText() + ".json");
+        JsonRec json = new JsonRec(listRec);
+        json.escritura(fileName.getText());
+        savePane.setVisible(false);
+    }  
+    
+    @FXML
+    private void cancelSaveButtonAction(ActionEvent event){
+        disableButton.setVisible(false);
+        savePane.setVisible(false);
+    }  
+    
+    @FXML
+    private void disableButtonAction(ActionEvent event){
+        disableButton.setVisible(false);
+        savePane.setVisible(false);
+        savePane.toBack();
+    }  
     
     @FXML
     private void drawPressed(MouseEvent event) {
@@ -569,7 +612,9 @@ public class BackgroundController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tamañoPDF.setPrefHeight(screenHeight - 120);
-        panelPDF.setPrefHeight(screenHeight - 120);       
+        panelPDF.setPrefHeight(screenHeight - 120);
+        disableButton.setPrefWidth(screenWidth);
+        disableButton.setPrefHeight(screenHeight);
     }       
 }
 

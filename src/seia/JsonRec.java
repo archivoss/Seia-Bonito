@@ -5,7 +5,6 @@
  */
 package seia;
 import com.google.gson.Gson;
-import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -21,11 +22,11 @@ import java.util.Arrays;
  */
 public class JsonRec {
     Gson gson;
-    ArrayList<Rectangle> r;
+    List<Rectangle> r;
     String ruta;
     String archivo;
     
-    public JsonRec(ArrayList<Rectangle> n){
+    public JsonRec(List<Rectangle> n){
         this.archivo = "";
         this.ruta = "";
         this.r = n;
@@ -70,10 +71,6 @@ public class JsonRec {
             System.out.println(ex.getMessage());
         }
         return null;
-    }
-
-    public ArrayList<Rectangle> getRectangulos() {
-        return r;
     }
 
     public void setRectangulos(ArrayList<Rectangle> r) {
