@@ -5,6 +5,7 @@
  */
 package seia;
 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -30,6 +31,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 //import javafx.scene.shape.Rectangle;
 import java.awt.Rectangle;
+import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javax.swing.JFileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -42,6 +44,7 @@ import org.apache.pdfbox.rendering.PDFRenderer;
  */
 public class BackgroundController implements Initializable {
     int aux;
+    int num = 0;
     double x;
     double y;
     double auxW;
@@ -50,22 +53,31 @@ public class BackgroundController implements Initializable {
     double auxY;
     BufferedImage bim = null;
     String pdfToText;
+    String url;
+    String texto;
     Rectangle rec;  
     List<Rectangle> modificarRec;
     List<Rectangle> listRec;
+    List<BufferedImage> pagina;
     GraphicsContext gc;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
     Stack stackundo = new Stack<>();
     Stack stackredo = new Stack<>();
+    ToString string;
     
-    
-    
+
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
     
     @FXML
     private AnchorPane tamañoPDF;
+    
+    @FXML
+    private AnchorPane panelTexto;
+    
+    @FXML
+    private TextArea extraerTexto;
     
     @FXML
     private AnchorPane savePane;
@@ -78,6 +90,9 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Button saveButton;
+    
+    @FXML
+    private Button extraer;
     
     @FXML
     private Button undobtn;
@@ -183,6 +198,7 @@ public class BackgroundController implements Initializable {
     }
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
+        pagina = new ArrayList<>();
         panelPDF.getChildren().clear();
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
@@ -192,8 +208,13 @@ public class BackgroundController implements Initializable {
             for (int page = 0; page < document.getNumberOfPages(); ++page)
             {
                 bim = pdfRenderer.renderImage(page, 2);
+                pagina.add(bim);                            
             }           
         }
+        url = archivoSeleccionado.getPath();
+        string = new ToString(url);
+        OrdenCompra n = new OrdenCompra(string.Lectura());
+        n.escribir();
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
@@ -207,7 +228,26 @@ public class BackgroundController implements Initializable {
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
         saveButton.setDisable(false);
+        extraer.setDisable(false);
         cargaButton.setDisable(false);
+    }
+    @FXML
+    private void backPagebuttonAction(ActionEvent event){
+        if (num < pagina.size()) {
+            num = num + 1;
+            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
+            ImageView v = new ImageView(i);
+            panelPDF.getChildren().add(v);
+        }
+    }
+    @FXML
+    private void forwardPagebuttonAction(ActionEvent event){
+        if (num >= 0) {
+            num = num - 1;
+            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
+            ImageView v = new ImageView(i);
+            panelPDF.getChildren().add(v);
+        }
     }
     
     @FXML
@@ -593,6 +633,18 @@ public class BackgroundController implements Initializable {
         else{
             button.setStyle("-fx-background-color: #AAAAAA;");
         }       
+    }
+    @FXML
+    private void extraerTextoButton(){
+        panelTexto.setVisible(true);
+        panelTexto.toFront();
+        extraerTexto.setText(string.Lectura());
+        
+    }
+    @FXML
+    private void salirButtonaction(){
+        panelTexto.setVisible(false);
+        panelTexto.toBack();
     }
     
     @Override

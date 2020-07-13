@@ -28,7 +28,6 @@ public class OrdenCompra {
             fichero = new FileWriter("prueba.txt");
             pw = new PrintWriter(fichero);
             pw.println(datos);
-            System.out.println("Fat");
 
         } catch (Exception e) {
             e.printStackTrace();

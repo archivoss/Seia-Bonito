@@ -19,6 +19,8 @@ public class ToString {
     String str;
     
     public ToString(String ruta){
+        
+
         ITesseract t = new Tesseract(); 
 
         try{

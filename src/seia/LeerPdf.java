@@ -62,6 +62,7 @@ public class LeerPdf {
         System.out.println("Done.");
         return parsedText;
     }
+    
     /** // Codigo de screenshot de rectangulo v.1
      * Robot robot = new Robot();
         Rectangle rec = new Rectangle((int) x + 410, (int) y + 180, (int) currentX, (int) currentY);
