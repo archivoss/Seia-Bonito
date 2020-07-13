@@ -106,6 +106,11 @@ public class BackgroundController implements Initializable {
     @FXML
     private TextField fileName;
     
+    @FXML
+    private Button cargaButton;
+    
+    
+    
     
     
     @FXML
@@ -162,7 +167,20 @@ public class BackgroundController implements Initializable {
             }
         }
     }
-    
+    @FXML
+    private void cargaButtonAction(){
+        seleccionarArchivo = new JFileChooser();
+        seleccionarArchivo.showOpenDialog(null);
+        archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
+        String ruta;
+        ruta = archivoSeleccionado.getPath();
+        JsonRec carga = new JsonRec();
+        ArrayList<Rectangle>cargaR = carga.lectura(ruta);
+        for (int i = 0; i < cargaR.size(); i++) {
+            System.out.println(cargaR.get(i).toString());
+            
+        }
+    }
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
         panelPDF.getChildren().clear();
@@ -189,6 +207,7 @@ public class BackgroundController implements Initializable {
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
         saveButton.setDisable(false);
+        cargaButton.setDisable(false);
     }
     
     @FXML

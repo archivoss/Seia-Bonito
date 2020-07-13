@@ -33,6 +33,11 @@ public class JsonRec {
         this.r = n;
         gson = new Gson();
     }
+    public JsonRec(){
+        this.archivo = "";
+        this.ruta = "";
+        gson = new Gson();
+    }
     
     public void escritura(String nombre) throws IOException{
         this.ruta = nombre;
@@ -57,8 +62,7 @@ public class JsonRec {
                 fichero += linea;
             }
             
-            
-            System.out.println(fichero);
+        
             Rectangle[] na = gson.fromJson(fichero, Rectangle[].class);  
             ArrayList<Rectangle> n = new ArrayList<>();
                         
