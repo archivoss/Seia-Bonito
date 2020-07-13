@@ -5,6 +5,7 @@
  */
 package seia;
 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -47,7 +49,7 @@ public class BackgroundController implements Initializable {
     double auxH;
     double auxX;
     double auxY;
-    BufferedImage bim = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);;
+    BufferedImage bim = null;
     String pdfToText;
     String url;
     String texto;
@@ -60,9 +62,9 @@ public class BackgroundController implements Initializable {
     JFileChooser seleccionarArchivo;
     Stack stackundo = new Stack<>();
     Stack stackredo = new Stack<>();
+    ToString string;
     
-    
-    
+
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
     
@@ -70,10 +72,19 @@ public class BackgroundController implements Initializable {
     private AnchorPane tamañoPDF;
     
     @FXML
+    private AnchorPane panelTexto;
+    
+    @FXML
+    private TextArea extraerTexto;
+    
+    @FXML
     private StackPane panelPDF;
           
     @FXML
     private Button button;
+    
+    @FXML
+    private Button extraer;
     
     @FXML
     private Button undobtn;
@@ -165,14 +176,13 @@ public class BackgroundController implements Initializable {
             for (int page = 0; page < document.getNumberOfPages(); ++page)
             {
                 bim = pdfRenderer.renderImage(page, 2);
-                pagina.add(bim);
+                //pagina.add(bim);
                 
                 
             }           
         }
         url = archivoSeleccionado.getPath();
-        ToString string = new ToString(url);
-        LeerPdf lectura = new LeerPdf();
+        string = new ToString(url);
         OrdenCompra n = new OrdenCompra(string.Lectura());
         n.escribir();
         tamañoPDF.setPrefWidth(bim.getWidth());
@@ -180,7 +190,7 @@ public class BackgroundController implements Initializable {
         drawPane.setHeight(bim.getHeight());
         contenidoPDF.setWidth(bim.getWidth());
         contenidoPDF.setHeight(bim.getHeight());
-        Image i = SwingFXUtils.toFXImage(pagina.get(0), null);
+        Image i = SwingFXUtils.toFXImage(bim, null);
         ImageView v = new ImageView(i);
         panelPDF.getChildren().add(v);
         listRec = new ArrayList<>();
@@ -189,7 +199,7 @@ public class BackgroundController implements Initializable {
         deleteButton.setDisable(false);
         
     }
-    @FXML
+    /*@FXML
     private void backPagebuttonAction(){
         if (num < pagina.size()) {
             num = num+1;
@@ -206,7 +216,7 @@ public class BackgroundController implements Initializable {
             ImageView v = new ImageView(i);
             panelPDF.getChildren().add(v);
         }
-    }
+    }*/
     
     @FXML
     private void deleteButtonAction(ActionEvent event){
@@ -595,6 +605,18 @@ public class BackgroundController implements Initializable {
         else{
             button.setStyle("-fx-background-color: #AAAAAA;");
         }       
+    }
+    @FXML
+    private void extraerTextoButton(){
+        panelTexto.setVisible(true);
+        panelTexto.toFront();
+        extraerTexto.setText(string.Lectura());
+        
+    }
+    @FXML
+    private void salirButtonaction(){
+        panelTexto.setVisible(false);
+        panelTexto.toBack();
     }
     
     @Override

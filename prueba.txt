@@ -1,72 +1,44 @@
-Rut : 60.506.000-5 Demandante : POLICIA DE INVESTIGACIONES
-DE CHILE
-Direccién Ada- Zaﬁartu 1728 Unidad de Compra : DEPARTAMENTO DE APOYO
-Demandante = LOGISTICO-DAL
-Teléfono : 56-02-7081082 Fecha EnVIo OC. : 11-05-2020 12:20:38
-Estado : Aceptada
-NL’Imero Licitacién : 2939-24-LE20
-O .
-ORDEN DE COMPRA N . 2939-160-SE20
-SENOR (Es) : A & s TECNOLOGIAS COMPUTACIONALES LIMITADA A s, (a) : Francisco Astudillo
-DIRECCION : L. Bernardo Ohiggins Alhué Regién Metropolitana de FONO : (56)(02) 28178400
-474 Of. 202.8antiago Santiago
-Centro
-RUT : 77.495.960-2 FAX : (56)(02) 8178400
-NOMBRE ORDEN DE COMPRA: IMPRENTA - INSUMOS GRAFICOS
-FECHA ENTREGA PRODUCTOS :
-DIRECCION DE ENVIO FACTURA : Av. Campo de Deportes N° 565, Nuﬁoa Nuﬁoa Regién Metropolitana de Santiago
-DIRECCION DE DESPACHO : Av. Campo de Deportes N° 565, Nuﬁoa Nuﬁoa Regio'n Metropolitana de Santiago
-METODO DE DESPACHO : Despachar a Direccién de envio
-FORMA DE PAGO : 30 dies contra Ia recepcién conforme de la factura
-CONTACTO 0C : Israel Venegas Hernandez 56-02-7081082 ivenegash@investigaciones.c|
-Cédigo Producto Cantidad / Especificaciones Especificaciones Precio Descuento Cargos Valor Total
-Unidad Comprador Proveedor Unitario
-45101603 Consumibles 5 Unidad no TONNER CYAN TONNER CYAN 280.788,00 0,00 0,00 1.403.940
-para impresién definida PHASER N 7800 PHASER N 7800
-offset SEGUN COTIZACION SEGUN COTIZACION
-3902, DE FECHA 3902, DE FECHA
-28.ABR.O2O 28.ABR.O2O
-45101603 Consumibles 8 Unidad no TONNER NEGRO TONNER NEGRO 280.788,00 0,00 0,00 2.246.304
-para impresién definida PHASER N 7800 PHASER N 7800
-offset SEGUN COTIZACION SEGUN COTIZACION
-3902, DE FECHA 3902, DE FECHA
-28.ABR.02O 28.ABR.02O
-45101603 Consumibles 4 Unidad TONNER YELLOW TONNER YELLOW 280.788,00 0,00 0,00 1.123.152
-para impresién PHASER N 7800 PHASER N 7800
-offset SEGUN COTIZACION SEGUN COTIZACION
-3902, DE FECHA 3902, DE FECHA
-28.ABR.02O 28.ABR.02O
-Orden de Compra Neto $ 4.773.396
-Proveniente de Iicitacién D t $ 0
-pUblica ° °-
-Cargos $ 0
-Subtotal $ 4.773.396
-19% 'VA 15 906.945
-Total $ 5.680.341
-Disponibilidad Presupuestaria: Esta orden de compra cuenta con disponibilidad presupuestaria. Folio ingresado 211 proporcionado
-por SIGFE.
-Fuente Financiamento: 211
-Observaciones:
-FACTURA DEBE INCNLUIR 4a COPIA (QEQIBLE)
-DESPACHO: AV. ZANARTU N° 1728, NUNOA
-ORD N° 42 DEL 30.ABR.020 DAL
-22.04.001
-
-Derechos del Proveedor del Mercado PUinco
-
-1. Derecho a entender los resultados de cada proceso.
-
-2. Derecho a participar en mercado pL'Jblico igualhariamente y sin discriminaciones arbitrarias.
-
-3. Derecho a exigir el pago convenido en el tiempo y forma establecido en Ias bases de IicitaciOn.
-
-4. Derecho a impugnar Ios actos de Ios organismos compradores del sistema.
-
-5. A difundir y publicitar sus productos y servicios entre Ios organismos compradores, previo o no relacionados con procesos de compra o contratacién en desarrollo.
-
-6. Derecho a inscribirse en el registro oficial de contratistas de la Administracion del Estado, ChileProveedores y a no entregar documentacién que se encuentre acreditada en éste.
-Especificaciones
-
-Para revisar en detalle sus derechos oomo proveedor visite https://www.mercadopublicocI/Portal/MP2/secciones/Ieyes-y-reg|amento/derechos-deI-proveedor.html
+[ ““‘* Orden de Compra
+gﬁwgm  
+IANSA GRO S.A.
+RUT:96. 772.810- 1 Fecha 14.07.2016
+Rosario Norte 615 Pisa 23 Las Condes, Santiago. N°Proveedor 4023421
+Giro .' Fébrica de azdcar y edulcorantes RUT 96670840-9
+Fono 223855000
+*recwndeligmveedm Moneda CLP
+DIMERC S.A. Cond.Pago a 60 dies de Ia fecha de recep
+ALBERTO PEPPER 1784 ‘ Comprador PLANT AZUC LINARES
+V Santiago-SANTIAGO ‘ Fecha entrega 12.07.2016 ‘
+: FAX:
+|
+. ., . ENVIAR FACTURA A ROSARIO NORTE 615, Pisa 23,
+_D'recc'°“ “naﬁes LAS 00111053, SANTIA GO, INDICANDO NUMERO DE
+de entrega: Clamlno a'Yerbas Buenas s/n ORDEN DE COMPRA
+I Llnares, Lmares _
+, 0010 102490030002 , 600,00 CU 1.386 415.800
+JABON DE TOCADOR ' per [2
+Requisition #: 10210894
+_ U80 .- PERSONAL PERMANENTE Y TEMPORADA
+Cotizacién N°6083690 ‘
+Z472768 JABON TOCADOR LE SANCY 1506/? X2 §
+, Valor $ 1.386.- pack de dos
+Despachar : A la brevedad.
+Cotizado por: Bernardiz‘a Ouiroz.
+' bquimz©dimerc. cl ’
+Conrado: Oscar Cea. ~
+Valor neto total sin IVA enCLP 415.800,00
+I ntes e acturar Heera Ingresar a porta e proveeores ‘ ‘ ‘ en ttps: porta.1ansa.c 1r] porta y generar a
+,. proforma que 1e daré un‘JnL’Jmero de atencién, solicitar clave de acceso a consultaproveedores©iansa.cl - - Si
+l genera factura manual incluir el nL’Jmero de orden de compra IANSA y nL’Jmero de atencién portal en el cuerpo del
+I documento - - En 91 0330 de emitir facturacién electrénica, e1. XML en los campos de referencia debe contener en
+' el 801 (NL’Imero de Orden de Compra IANSA) y 802 (Namero de Atencién obtenido al generar Ia proforma en el
+portal), de no contar con estos datos el XML seré rechazado de manera- automética — — ayuda informativa en
+http://www.iansa.cl/portaE-proveedores/.- ‘
+Toda entrega de material en bodegas y oficinas se deberé realizar con guia de (jgspa/cﬁb (no con factura).
+Plazo para reclamar Ias facturas que se emitan en: base a esta orden de comma”, serﬁ-—"de 30 dl'as corridos, segL’Jn
+el n°2 del artl’culo 3 de la Ley N°19.983. ,x/
+El cumplimiento de la presente orden de compra, impiica Ia aoeptacién/d/e todas‘ﬁas condicio’nes establecidas en la
+misma. " / 2K::_:‘/gf/Ff__.. {/1 _ \9-7 cg_2.
+W
 
 

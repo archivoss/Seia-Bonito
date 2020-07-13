@@ -5,11 +5,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyPress" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
    <children>
@@ -74,6 +76,18 @@
             </AnchorPane>
         </content>
       </ScrollPane>
+      <Button fx:id="extraer" layoutX="71.0" layoutY="28.0" mnemonicParsing="false" onAction="#extraerTextoButton" text="Extraer Texto" />
+      <AnchorPane fx:id="panelTexto" layoutX="913.0" layoutY="3.0" prefHeight="768.0" prefWidth="511.0" style="-fx-background-color: #202225;" visible="false">
+         <children>
+            <Text fill="WHITE" layoutX="50.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXTO EXTRAIDO">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <Button fx:id="salirButton" layoutX="320.0" layoutY="10.0" mnemonicParsing="false" onAction="#salirButtonaction" prefHeight="30.0" prefWidth="150.0" text="Salir" />
+            <TextArea fx:id="extraerTexto" editable="false" layoutX="5.0" layoutY="49.0" prefHeight="576.0" prefWidth="502.0" />
+         </children>
+      </AnchorPane>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/Captura.png" />
@@ -101,17 +115,5 @@
          </font>
       </Label>
       <Button fx:id="redobtn" layoutX="87.0" layoutY="348.0" mnemonicParsing="false" onAction="#redoButtonAction" opacity="0.0" text="Button" />
-      <ImageView fitHeight="32.0" fitWidth="71.0" layoutX="30.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/iz.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="backPage" mnemonicParsing="false" onAction="#backPagebuttonAction" text="Button" />
-      <ImageView fitHeight="39.0" fitWidth="52.0" layoutX="129.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/de.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="forwardPage" mnemonicParsing="false" onAction="#forwardPagebuttonAction" text="Button" />
    </children>
 </AnchorPane>
