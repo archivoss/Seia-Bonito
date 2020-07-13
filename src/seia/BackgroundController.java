@@ -210,11 +210,12 @@ public class BackgroundController implements Initializable {
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
         saveButton.setDisable(false);
+        extraer.setDisable(false);
     }
     @FXML
     private void backPagebuttonAction(ActionEvent event){
         if (num < pagina.size()) {
-            num = num+1;
+            num = num + 1;
             Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
             ImageView v = new ImageView(i);
             panelPDF.getChildren().add(v);
@@ -223,7 +224,7 @@ public class BackgroundController implements Initializable {
     @FXML
     private void forwardPagebuttonAction(ActionEvent event){
         if (num >= 0) {
-            num = num-1;
+            num = num - 1;
             Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
             ImageView v = new ImageView(i);
             panelPDF.getChildren().add(v);

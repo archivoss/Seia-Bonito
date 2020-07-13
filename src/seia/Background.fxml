@@ -66,7 +66,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="saveButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="484.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#saveButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="GUARDAR PLANTILLA">
+      <Button fx:id="saveButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="482.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#saveButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="GUARDAR PLANTILLA">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -78,6 +78,17 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="553.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="EXTRAER TEXTO">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/lupaa.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <ScrollPane fx:id="scrollPDF" layoutX="240.0" layoutY="10.0" style="-fx-background-color: #202225;">
         <content>
           <AnchorPane fx:id="tamañoPDF" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #202225;">
@@ -89,17 +100,6 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="561.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="EXTRAER TEXTO">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="40.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Resources/lupaa.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
       <AnchorPane fx:id="panelTexto" layoutX="913.0" layoutY="3.0" prefHeight="768.0" prefWidth="511.0" style="-fx-background-color: #202225;" visible="false">
          <children>
             <Text fill="WHITE" layoutX="50.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXTO EXTRAIDO">
