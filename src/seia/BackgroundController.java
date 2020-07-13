@@ -40,17 +40,21 @@ import org.apache.pdfbox.rendering.PDFRenderer;
  */
 public class BackgroundController implements Initializable {
     int aux;
+    int num = 0;
     double x;
     double y;
     double auxW;
     double auxH;
     double auxX;
     double auxY;
-    BufferedImage bim = null;
+    BufferedImage bim = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);;
     String pdfToText;
+    String url;
+    String texto;
     Rectangle rec;  
     List<Rectangle> modificarRec;
     List<Rectangle> listRec;
+    List<BufferedImage> pagina;
     GraphicsContext gc;
     File archivoSeleccionado;
     JFileChooser seleccionarArchivo;
@@ -151,6 +155,7 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
+        
         panelPDF.getChildren().clear();
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
@@ -160,14 +165,22 @@ public class BackgroundController implements Initializable {
             for (int page = 0; page < document.getNumberOfPages(); ++page)
             {
                 bim = pdfRenderer.renderImage(page, 2);
+                pagina.add(bim);
+                
+                
             }           
         }
+        url = archivoSeleccionado.getPath();
+        ToString string = new ToString(url);
+        LeerPdf lectura = new LeerPdf();
+        OrdenCompra n = new OrdenCompra(string.Lectura());
+        n.escribir();
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
         contenidoPDF.setWidth(bim.getWidth());
         contenidoPDF.setHeight(bim.getHeight());
-        Image i = SwingFXUtils.toFXImage(bim, null);
+        Image i = SwingFXUtils.toFXImage(pagina.get(0), null);
         ImageView v = new ImageView(i);
         panelPDF.getChildren().add(v);
         listRec = new ArrayList<>();
@@ -175,6 +188,24 @@ public class BackgroundController implements Initializable {
         selectButton.setDisable(false);
         deleteButton.setDisable(false);
         
+    }
+    @FXML
+    private void backPagebuttonAction(){
+        if (num < pagina.size()) {
+            num = num+1;
+            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
+            ImageView v = new ImageView(i);
+            panelPDF.getChildren().add(v);
+        }
+    }
+    @FXML
+    private void forwardPagebuttonAction(){
+        if (num >= 0) {
+            num = num-1;
+            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
+            ImageView v = new ImageView(i);
+            panelPDF.getChildren().add(v);
+        }
     }
     
     @FXML

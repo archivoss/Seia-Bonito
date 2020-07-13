@@ -79,27 +79,39 @@
             <Image url="@../Resources/Captura.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="35.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="40.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHAA.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="150.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="97.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHA.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="40.0" layoutY="409.0" text="UNDO" textFill="#43b581">
+      <Label layoutX="34.0" layoutY="376.0" text="UNDO" textFill="#43b581">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="undobtn" layoutX="35.0" layoutY="372.0" mnemonicParsing="false" onAction="#undoButtonAction" opacity="0.0" text="Button" />
-      <Label layoutX="150.0" layoutY="409.0" text="REDO" textFill="#43b581">
+      <Button fx:id="undobtn" layoutX="26.0" layoutY="348.0" mnemonicParsing="false" onAction="#undoButtonAction" opacity="0.0" prefHeight="25.0" prefWidth="61.0" text="Button" />
+      <Label layoutX="97.0" layoutY="378.0" text="REDO" textFill="#43b581">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="redobtn" layoutX="150.0" layoutY="372.0" mnemonicParsing="false" onAction="#redoButtonAction" opacity="0.0" text="Button" />
+      <Button fx:id="redobtn" layoutX="87.0" layoutY="348.0" mnemonicParsing="false" onAction="#redoButtonAction" opacity="0.0" text="Button" />
+      <ImageView fitHeight="32.0" fitWidth="71.0" layoutX="30.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/iz.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="backPage" mnemonicParsing="false" onAction="#backPagebuttonAction" text="Button" />
+      <ImageView fitHeight="39.0" fitWidth="52.0" layoutX="129.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/de.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="forwardPage" mnemonicParsing="false" onAction="#forwardPagebuttonAction" text="Button" />
    </children>
 </AnchorPane>
