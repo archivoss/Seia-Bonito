@@ -180,7 +180,7 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
-        
+        pagina = new ArrayList<>();
         panelPDF.getChildren().clear();
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
@@ -190,9 +190,7 @@ public class BackgroundController implements Initializable {
             for (int page = 0; page < document.getNumberOfPages(); ++page)
             {
                 bim = pdfRenderer.renderImage(page, 2);
-                //pagina.add(bim);
-                
-                
+                pagina.add(bim);                            
             }           
         }
         url = archivoSeleccionado.getPath();
@@ -213,8 +211,8 @@ public class BackgroundController implements Initializable {
         deleteButton.setDisable(false);
         saveButton.setDisable(false);
     }
-    /*@FXML
-    private void backPagebuttonAction(){
+    @FXML
+    private void backPagebuttonAction(ActionEvent event){
         if (num < pagina.size()) {
             num = num+1;
             Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
@@ -223,14 +221,14 @@ public class BackgroundController implements Initializable {
         }
     }
     @FXML
-    private void forwardPagebuttonAction(){
+    private void forwardPagebuttonAction(ActionEvent event){
         if (num >= 0) {
             num = num-1;
             Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
             ImageView v = new ImageView(i);
             panelPDF.getChildren().add(v);
         }
-    }*/
+    }
     
     @FXML
     private void deleteButtonAction(ActionEvent event){
