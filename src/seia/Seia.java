@@ -5,17 +5,12 @@
  */
 package seia;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
-import java.awt.event.KeyListener;
-import static java.lang.Character.CONTROL;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 
 /**
  *
