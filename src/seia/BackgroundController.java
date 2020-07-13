@@ -29,7 +29,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-//import javafx.scene.shape.Rectangle;
 import java.awt.Rectangle;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
@@ -192,8 +191,7 @@ public class BackgroundController implements Initializable {
         JsonRec carga = new JsonRec();
         ArrayList<Rectangle>cargaR = carga.lectura(ruta);
         for (int i = 0; i < cargaR.size(); i++) {
-            System.out.println(cargaR.get(i).toString());
-            
+            System.out.println(cargaR.get(i).toString());   
         }
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
@@ -239,7 +237,8 @@ public class BackgroundController implements Initializable {
         extraer.setDisable(false);
         cargaButton.setDisable(false);
     }
-    @FXML
+    
+    /*@FXML
     private void backPagebuttonAction(ActionEvent event){
         if (num < pagina.size()) {
             num = num + 1;
@@ -256,7 +255,7 @@ public class BackgroundController implements Initializable {
             ImageView v = new ImageView(i);
             panelPDF.getChildren().add(v);
         }
-    }
+    }*/
     
     @FXML
     private void deleteButtonAction(ActionEvent event){
