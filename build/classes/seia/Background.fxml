@@ -78,7 +78,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="632.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="EXTRAER TEXTO">
+      <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="632.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="EXTRAER TEXTO">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -89,6 +89,18 @@
                </image>
             </ImageView>
          </graphic></Button>
+      <Button fx:id="cargaButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="559.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#cargaButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="CARGAR PLANTILLA">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/cargaa.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
       <ScrollPane fx:id="scrollPDF" layoutX="240.0" layoutY="10.0" style="-fx-background-color: #202225;">
         <content>
           <AnchorPane fx:id="tamañoPDF" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #202225;">
@@ -155,17 +167,5 @@
             <Button fx:id="cancelSaveButton" layoutX="299.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelSaveButtonAction" prefHeight="48.0" prefWidth="130.0" text="Cancelar" />
          </children>
       </AnchorPane>
-      <Button fx:id="cargaButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="559.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#cargaButtonAction" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="CARGAR PLANTILLA">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Resources/cargaa.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
    </children>
 </AnchorPane>
