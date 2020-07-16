@@ -196,11 +196,10 @@ public class BackgroundController implements Initializable {
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
         listRec = new ArrayList<>(cargaR);
-       
         for (int i = 0; i < listRec.size(); i++) {
-                gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
-                listRec.get(i).getWidth(), listRec.get(i).getHeight());
-            }
+            gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
+            listRec.get(i).getWidth(), listRec.get(i).getHeight());
+        }
     }
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
@@ -237,7 +236,6 @@ public class BackgroundController implements Initializable {
         extraer.setDisable(false);
         cargaButton.setDisable(false);
     }
-    
     /*@FXML
     private void backPagebuttonAction(ActionEvent event){
         if (num < pagina.size()) {
