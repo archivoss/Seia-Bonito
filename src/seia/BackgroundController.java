@@ -123,9 +123,18 @@ public class BackgroundController implements Initializable {
     @FXML
     private Button cargaButton;
     
+    @FXML
+    private Button sobreEscritura;
     
-    
-    
+    @FXML
+    private void sobreEscritura(){
+        ArrayList<Rectangle> n = new ArrayList<>();
+        for (int i = 0; i < listRec.size(); i++) {
+            n.add(listRec.get(i));       
+        }
+        JsonRec jsonFile = new JsonRec(n);
+        jsonFile.sobreEscritura(n);
+    }
     
     @FXML
     private void undoButtonAction(){    
@@ -190,6 +199,7 @@ public class BackgroundController implements Initializable {
         ruta = archivoSeleccionado.getPath();
         JsonRec carga = new JsonRec();
         ArrayList<Rectangle>cargaR = carga.lectura(ruta);
+        carga.ruta = ruta;
         for (int i = 0; i < cargaR.size(); i++) {
             System.out.println(cargaR.get(i).toString());   
         }
@@ -235,6 +245,7 @@ public class BackgroundController implements Initializable {
         saveButton.setDisable(false);
         extraer.setDisable(false);
         cargaButton.setDisable(false);
+        sobreEscritura.setDisable(false);
     }
     /*@FXML
     private void backPagebuttonAction(ActionEvent event){

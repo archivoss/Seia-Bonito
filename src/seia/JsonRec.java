@@ -54,6 +54,21 @@ public class JsonRec {
         }
         
     }
+    public void sobreEscritura(ArrayList<Rectangle> n){
+        File archivo1 = new File(this.ruta);
+        archivo = gson.toJson(n);
+        try {
+            System.out.println("PENEEEEEEEEEE");
+            File fichero = new File(ruta);
+            try (FileWriter escribir = new FileWriter(fichero, true)) {
+                escribir.write(archivo);
+                escribir.close();
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error al escribir");
+        }
+    }
     public ArrayList<Rectangle> lectura(String nombre){
         String fichero = "";
         try (BufferedReader br = new BufferedReader(new FileReader(nombre))) {

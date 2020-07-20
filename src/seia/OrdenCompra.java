@@ -14,18 +14,28 @@ import java.io.PrintWriter;
  */
 public class OrdenCompra {
     String datos;
+    String nombre;
     
     public OrdenCompra(String n){
         this.datos = n;
-        
+        this.nombre = "prueba.txt";
         
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     public void escribir(){
         FileWriter fichero = null;
         PrintWriter pw = null;
         try
         {
-            fichero = new FileWriter("prueba.txt");
+            fichero = new FileWriter(nombre);
             pw = new PrintWriter(fichero);
             pw.println(datos);
 
