@@ -30,7 +30,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import java.awt.Rectangle;
+import java.nio.file.Files;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Path;
 import javafx.stage.Screen;
 import javax.swing.JFileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -190,11 +192,12 @@ public class BackgroundController implements Initializable {
             }
         }
     }
+    
     @FXML
-    private void cargaButtonAction(){
+    private void cargaButtonAction(ActionEvent event){
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
-        archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
+        archivoSeleccionado = seleccionarArchivo.getSelectedFile();       
         String ruta;
         ruta = archivoSeleccionado.getPath();
         JsonRec carga = new JsonRec();
@@ -211,6 +214,7 @@ public class BackgroundController implements Initializable {
             listRec.get(i).getWidth(), listRec.get(i).getHeight());
         }
     }
+    
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
         pagina = new ArrayList<>();
@@ -218,6 +222,14 @@ public class BackgroundController implements Initializable {
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
+        File file = new File(archivoSeleccionado.getPath());
+        System.out.println(file.getPath());
+        if (file.delete()) {
+            System.out.println("se borro");
+        }
+        else{
+            System.out.println("me la pela");
+        }
         try (PDDocument document = PDDocument.load(archivoSeleccionado)) {
             PDFRenderer pdfRenderer = new PDFRenderer(document);
             for (int page = 0; page < document.getNumberOfPages(); ++page)
@@ -287,7 +299,7 @@ public class BackgroundController implements Initializable {
     }
      
     @FXML
-    private void selectRectangle(MouseEvent event){      
+    private void selectRectangle(MouseEvent event){   
         modificarRec = new ArrayList<>();
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());

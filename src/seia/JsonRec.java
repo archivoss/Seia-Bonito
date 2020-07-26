@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 //import javafx.scene.shape.Rectangle;
 import java.awt.Rectangle;
+import java.io.PrintWriter;
 
 /**
  *
@@ -26,6 +27,7 @@ public class JsonRec {
     ArrayList<Rectangle> r;
     String ruta;
     String archivo;
+    File fichero;
     
     public JsonRec(ArrayList<Rectangle> n){
         this.archivo = "";
@@ -54,14 +56,17 @@ public class JsonRec {
         }
         
     }
+    
     public void sobreEscritura(ArrayList<Rectangle> n){
-        File archivo1 = new File(this.ruta);
+        //File archivo1 = new File(this.ruta);
         archivo = gson.toJson(n);
+        PrintWriter writer;
         try {
-            System.out.println("PENEEEEEEEEEE");
-            File fichero = new File(ruta);
+            //File fichero = new File(ruta);
             try (FileWriter escribir = new FileWriter(fichero, true)) {
-                escribir.write(archivo);
+                writer = new PrintWriter(escribir);
+                writer.println(archivo);
+                writer.close();
                 escribir.close();
             }
         }
@@ -69,6 +74,7 @@ public class JsonRec {
             System.out.println("Error al escribir");
         }
     }
+    
     public ArrayList<Rectangle> lectura(String nombre){
         String fichero = "";
         try (BufferedReader br = new BufferedReader(new FileReader(nombre))) {
