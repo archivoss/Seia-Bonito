@@ -64,7 +64,7 @@ public class BackgroundController implements Initializable {
     Stack stackundo = new Stack<>();
     Stack stackredo = new Stack<>();
     ToString string;
-    
+    JsonRec jsonFile;
 
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
@@ -127,13 +127,57 @@ public class BackgroundController implements Initializable {
     private Button sobreEscritura;
     
     @FXML
-    private void sobreEscritura(){
+    private void saveButtonAction(ActionEvent event){
+        disableButton.setVisible(true);
+        savePane.toFront();
+        savePane.setVisible(true);
+        fileName.clear();
+    } 
+    
+    @FXML
+    private void acceptSaveButtonAction(ActionEvent event) throws IOException{
+        disableButton.setVisible(false);
+        fileName.setText(fileName.getText() + ".json");
+        ArrayList<Rectangle> n = new ArrayList<>();
+        for (int i = 0; i < listRec.size(); i++) {
+            n.add(listRec.get(i));
+        }
+        jsonFile.r=n;
+        jsonFile.escritura(fileName.getText());
+        savePane.setVisible(false);
+    }
+    
+    @FXML
+    private void cargaButtonAction(){
+        seleccionarArchivo = new JFileChooser();
+        seleccionarArchivo.showOpenDialog(null);
+        archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
+        String ruta;
+        ruta = archivoSeleccionado.getPath();
+        JsonRec carga = new JsonRec();
+        ArrayList<Rectangle>cargaR = carga.lectura(ruta);
+        carga.ruta = ruta;
+        File cargado = new File(ruta);
+        carga.fichero = cargado;
+        for (int i = 0; i < cargaR.size(); i++) {
+            System.out.println(cargaR.get(i).toString());   
+        }
+        gc = contenidoPDF.getGraphicsContext2D();
+        gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
+        listRec = new ArrayList<>(cargaR);
+        for (int i = 0; i < listRec.size(); i++) {
+            gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
+            listRec.get(i).getWidth(), listRec.get(i).getHeight());
+        }
+    }
+    @FXML
+    private void sobreEscritura() throws IOException{
         ArrayList<Rectangle> n = new ArrayList<>();
         for (int i = 0; i < listRec.size(); i++) {
             n.add(listRec.get(i));       
         }
-        JsonRec jsonFile = new JsonRec(n);
-        jsonFile.sobreEscritura(n);
+        jsonFile.r = n;
+        jsonFile.escritura(jsonFile.ruta);
     }
     
     @FXML
@@ -188,27 +232,6 @@ public class BackgroundController implements Initializable {
             if (event.getText().equals("y")) {
                 redobtn.fire();
             }
-        }
-    }
-    @FXML
-    private void cargaButtonAction(){
-        seleccionarArchivo = new JFileChooser();
-        seleccionarArchivo.showOpenDialog(null);
-        archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
-        String ruta;
-        ruta = archivoSeleccionado.getPath();
-        JsonRec carga = new JsonRec();
-        ArrayList<Rectangle>cargaR = carga.lectura(ruta);
-        carga.ruta = ruta;
-        for (int i = 0; i < cargaR.size(); i++) {
-            System.out.println(cargaR.get(i).toString());   
-        }
-        gc = contenidoPDF.getGraphicsContext2D();
-        gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
-        listRec = new ArrayList<>(cargaR);
-        for (int i = 0; i < listRec.size(); i++) {
-            gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
-            listRec.get(i).getWidth(), listRec.get(i).getHeight());
         }
     }
     @FXML
@@ -495,28 +518,7 @@ public class BackgroundController implements Initializable {
         if (!drawButton.getStyle().equals("-fx-background-color: #FFFFFF")) {
             drawButton.setStyle("-fx-background-color: #FFFFFF");
         }
-    } 
-    
-    @FXML
-    private void saveButtonAction(ActionEvent event){
-        disableButton.setVisible(true);
-        savePane.toFront();
-        savePane.setVisible(true);
-        fileName.clear();
-    } 
-    
-    @FXML
-    private void acceptSaveButtonAction(ActionEvent event) throws IOException{
-        disableButton.setVisible(false);
-        fileName.setText(fileName.getText() + ".json");
-        ArrayList<Rectangle> n = new ArrayList<>();
-        for (int i = 0; i < listRec.size(); i++) {
-            n.add(listRec.get(i));
-        }
-        JsonRec jsonFile = new JsonRec(n);
-        jsonFile.escritura(fileName.getText());
-        savePane.setVisible(false);
-    }  
+    }   
     
     @FXML
     private void cancelSaveButtonAction(ActionEvent event){
