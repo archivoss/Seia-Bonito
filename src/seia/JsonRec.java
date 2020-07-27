@@ -29,6 +29,38 @@ public class JsonRec {
     String ruta;
     String archivo;
     File fichero;
+
+    public Gson getGson() {
+        return gson;
+    }
+
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
+
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+
+    public String getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
+    }
+
+    public File getFichero() {
+        return fichero;
+    }
+
+    public void setFichero(File fichero) {
+        this.fichero = fichero;
+    }
     
     public JsonRec(ArrayList<Rectangle> n){
         this.archivo = "";
@@ -58,19 +90,20 @@ public class JsonRec {
         
     }
     public void sobreEscritura(ArrayList<Rectangle> n){
-        //File archivo1 = new File(this.ruta);
+        File archivo1 = new File(this.ruta);
+        archivo1.delete();
 
         archivo = gson.toJson(n);
         PrintWriter writer;
         try {
             
-            //File fichero = new File(ruta);
-            try (FileWriter escribir = new FileWriter(fichero, true)) {
-                writer = new PrintWriter(escribir);
-                writer.println(archivo);
-                writer.close();
-                escribir.close();
+            File ficheroa = new File(ruta);
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(ficheroa))) {
+                bw.write("");
+                bw.write(archivo);
+                bw.close();
             }
+
         }
         catch (IOException e) {
             System.out.println("Error al escribir");
