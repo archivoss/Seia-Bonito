@@ -222,14 +222,6 @@ public class BackgroundController implements Initializable {
         seleccionarArchivo = new JFileChooser();
         seleccionarArchivo.showOpenDialog(null);
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
-        File file = new File(archivoSeleccionado.getPath());
-        System.out.println(file.getPath());
-        if (file.delete()) {
-            System.out.println("se borro");
-        }
-        else{
-            System.out.println("me la pela");
-        }
         try (PDDocument document = PDDocument.load(archivoSeleccionado)) {
             PDFRenderer pdfRenderer = new PDFRenderer(document);
             for (int page = 0; page < document.getNumberOfPages(); ++page)
