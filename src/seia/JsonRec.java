@@ -39,7 +39,7 @@ public class JsonRec {
     }
 
     public String getRuta() {
-        return ruta;
+        return fichero.getPath();
     }
 
     public void setRuta(String ruta) {

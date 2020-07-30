@@ -30,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import java.awt.Rectangle;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javax.swing.JFileChooser;
@@ -56,7 +57,7 @@ public class BackgroundController implements Initializable {
     String texto;
     Rectangle rec;  
     List<Rectangle> modificarRec;
-    List<Rectangle> listRec;
+    ArrayList<Rectangle> listRec;
     List<BufferedImage> pagina;
     GraphicsContext gc;
     File archivoSeleccionado;
@@ -68,9 +69,14 @@ public class BackgroundController implements Initializable {
 
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+    @FXML
+    private TextArea plantillaLabel;
     
     @FXML
     private AnchorPane tamañoPDF;
+    
+    @FXML
+    private AnchorPane eliminarPane;
     
     @FXML
     private AnchorPane panelTexto;
@@ -130,17 +136,38 @@ public class BackgroundController implements Initializable {
     private Button borrarButton;
     
     @FXML
+    private Button acptButonnP;
+    
+    @FXML
+    private Button cancelButtonP;
+    
+    @FXML
     private void deletePButtonAction(ActionEvent event){
+        eliminarPane.toFront();
+        eliminarPane.setVisible(true);
+    }
+    @FXML
+    private void acptButonnPlantilla(ActionEvent event){
         String ruta = jsonFile.getRuta();
         File na = new File(ruta);
         na.delete();
+        eliminarPane.setVisible(false);
+        plantillaLabel.setText("Se eliminó -> "+jsonFile.getRuta());
+        jsonFile.setRuta("");
     }
+    
+    @FXML
+    private void cancelButtonP(ActionEvent event){
+        eliminarPane.setVisible(false);
+    }
+            
     @FXML
     private void saveButtonAction(ActionEvent event){
         disableButton.setVisible(true);
         savePane.toFront();
         savePane.setVisible(true);
         fileName.clear();
+        plantillaLabel.setText(jsonFile.getRuta()+" se guardó");
     } 
     
     @FXML
@@ -154,6 +181,7 @@ public class BackgroundController implements Initializable {
         jsonFile.setRectangulos(n);
         jsonFile.escritura(fileName.getText());
         savePane.setVisible(false);
+        plantillaLabel.setText(jsonFile.getRuta()+" se guardó");
     }
     
     @FXML
@@ -178,6 +206,9 @@ public class BackgroundController implements Initializable {
             gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
             listRec.get(i).getWidth(), listRec.get(i).getHeight());
         }
+        jsonFile.setRectangulos(listRec);
+        jsonFile.setRuta(ruta);
+        plantillaLabel.setText(jsonFile.getRuta());
     }
     @FXML
     private void sobreEscritura(ActionEvent event) throws IOException{
@@ -187,6 +218,7 @@ public class BackgroundController implements Initializable {
         }
         //jsonFile.setRectangulos(n);
         jsonFile.sobreEscritura(n);
+        plantillaLabel.setText(jsonFile.getRuta()+" guardado correctamente!!");
     }
     
     @FXML
@@ -639,11 +671,11 @@ public class BackgroundController implements Initializable {
     @FXML
     private void exit(MouseEvent event){
         if (!button.getId().equals("drawButton") && !button.getId().equals("selectButton")) {
-            button.setStyle("-fx-background-color: #FFFFFF;");
+            button.setStyle("-fx-background-color: #ccd0e6;");
         }
         else{
             if (!button.getStyle().equals("-fx-background-color: #8b008b")) {
-                button.setStyle("-fx-background-color: #FFFFFF");
+                button.setStyle("-fx-background-color: #ccd0e6");
             }
         }
     }
@@ -652,7 +684,7 @@ public class BackgroundController implements Initializable {
     private void press(MouseEvent event){
         if (button.getId().equals("drawButton") || button.getId().equals("selectButton")) {
             if (button.getStyle().equals("-fx-background-color: #8b008b")) {
-                button.setStyle("-fx-background-color: #FFFFFF");
+                button.setStyle("-fx-background-color: #ccd0e6");
             }
             else{
                 button.setStyle("-fx-background-color: #8b008b");
