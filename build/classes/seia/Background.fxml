@@ -22,6 +22,7 @@
          </font>
       </Label>
       <Button fx:id="addFileButton" layoutX="25.0" layoutY="115.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
+      <Button fx:id="addFileButton" layoutX="25.0" layoutY="115.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -36,30 +37,23 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="drawButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="165.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="DIBUJAR">
+      <Button fx:id="drawButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="166.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="deleteButton" disable="true" graphicTextGap="10.0" layoutX="137.0" layoutY="166.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deleteButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
-               <image>
-                  <Image url="@../Resources/pencilIcon.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Button fx:id="deleteButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="288.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deleteButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="BORRAR">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/basura.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="selectButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="338.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#selectButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="SELECCIONAR">
+      <Button fx:id="selectButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="278.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#selectButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="SELECCIONAR">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -71,7 +65,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="saveButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="387.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#saveButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="GUARDAR PLANTILLA">
+      <Button fx:id="saveButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="330.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#saveButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="GUARDAR COMO">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -83,7 +77,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="541.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="EXTRAER TEXTO">
+      <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="480.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="EXTRAER TEXTO">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -94,7 +88,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="sobreEscritura" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="490.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#sobreEscritura" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="SOBREESCRITURA">
+      <Button fx:id="sobreEscritura" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="430.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#sobreEscritura" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="GUARDAR">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -106,7 +100,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="borrarButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="595.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deletePButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="BORRAR PLANTILLA">
+      <Button fx:id="borrarButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="530.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deletePButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="BORRAR PLANTILLA">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
@@ -118,7 +112,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="cargaButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="438.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#cargaButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="CARGAR PLANTILLA">
+      <Button fx:id="cargaButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="380.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#cargaButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="CARGAR PLANTILLA">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -157,6 +151,22 @@
             <Image url="@../Resources/Captura.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="eliminarPane" layoutX="350.0" layoutY="300.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #acb5bd; -fx-border-color: #ff2f00;" visible="false">
+         <children>
+            <Button fx:id="acptButonnP" layoutX="59.0" layoutY="128.0" mnemonicParsing="false" onAction="#acptButonnPlantilla" prefWidth="100.0" style="-fx-background-color: #6f757a; -fx-border-color: #5cb4ff;" text="Aceptar" textFill="WHITE" />
+            <Button fx:id="cancelButtonP" layoutX="217.0" layoutY="129.0" mnemonicParsing="false" onAction="#cancelButtonP" prefWidth="100.0" style="-fx-background-color: #6f757a;" text="Cancelar" textFill="WHITE" />
+            <ImageView fitHeight="82.0" fitWidth="128.0" layoutX="142.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/Alerta%20(2).png" />
+               </image>
+            </ImageView>
+            <Label layoutX="34.0" layoutY="77.0" prefHeight="42.0" prefWidth="291.0" text="¿Desea eliminar la plantilla de forma permanente?">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="59.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHAA.jpg" />
@@ -180,7 +190,7 @@
       </Label>
       <Button fx:id="redobtn" layoutX="150.0" layoutY="226.0" mnemonicParsing="false" onAction="#redoButtonAction" opacity="0.0" text="Button" />
       <Button fx:id="disableButton" mnemonicParsing="false" onAction="#disableButtonAction" opacity="0.5" prefHeight="48.0" prefWidth="65.0" style="-fx-background-color: black;" visible="false" />
-      <AnchorPane fx:id="savePane" layoutX="350.0" layoutY="300.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #131313;" visible="false">
+      <AnchorPane fx:id="savePane" layoutX="350.0" layoutY="300.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #acb5bd;" visible="false">
          <children>
             <Text fill="WHITE" layoutX="109.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardar Plantilla">
                <font>
@@ -210,6 +220,21 @@
             </TextField>
             <Button fx:id="acceptButton" layoutX="60.0" layoutY="130.0" mnemonicParsing="false" onAction="#acceptNameButton" prefHeight="48.0" prefWidth="130.0" text="Aceptar" />
             <Button fx:id="cancelButton" layoutX="299.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelNameButton" prefHeight="48.0" prefWidth="130.0" text="Cancelar" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="30.0" fitWidth="50.0" layoutX="57.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Resources/pencilIcon.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="25.0" layoutY="580.0" prefHeight="110.0" prefWidth="200.0" style="-fx-background-color: #acb5bd;">
+         <children>
+            <Label layoutX="5.0" layoutY="10.0" text="Plantilla actual:" textFill="#202225">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="plantillaLabel" editable="false" layoutX="16.0" layoutY="36.0" prefHeight="54.0" prefWidth="150.0" wrapText="true" />
          </children>
       </AnchorPane>
    </children>
