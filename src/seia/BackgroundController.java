@@ -71,8 +71,10 @@ public class BackgroundController implements Initializable {
 
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+    
+    
     @FXML
-    private TextArea plantillaLabel;
+    private Label plantillaLabel;
     
     @FXML
     private Label nameRec;
@@ -181,7 +183,7 @@ public class BackgroundController implements Initializable {
         savePane.toFront();
         savePane.setVisible(true);
         fileName.clear();
-        plantillaLabel.setText(jsonFile.getRuta()+" se guardó");
+        plantillaLabel.setText("Se guardó -> " + jsonFile.getRuta());
     } 
     
     @FXML
@@ -190,9 +192,7 @@ public class BackgroundController implements Initializable {
         savePane1.setVisible(false);
         nombres.add(nombreRec.getText());
         nombreRec.clear();
-        
-        
-        
+  
     }
     
     @FXML
@@ -227,7 +227,7 @@ public class BackgroundController implements Initializable {
         jsonFile.setRectangulos(n);
         jsonFile.escritura(fileName.getText());
         savePane.setVisible(false);
-        plantillaLabel.setText(jsonFile.getRuta()+" se guardó");
+        plantillaLabel.setText("Se guardó ->" + jsonFile.getRuta());
     }
     
     @FXML
@@ -237,11 +237,10 @@ public class BackgroundController implements Initializable {
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
         String ruta;
         ruta = archivoSeleccionado.getPath();
-        JsonRec carga = new JsonRec();
-        ArrayList<Rectangle>cargaR = carga.lectura(ruta);
-        carga.setRuta(ruta);
+        ArrayList<Rectangle>cargaR = jsonFile.lectura(ruta);
+        jsonFile.setRuta(ruta);
         File cargado = new File(ruta);
-        carga.setFichero(cargado);
+        jsonFile.setFichero(cargado);
         for (int i = 0; i < cargaR.size(); i++) {
             System.out.println(cargaR.get(i).toString());   
         }
@@ -438,14 +437,14 @@ public class BackgroundController implements Initializable {
                     gc.strokeRect(modificarRec.get(j).getX(), modificarRec.get(j).getY(),
                     modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());        
                 }
-                System.out.println(nombres.toString());
-                System.out.println(nombres.get(i));
-                System.out.println(i);
                 
                 nameRec.setText(nombres.get(i));
                 nameRec.setVisible(true);
                 nameRec.toFront();
                 
+            }
+            else{
+                nameRec.setVisible(false);
             }
             
         }
@@ -634,6 +633,7 @@ public class BackgroundController implements Initializable {
         savePane1.setVisible(false);
         savePane1.toBack();
         
+        
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
         gc = drawPane.getGraphicsContext2D();
@@ -642,6 +642,7 @@ public class BackgroundController implements Initializable {
             gc.strokeRect(listRec.get(i).getX(), listRec.get(i).getY(),
             listRec.get(i).getWidth(), listRec.get(i).getHeight());
         }
+        
     }  
     
     @FXML
