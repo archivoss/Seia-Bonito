@@ -191,11 +191,12 @@ public class BackgroundController implements Initializable {
         archivoSeleccionado = seleccionarArchivo.getSelectedFile(); 
         String ruta;
         ruta = archivoSeleccionado.getPath();
-        JsonRec carga = new JsonRec();
-        ArrayList<Rectangle>cargaR = carga.lectura(ruta);
-        carga.setRuta(ruta);
+        jsonFile.setRuta(ruta);
+        //JsonRec carga = new JsonRec();
+        ArrayList<Rectangle>cargaR = jsonFile.lectura(ruta);
+        jsonFile.setRuta(ruta);
         File cargado = new File(ruta);
-        carga.setFichero(cargado);
+        jsonFile.setFichero(cargado);
         for (int i = 0; i < cargaR.size(); i++) {
             System.out.println(cargaR.get(i).toString());   
         }
@@ -207,7 +208,7 @@ public class BackgroundController implements Initializable {
             listRec.get(i).getWidth(), listRec.get(i).getHeight());
         }
         jsonFile.setRectangulos(listRec);
-        jsonFile.setRuta(ruta);
+        
         plantillaLabel.setText(jsonFile.getRuta());
     }
     @FXML

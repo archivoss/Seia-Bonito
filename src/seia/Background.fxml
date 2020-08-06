@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -71,17 +73,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="480.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="EXTRAER TEXTO">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Resources/lupaa.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
       <Button fx:id="sobreEscritura" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="430.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#sobreEscritura" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="GUARDAR">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -94,7 +85,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="borrarButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="530.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deletePButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="BORRAR PLANTILLA">
+      <Button fx:id="borrarButton" disable="true" graphicTextGap="30.0" layoutX="24.0" layoutY="481.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deletePButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="BORRAR PLANTILLA">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
@@ -118,28 +109,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <ScrollPane fx:id="scrollPDF" layoutX="240.0" layoutY="10.0" style="-fx-background-color: #202225;">
-        <content>
-          <AnchorPane fx:id="tamañoPDF" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #202225;">
-               <children>
-                  <StackPane fx:id="panelPDF" />
-                  <Canvas fx:id="contenidoPDF" height="750.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1030.0" />
-                  <Canvas fx:id="drawPane" disable="true" height="750.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1030.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <AnchorPane fx:id="panelTexto" layoutX="913.0" layoutY="3.0" prefHeight="768.0" prefWidth="511.0" style="-fx-background-color: #202225;" visible="false">
-         <children>
-            <Text fill="WHITE" layoutX="50.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXTO EXTRAIDO">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Text>
-            <Button fx:id="salirButton" layoutX="320.0" layoutY="10.0" mnemonicParsing="false" onAction="#salirButtonaction" prefHeight="30.0" prefWidth="150.0" text="Salir" />
-            <TextArea fx:id="extraerTexto" editable="false" layoutX="5.0" layoutY="49.0" prefHeight="576.0" prefWidth="502.0" />
-         </children>
-      </AnchorPane>
       <ImageView fitHeight="75.0" fitWidth="171.0" layoutX="25.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/Captura.png" />
@@ -215,5 +184,55 @@
             <TextArea fx:id="plantillaLabel" editable="false" layoutX="16.0" layoutY="36.0" prefHeight="54.0" prefWidth="150.0" wrapText="true" />
          </children>
       </AnchorPane>
+      <TabPane layoutX="250.0" layoutY="10.0" prefHeight="750.0" prefWidth="1030.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="PLANTILLAPDF">
+               <content>
+                  <ScrollPane fx:id="scrollPDF" style="-fx-background-color: #202225;">
+                    <content>
+                      <AnchorPane fx:id="tamañoPDF" prefHeight="750.0" prefWidth="1030.0" style="-fx-background-color: #202225;">
+                           <children>
+                              <StackPane fx:id="panelPDF" />
+                              <Canvas fx:id="contenidoPDF" height="750.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1030.0" />
+                              <Canvas fx:id="drawPane" disable="true" height="750.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1030.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+          <Tab text="TEXTO">
+               <content>
+                  <AnchorPane fx:id="panelTexto" prefHeight="721.0" prefWidth="511.0" style="-fx-background-color: #202225;">
+                     <children>
+                        <Text fill="WHITE" layoutX="171.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXTO EXTRAIDO">
+                           <font>
+                              <Font name="System Bold Italic" size="22.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="salirButton" layoutX="292.0" layoutY="652.0" mnemonicParsing="false" onAction="#salirButtonaction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="SALIR">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <TextArea fx:id="extraerTexto" editable="false" layoutX="5.0" layoutY="49.0" prefHeight="576.0" prefWidth="502.0" />
+                        <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="39.0" layoutY="654.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="EXTRAER TEXTO">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Resources/lupaa.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
