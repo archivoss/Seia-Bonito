@@ -192,14 +192,10 @@ public class BackgroundController implements Initializable {
         String ruta;
         ruta = archivoSeleccionado.getPath();
         jsonFile.setRuta(ruta);
-        //JsonRec carga = new JsonRec();
         ArrayList<Rectangle>cargaR = jsonFile.lectura(ruta);
         jsonFile.setRuta(ruta);
         File cargado = new File(ruta);
         jsonFile.setFichero(cargado);
-        for (int i = 0; i < cargaR.size(); i++) {
-            System.out.println(cargaR.get(i).toString());   
-        }
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
         listRec = new ArrayList<>(cargaR);
