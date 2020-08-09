@@ -599,8 +599,8 @@ public class BackgroundController implements Initializable {
         else{
             drawPane.setDisable(true);
         }
-        if (!selectButton.getStyle().equals("-fx-background-color: #FFFFFF")) {
-            selectButton.setStyle("-fx-background-color: #FFFFFF");
+        if (!selectButton.getStyle().equals("-fx-background-color: #ccd0e6")) {
+            selectButton.setStyle("-fx-background-color: #ccd0e6");
         }  
     }     
     
@@ -614,8 +614,8 @@ public class BackgroundController implements Initializable {
         else{
             contenidoPDF.setDisable(true);
         }
-        if (!drawButton.getStyle().equals("-fx-background-color: #FFFFFF")) {
-            drawButton.setStyle("-fx-background-color: #FFFFFF");
+        if (!drawButton.getStyle().equals("-fx-background-color: #ccd0e6")) {
+            drawButton.setStyle("-fx-background-color: #ccd0e6");
         }
     }   
     
