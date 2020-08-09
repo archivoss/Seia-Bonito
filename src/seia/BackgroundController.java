@@ -357,6 +357,11 @@ public class BackgroundController implements Initializable {
         sobreEscritura.setDisable(false);
         borrarButton.setDisable(false);
     }
+    
+    
+    
+    
+    
     /*@FXML
     private void backPagebuttonAction(ActionEvent event){
         if (num < pagina.size()) {
