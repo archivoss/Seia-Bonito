@@ -24,7 +24,9 @@ public class ToString {
         ITesseract t = new Tesseract(); 
 
         try{
-            str = t.doOCR(new File(ruta));
+            File nuevo = new File(ruta);
+            str = t.doOCR(nuevo);
+            
 
         } catch (TesseractException e){
             System.out.println("Exception" + e.getMessage());

@@ -18,7 +18,7 @@ public class OrdenCompra {
     
     public OrdenCompra(String n){
         this.datos = n;
-        this.nombre = "prueba.txt";
+        this.nombre = "ContenidoOrdenCompra.txt";
         
     }
 
