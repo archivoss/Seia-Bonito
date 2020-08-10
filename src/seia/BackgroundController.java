@@ -42,6 +42,7 @@ import java.awt.Robot;
 import java.awt.image.BufferedImage; 
 import java.io.IOException; 
 import java.io.File; 
+import javafx.scene.control.TabPane;
 import javax.imageio.ImageIO; 
 
 /**
@@ -165,6 +166,9 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private Button cancelButtonP;
+    
+    @FXML
+    private TabPane tabPane;
     
     @FXML
     private void RecTextButtonAction(ActionEvent event){
@@ -381,6 +385,10 @@ public class BackgroundController implements Initializable {
         drawPane.setHeight(bim.getHeight());
         contenidoPDF.setWidth(bim.getWidth());
         contenidoPDF.setHeight(bim.getHeight());
+        
+        tabPane.setPrefHeight(bim.getHeight());
+        tabPane.setPrefWidth(bim.getWidth());
+        
         Image i = SwingFXUtils.toFXImage(bim, null);
         ImageView v = new ImageView(i);
         panelPDF.getChildren().add(v);
