@@ -284,9 +284,6 @@ public class BackgroundController implements Initializable {
         jsonFile.setRuta(ruta);
         File cargado = new File(ruta);
         jsonFile.setFichero(cargado);
-        for (int i = 0; i < cargaR.size(); i++) {
-            System.out.println(cargaR.get(i).toString());   
-        }
         gc = contenidoPDF.getGraphicsContext2D();
         gc.clearRect(0, 0, contenidoPDF.getWidth(), contenidoPDF.getHeight());
         listRec = new ArrayList<>(cargaR);
@@ -515,8 +512,7 @@ public class BackgroundController implements Initializable {
                 gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
-                    rec.setRect(auxX + auxW, event.getY(), event.getX() - (auxX + auxW),(auxY + auxH) - event.getY() );
-                     
+                    rec.setRect(auxX + auxW, event.getY(), event.getX() - (auxX + auxW),(auxY + auxH) - event.getY() );                    
                     if (rec.getWidth() < 0) {
                         rec.setRect(event.getX(), auxY + auxH, (auxX + auxW) - event.getX(), event.getY() - (auxY + auxH));
                     }
@@ -525,21 +521,19 @@ public class BackgroundController implements Initializable {
                     }
                     gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-               
-                
+                }                            
                 break;
             case 2:
                 rec.setRect(auxX, event.getY(), event.getX() - auxX, (auxY + auxH) - event.getY());            
                 gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());                
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {
-                    rec.setRect(event.getX(),event.getY(),auxX - event.getX(),(auxH + auxY) - event.getY()); 
+                    rec.setRect(event.getX(),event.getY(), auxX - event.getX(),(auxH + auxY) - event.getY()); 
                     if (rec.getWidth() < 0) {
-                        rec.setRect(auxX,auxY + auxH,event.getX() - auxX,event.getY() - (auxY + auxH));
+                        rec.setRect(auxX, auxY + auxH, event.getX() - auxX, event.getY() - (auxY + auxH));
                     }
                     else if (rec.getHeight() < 0) {
-                        rec.setRect(x, auxH + auxY, event.getX() - auxX, event.getY() - (auxY + auxH));
+                        rec.setRect(event.getX(), auxH + auxY, auxX - event.getX(), event.getY() - (auxY + auxH));
                     }
                     gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
@@ -578,32 +572,35 @@ public class BackgroundController implements Initializable {
                 }
                 break;
             case 5:
-                for (int i = 0; i < listRec.size(); i++) {
-                    if (auxY < y && auxX < x && auxY + auxH > y && auxX + auxW > x) {
-                        //arriba izquierda
-                        if (event.getX() <= x && event.getY() <= y) {
-                            rec.setRect(auxX - (x - event.getX()),auxY - (y - event.getY()),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-                        }
-                        
-                        //arriba derecha
-                        if (event.getX() >= x && event.getY() <= y) {
-                            rec.setRect(auxX + (event.getX() - x),auxY - (y - event.getY()),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-                        }
-                        
-                        //abajo izquierda
-                        if (event.getX() <= x && event.getY() >= y) {
-                            rec.setRect(auxX - (x - event.getX()),auxY + (event.getY() - y),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-
-                        }
-                                                                      
-                        //abajo derecha
-                        if (event.getX() >= x && event.getY() >= y) {
-                            rec.setRect(auxX + (event.getX() - x),auxY + (event.getY() - y),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-                        }
+                for (int i = 0; i < listRec.size(); i++) { 
+                    if (auxY < y && auxX < x && auxY + auxH > y && auxX + auxW > x) { 
+                        //arriba izquierda 
+                        if (event.getX() <= x && event.getY() <= y) { 
+                            rec.x = (int) (auxX - (x - event.getX())); 
+                            rec.y = (int) (auxY - (y - event.getY())); 
+                        } 
+                         
+                        //arriba derecha 
+                        if (event.getX() >= x && event.getY() <= y) { 
+                            rec.x = (int) (auxX + (event.getX() - x)); 
+                            rec.y = (int) (auxY - (y - event.getY())); 
+                        } 
+                         
+                        //abajo izquierda 
+                        if (event.getX() <= x && event.getY() >= y) { 
+                            rec.x = (int) (auxX - (x - event.getX())); 
+                            rec.y = (int) (auxY + (event.getY() - y)); 
+                        } 
+                                                                       
+                        //abajo derecha 
+                        if (event.getX() >= x && event.getY() >= y) { 
+                            rec.x = (int) (auxX + (event.getX() - x)); 
+                            rec.y = (int) (auxY + (event.getY() - y)); 
+                        } 
                         gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
-                        gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());           
-                    }
-                }
+                        gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());            
+                    } 
+                } 
             default:
                 break;
         }
@@ -807,7 +804,6 @@ public class BackgroundController implements Initializable {
         OrdenCompra n = new OrdenCompra(string.Lectura());
         n.escribir();
         extraerTexto.setText(string.Lectura());
-        System.out.println(string.Lectura());
     }
     @FXML
     private void salirButtonaction(){
