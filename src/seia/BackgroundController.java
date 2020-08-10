@@ -571,6 +571,7 @@ public class BackgroundController implements Initializable {
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
                 break;
+                
             case 5:
                 for (int i = 0; i < listRec.size(); i++) { 
                     if (auxY < y && auxX < x && auxY + auxH > y && auxX + auxW > x) { 
