@@ -181,7 +181,7 @@ public class BackgroundController implements Initializable {
             for (int i = 0; i < listRec.size(); i++) {
                 capture = new Rectangle(listRec.get(i));
                 capture.x = (int) (capture.getX() + 240);
-                capture.y = (int) (capture.getY() + 75);
+                capture.y = (int) (capture.getY() + 60);
                 BufferedImage Image = r.createScreenCapture(capture); 
                 ImageIO.write(Image, "png", new File(path)); 
                 string = new ToString(path);
@@ -380,14 +380,14 @@ public class BackgroundController implements Initializable {
                 pagina.add(bim);                            
             }           
         }
-        tamañoPDF.setPrefWidth(bim.getWidth());
-        drawPane.setWidth(bim.getWidth());
+        tamañoPDF.setPrefWidth(bim.getWidth()-60);
+        drawPane.setWidth(bim.getWidth()-60);
         drawPane.setHeight(bim.getHeight());
-        contenidoPDF.setWidth(bim.getWidth());
+        contenidoPDF.setWidth(bim.getWidth()-60);
         contenidoPDF.setHeight(bim.getHeight());
         
         tabPane.setPrefHeight(bim.getHeight());
-        tabPane.setPrefWidth(bim.getWidth());
+        tabPane.setPrefWidth(bim.getWidth()-60);
         
         Image i = SwingFXUtils.toFXImage(bim, null);
         ImageView v = new ImageView(i);
