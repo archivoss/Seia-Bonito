@@ -798,6 +798,7 @@ public class BackgroundController implements Initializable {
     }
     @FXML
     private void extraerTextoButton(){
+        url = archivoSeleccionado.getPath();
         panelTexto.setVisible(true);
         panelTexto.toFront();
         string = new ToString(url);
