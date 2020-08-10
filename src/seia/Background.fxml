@@ -4,17 +4,23 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
    <children>
-      <Button fx:id="addFileButton" layoutX="25.0" layoutY="178.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
+      <Button fx:id="addFileButton" layoutX="25.0" layoutY="115.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
          <padding>
             <Insets left="20.0" />
@@ -27,74 +33,258 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="drawButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="267.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="DIBUJAR">
+      <Button fx:id="drawButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="166.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+            <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/pencilIcon.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="deleteButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="484.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deleteButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="BORRAR">
+      <Button fx:id="deleteButton" disable="true" graphicTextGap="10.0" layoutX="137.0" layoutY="166.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deleteButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="46.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/basura.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="selectButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="573.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#selectButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" text="SELECCIONAR">
+      <Button fx:id="selectButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="279.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#selectButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="46.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/selectIcon.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <TextArea fx:id="textPDF" layoutX="240.0" layoutY="10.0" prefHeight="750.0" prefWidth="1030.0">
+      <Button fx:id="saveButton" disable="true" graphicTextGap="10.0" layoutX="25.0" layoutY="330.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#saveButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="GUARDAR COMO">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
-      </TextArea>
-      <Canvas fx:id="contenidoPDF" height="750.0" layoutX="240.0" layoutY="10.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1030.0" />
-      <Canvas fx:id="drawPane" disable="true" height="750.0" layoutX="240.0" layoutY="10.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1030.0" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/saveIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="sobreEscritura" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="378.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#sobreEscritura" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="GUARDAR">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/sobre.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="borrarButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="426.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deletePButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="BORRAR PLANTILLA">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Resources/pencilIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="RecTextButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="474.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#RecTextButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="TEXTO RECTANGULOS">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Resources/RecText.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="cargaButton" disable="true" graphicTextGap="10.0" layoutX="137.0" layoutY="279.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#cargaButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/cargaa.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="75.0" fitWidth="171.0" layoutX="25.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/Captura.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="35.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <AnchorPane fx:id="eliminarPane" layoutX="350.0" layoutY="300.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #acb5bd; -fx-border-color: #ff2f00;" visible="false">
+         <children>
+            <Button fx:id="acptButonnP" layoutX="59.0" layoutY="128.0" mnemonicParsing="false" onAction="#acptButonnPlantilla" prefWidth="100.0" style="-fx-background-color: #6f757a; -fx-border-color: #5cb4ff;" text="Aceptar" textFill="WHITE" />
+            <Button fx:id="cancelButtonP" layoutX="217.0" layoutY="129.0" mnemonicParsing="false" onAction="#cancelButtonP" prefWidth="100.0" style="-fx-background-color: #6f757a;" text="Cancelar" textFill="WHITE" />
+            <ImageView fitHeight="82.0" fitWidth="128.0" layoutX="142.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/Alerta%20(2).png" />
+               </image>
+            </ImageView>
+            <Label layoutX="34.0" layoutY="77.0" prefHeight="42.0" prefWidth="291.0" text="¿Desea eliminar la plantilla de forma permanente?">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="59.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHAA.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="49.0" fitWidth="70.0" layoutX="150.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+      <TabPane layoutX="240.0" layoutY="5.0" prefHeight="750.0" prefWidth="1030.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="EDITOR">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane fx:id="scrollPDF" style="-fx-background-color: #202225;">
+                          <content>
+                            <AnchorPane fx:id="tamañoPDF" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #202225;">
+                                 <children>
+                                    <StackPane fx:id="panelPDF" />
+                                    <Canvas fx:id="contenidoPDF" height="750.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1030.0" />
+                                    <Canvas fx:id="drawPane" disable="true" height="750.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1030.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="TEXTO">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="panelTexto" prefHeight="721.0" prefWidth="511.0" style="-fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="170.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXTO EXTRAIDO">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="salirButton" layoutX="436.0" layoutY="14.0" mnemonicParsing="false" onAction="#salirButtonaction" prefHeight="6.0" prefWidth="61.0" text="Salir" visible="false" />
+                              <TextArea fx:id="extraerTexto" layoutX="5.0" layoutY="49.0" prefHeight="576.0" prefWidth="502.0" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </TextArea>
+                              <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="156.0" layoutY="652.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="EXTRAER TEXTO">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Resources/lupaa.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="160.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHA.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="40.0" layoutY="409.0" text="UNDO" textFill="#43b581">
+      <Label layoutX="57.0" layoutY="256.0" text="UNDO" textFill="#43b581">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="undobtn" layoutX="35.0" layoutY="372.0" mnemonicParsing="false" onAction="#undoButtonAction" opacity="0.0" text="Button" />
-      <Label layoutX="150.0" layoutY="409.0" text="REDO" textFill="#43b581">
+      <Button fx:id="undobtn" layoutX="44.0" layoutY="226.0" mnemonicParsing="false" onAction="#undoButtonAction" opacity="0.0" prefHeight="25.0" prefWidth="61.0" text="Button" />
+      <Label layoutX="160.0" layoutY="256.0" text="REDO" textFill="#43b581">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="redobtn" layoutX="150.0" layoutY="372.0" mnemonicParsing="false" onAction="#redoButtonAction" opacity="0.0" text="Button" />
+      <Button fx:id="redobtn" layoutX="150.0" layoutY="226.0" mnemonicParsing="false" onAction="#redoButtonAction" opacity="0.0" text="Button" />
+      <Button fx:id="disableButton" mnemonicParsing="false" onAction="#disableButtonAction" opacity="0.5" prefHeight="48.0" prefWidth="65.0" style="-fx-background-color: black;" visible="false" />
+      <AnchorPane fx:id="savePane" layoutX="350.0" layoutY="300.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #acb5bd;" visible="false">
+         <children>
+            <Text fill="WHITE" layoutX="109.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardar Plantilla">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Text>
+            <TextField fx:id="fileName" alignment="CENTER" layoutX="36.0" layoutY="65.0" prefHeight="36.0" prefWidth="438.0" promptText="Ingrese nombre para plantilla">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <Button fx:id="acceptSaveButton" layoutX="60.0" layoutY="130.0" mnemonicParsing="false" onAction="#acceptSaveButtonAction" prefHeight="48.0" prefWidth="130.0" text="Aceptar" />
+            <Button fx:id="cancelSaveButton" layoutX="299.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelSaveButtonAction" prefHeight="48.0" prefWidth="130.0" text="Cancelar" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="savePane1" layoutX="360.0" layoutY="310.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #131313;" visible="false">
+         <children>
+            <Text fill="WHITE" layoutX="80.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etiquetar rectangulo" wrappingWidth="370.1328125">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nombreRec" alignment="CENTER" layoutX="36.0" layoutY="65.0" prefHeight="36.0" prefWidth="438.0" promptText="Ingrese nombre para plantilla">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <Button fx:id="acceptButton" layoutX="60.0" layoutY="130.0" mnemonicParsing="false" onAction="#acceptNameButton" prefHeight="48.0" prefWidth="130.0" text="Aceptar" />
+            <Button fx:id="cancelButton" layoutX="299.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelNameButton" prefHeight="48.0" prefWidth="130.0" text="Cancelar" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="25.0" layoutY="522.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #acb5bd;">
+         <children>
+            <Text fill="#202225" layoutX="10.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plantilla actual: " wrappingWidth="97.50000349804759">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="#202225" layoutX="10.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del Rectángulo: " wrappingWidth="139.142578125">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Text>
+            <Label fx:id="plantillaLabel" layoutX="12.0" layoutY="18.0" prefHeight="43.0" prefWidth="182.0" textFill="#202225">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameRec" layoutX="11.0" layoutY="92.0" prefHeight="36.0" prefWidth="174.0" textAlignment="CENTER" textFill="#202225" visible="false">
+               <font>
+                  <Font name="System Bold Italic" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
