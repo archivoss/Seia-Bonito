@@ -7,9 +7,6 @@ package seia;
 
 
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +27,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import java.awt.Rectangle;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
@@ -40,6 +36,13 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import java.awt.AWTException; 
+import java.awt.Rectangle; 
+import java.awt.Robot; 
+import java.awt.image.BufferedImage; 
+import java.io.IOException; 
+import java.io.File; 
+import javax.imageio.ImageIO; 
 
 /**
  * FXML Controller class
@@ -104,6 +107,9 @@ public class BackgroundController implements Initializable {
     private Button button;
     
     @FXML
+    private Button RecTextButton;
+    
+    @FXML
     private Button saveButton;
     
     @FXML
@@ -161,10 +167,32 @@ public class BackgroundController implements Initializable {
     private Button cancelButtonP;
     
     @FXML
+    private void RecTextButtonAction(ActionEvent event){
+        try { 
+            Robot r = new Robot(); 
+            String path = "ScreenShot\\text.png"; 
+            Rectangle capture;
+            for (int i = 0; i < listRec.size(); i++) {
+                capture = new Rectangle(listRec.get(i));
+                capture.x = (int) (capture.getX() + 240);
+                capture.y = (int) (capture.getY() + 40);
+                BufferedImage Image = r.createScreenCapture(capture); 
+                ImageIO.write(Image, "png", new File(path)); 
+                string = new ToString(path);
+                System.out.println(string.Lectura());
+            }          
+        } 
+        catch (AWTException | IOException ex) { 
+            System.out.println(ex); 
+        }
+    }
+    
+    @FXML
     private void deletePButtonAction(ActionEvent event){
         eliminarPane.toFront();
         eliminarPane.setVisible(true);
     }
+    
     @FXML
     private void acptButonnPlantilla(ActionEvent event){
         String ruta = jsonFile.getRuta();
@@ -190,12 +218,11 @@ public class BackgroundController implements Initializable {
     } 
     
     @FXML
-    private void acceptNameButton(ActionEvent event){
+    private void acceptNameButton(ActionEvent event) throws InterruptedException{
         disableButton.setVisible(false);
         savePane1.setVisible(false);
-        nombres.add(nombreRec.getText());
+        nombres.add(nombreRec.getText());        
         nombreRec.clear();
-  
     }
     
     @FXML
@@ -323,6 +350,7 @@ public class BackgroundController implements Initializable {
             }
         }
     }
+    
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
         pagina = new ArrayList<>();
@@ -338,8 +366,6 @@ public class BackgroundController implements Initializable {
                 pagina.add(bim);                            
             }           
         }
-        url = archivoSeleccionado.getPath();
-        
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
@@ -357,30 +383,8 @@ public class BackgroundController implements Initializable {
         cargaButton.setDisable(false);
         sobreEscritura.setDisable(false);
         borrarButton.setDisable(false);
+        RecTextButton.setDisable(false);
     }
-    
-    
-    
-    
-    
-    /*@FXML
-    private void backPagebuttonAction(ActionEvent event){
-        if (num < pagina.size()) {
-            num = num + 1;
-            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
-            ImageView v = new ImageView(i);
-            panelPDF.getChildren().add(v);
-        }
-    }
-    @FXML
-    private void forwardPagebuttonAction(ActionEvent event){
-        if (num >= 0) {
-            num = num - 1;
-            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
-            ImageView v = new ImageView(i);
-            panelPDF.getChildren().add(v);
-        }
-    }*/
     
     @FXML
     private void deleteButtonAction(ActionEvent event){
@@ -790,7 +794,7 @@ public class BackgroundController implements Initializable {
         OrdenCompra n = new OrdenCompra(string.Lectura());
         n.escribir();
         extraerTexto.setText(string.Lectura());
-        
+        System.out.println(string.Lectura());
     }
     @FXML
     private void salirButtonaction(){

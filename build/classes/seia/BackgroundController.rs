@@ -1,2 +1,0 @@
-seia.BackgroundController
-seia.Interfaz
