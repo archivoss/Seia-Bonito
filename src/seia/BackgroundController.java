@@ -336,9 +336,7 @@ public class BackgroundController implements Initializable {
             }           
         }
         url = archivoSeleccionado.getPath();
-        string = new ToString(url);
-        OrdenCompra n = new OrdenCompra(string.Lectura());
-        n.escribir();
+        
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
@@ -443,14 +441,18 @@ public class BackgroundController implements Initializable {
                     modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());        
                 }
                 
+                System.out.println(i);
+                System.out.println(nombres.toString());
+                System.out.println(nombres.get(i));
                 nameRec.setText(nombres.get(i));
                 nameRec.setVisible(true);
                 nameRec.toFront();
                 
             }
-            else{
+            /*else{
                 nameRec.setVisible(false);
-            }
+              
+            }*/
             
         }
         
@@ -637,6 +639,7 @@ public class BackgroundController implements Initializable {
         savePane.toBack();
         savePane1.setVisible(false);
         savePane1.toBack();
+       
         
         
         gc = contenidoPDF.getGraphicsContext2D();
@@ -780,6 +783,9 @@ public class BackgroundController implements Initializable {
     private void extraerTextoButton(){
         panelTexto.setVisible(true);
         panelTexto.toFront();
+        string = new ToString(url);
+        OrdenCompra n = new OrdenCompra(string.Lectura());
+        n.escribir();
         extraerTexto.setText(string.Lectura());
         
     }
