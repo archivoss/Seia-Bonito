@@ -30,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import java.awt.Rectangle;
+import java.util.Vector;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
@@ -717,49 +718,47 @@ public class BackgroundController implements Initializable {
         disableButton.setPrefWidth(screenWidth);
         disableButton.setPrefHeight(screenHeight);
         jsonFile = new JsonRec();
-        
+        ArrayList<String> prueba = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            prueba.add("alskjals");
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interfaz().setVisible(true);
+                Interfaz nueva = new Interfaz();
+                nueva.nuevaColumna("PENE",prueba );
+                nueva.nuevaColumna("ssss", prueba);
+                
+                nueva.terminarTabla();
+                nueva.setVisible(true);
             }
         });
     }       
 }
 class Interfaz extends javax.swing.JFrame{
     private DefaultTableModel modeltabla;
-    private DefaultListModel modellista;
-    //private JList jList1;
     private JTable jTable1;
     public Interfaz(){
         initComponents();
-        this.modellista = new DefaultListModel();
         this.modeltabla = new DefaultTableModel();
     }
     public void nuevaColumna(String titulo, ArrayList n){
-        modeltabla.addColumn(titulo);
+        String col[]  = new String[n.size()];
         for (int i = 0; i < n.size(); i++) {
-            modellista.addElement(n.get(i));
-            modeltabla.addRow(new String[]{(String)n.get(i)});
+            col[i] = (String) n.get(i);
         }
-        
+        modeltabla.addColumn(titulo,col);
     }
     public void terminarTabla(){
-        //jList1.setModel(modellista);
         jTable1.setModel(modeltabla); 
+        
     }
         // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-
-        //JComboBox jComboBox1 = new javax.swing.JComboBox();
         JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        //jList1 = new javax.swing.JList();
         JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        //jScrollPane1.setViewportView(jList1);
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -768,7 +767,7 @@ class Interfaz extends javax.swing.JFrame{
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "", "", ""
             }
         ));
         jScrollPane2.setViewportView(jTable1);
@@ -780,9 +779,7 @@ class Interfaz extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    //.addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        //.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -792,10 +789,8 @@ class Interfaz extends javax.swing.JFrame{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                //.addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    //.addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
