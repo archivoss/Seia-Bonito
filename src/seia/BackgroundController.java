@@ -181,7 +181,7 @@ public class BackgroundController implements Initializable {
             for (int i = 0; i < listRec.size(); i++) {
                 capture = new Rectangle(listRec.get(i));
                 capture.x = (int) (capture.getX() + 240);
-                capture.y = (int) (capture.getY() + 40);
+                capture.y = (int) (capture.getY() + 75);
                 BufferedImage Image = r.createScreenCapture(capture); 
                 ImageIO.write(Image, "png", new File(path)); 
                 string = new ToString(path);
