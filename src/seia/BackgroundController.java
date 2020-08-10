@@ -519,7 +519,7 @@ public class BackgroundController implements Initializable {
         contenidoPDF.setWidth(screenWidth - 275);
         contenidoPDF.setHeight(screenHeight - 135);
         textPDF.setPrefSize(screenWidth - 250, screenHeight - 110);
-        System.out.println(stackU.isEmpty());
+        //System.out.println(stackU.isEmpty());
     }    
     
 }
