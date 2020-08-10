@@ -7,9 +7,6 @@ package seia;
 
 
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import java.awt.AWTException; 
 import java.awt.Rectangle; 
-import java.awt.Toolkit; 
 import java.awt.Robot; 
 import java.awt.image.BufferedImage; 
 import java.io.IOException; 
@@ -108,6 +104,9 @@ public class BackgroundController implements Initializable {
     private Button button;
     
     @FXML
+    private Button RecTextButton;
+    
+    @FXML
     private Button saveButton;
     
     @FXML
@@ -165,10 +164,32 @@ public class BackgroundController implements Initializable {
     private Button cancelButtonP;
     
     @FXML
+    private void RecTextButtonAction(ActionEvent event){
+        try { 
+            Robot r = new Robot(); 
+            String path = "ScreenShot\\text.png"; 
+            Rectangle capture;
+            for (int i = 0; i < listRec.size(); i++) {
+                capture = new Rectangle(listRec.get(i));
+                capture.x = (int) (capture.getX() + 240);
+                capture.y = (int) (capture.getY() + 40);
+                BufferedImage Image = r.createScreenCapture(capture); 
+                ImageIO.write(Image, "png", new File(path)); 
+                string = new ToString(path);
+                System.out.println(string.Lectura());
+            }          
+        } 
+        catch (AWTException | IOException ex) { 
+            System.out.println(ex); 
+        }
+    }
+    
+    @FXML
     private void deletePButtonAction(ActionEvent event){
         eliminarPane.toFront();
         eliminarPane.setVisible(true);
     }
+    
     @FXML
     private void acptButonnPlantilla(ActionEvent event){
         String ruta = jsonFile.getRuta();
@@ -197,20 +218,7 @@ public class BackgroundController implements Initializable {
     private void acceptNameButton(ActionEvent event) throws InterruptedException{
         disableButton.setVisible(false);
         savePane1.setVisible(false);
-        nombres.add(nombreRec.getText());
-        try { 
-            Robot r = new Robot(); 
-            String path = "ScreenShot\\" + nombreRec.getText() + ".jpg"; 
-            Rectangle capture = new Rectangle(listRec.get(listRec.size() - 1));
-            capture.x = (int) (capture.getX() + 240);
-            capture.y = (int) (capture.getY() + 40);
-            BufferedImage Image = r.createScreenCapture(capture); 
-            ImageIO.write(Image, "jpg", new File(path)); 
-            System.out.println("Screenshot saved"); 
-        } 
-        catch (AWTException | IOException ex) { 
-            System.out.println(ex); 
-        } 
+        nombres.add(nombreRec.getText());        
         nombreRec.clear();
     }
     
@@ -372,6 +380,7 @@ public class BackgroundController implements Initializable {
         cargaButton.setDisable(false);
         sobreEscritura.setDisable(false);
         borrarButton.setDisable(false);
+        RecTextButton.setDisable(false);
     }
     
     @FXML
@@ -778,6 +787,7 @@ public class BackgroundController implements Initializable {
         OrdenCompra n = new OrdenCompra(string.Lectura());
         n.escribir();
         extraerTexto.setText(string.Lectura());
+        System.out.println(string.Lectura());
     }
     @FXML
     private void salirButtonaction(){
