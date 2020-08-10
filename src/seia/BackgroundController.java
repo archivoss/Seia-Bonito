@@ -35,6 +35,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
@@ -803,7 +806,90 @@ public class BackgroundController implements Initializable {
         disableButton.setPrefHeight(screenHeight);
         jsonFile = new JsonRec();
         nombres = new ArrayList();
+        
+        ArrayList<String> prueba = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            prueba.add("alskjals");
+        }
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Interfaz nueva = new Interfaz();
+                nueva.nuevaColumna("PENE",prueba );
+                nueva.nuevaColumna("ssss", prueba);
+
+                nueva.terminarTabla();
+                nueva.setVisible(true);
+            }
+        });
     }       
 }
 
+
+class Interfaz extends javax.swing.JFrame{
+    private DefaultTableModel modeltabla;
+    private JTable jTable1;
+    public Interfaz(){
+        initComponents();
+        this.modeltabla = new DefaultTableModel();
+    }
+    public void nuevaColumna(String titulo, ArrayList n){
+        String col[]  = new String[n.size()];
+        for (int i = 0; i < n.size(); i++) {
+            col[i] = (String) n.get(i);
+        }
+        modeltabla.addColumn(titulo,col);
+    }
+    public void terminarTabla(){
+        jTable1.setModel(modeltabla); 
+        
+    }
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+        JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "", "", ""
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold> 
+}
 
