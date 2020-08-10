@@ -13,8 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-//import javafx.scene.shape.Rectangle;
 import java.awt.Rectangle;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;

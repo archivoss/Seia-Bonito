@@ -30,14 +30,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import java.awt.Rectangle;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Path;
 import javafx.stage.Screen;
 import javax.swing.JFileChooser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import java.awt.AWTException; 
+import java.awt.Rectangle; 
+import java.awt.Toolkit; 
+import java.awt.Robot; 
+import java.awt.image.BufferedImage; 
+import java.io.IOException; 
+import java.io.File; 
+import javax.imageio.ImageIO; 
 
 /**
  * FXML Controller class
@@ -188,12 +194,24 @@ public class BackgroundController implements Initializable {
     } 
     
     @FXML
-    private void acceptNameButton(ActionEvent event){
+    private void acceptNameButton(ActionEvent event) throws InterruptedException{
         disableButton.setVisible(false);
         savePane1.setVisible(false);
         nombres.add(nombreRec.getText());
+        try { 
+            Robot r = new Robot(); 
+            String path = "ScreenShot\\" + nombreRec.getText() + ".jpg"; 
+            Rectangle capture = new Rectangle(listRec.get(listRec.size() - 1));
+            capture.x = (int) (capture.getX() + 240);
+            capture.y = (int) (capture.getY() + 40);
+            BufferedImage Image = r.createScreenCapture(capture); 
+            ImageIO.write(Image, "jpg", new File(path)); 
+            System.out.println("Screenshot saved"); 
+        } 
+        catch (AWTException | IOException ex) { 
+            System.out.println(ex); 
+        } 
         nombreRec.clear();
-  
     }
     
     @FXML
@@ -337,10 +355,6 @@ public class BackgroundController implements Initializable {
                 pagina.add(bim);                            
             }           
         }
-        url = archivoSeleccionado.getPath();
-        string = new ToString(url);
-        OrdenCompra n = new OrdenCompra(string.Lectura());
-        n.escribir();
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
@@ -359,24 +373,6 @@ public class BackgroundController implements Initializable {
         sobreEscritura.setDisable(false);
         borrarButton.setDisable(false);
     }
-    /*@FXML
-    private void backPagebuttonAction(ActionEvent event){
-        if (num < pagina.size()) {
-            num = num + 1;
-            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
-            ImageView v = new ImageView(i);
-            panelPDF.getChildren().add(v);
-        }
-    }
-    @FXML
-    private void forwardPagebuttonAction(ActionEvent event){
-        if (num >= 0) {
-            num = num - 1;
-            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
-            ImageView v = new ImageView(i);
-            panelPDF.getChildren().add(v);
-        }
-    }*/
     
     @FXML
     private void deleteButtonAction(ActionEvent event){
@@ -777,8 +773,11 @@ public class BackgroundController implements Initializable {
     private void extraerTextoButton(){
         panelTexto.setVisible(true);
         panelTexto.toFront();
+        url = archivoSeleccionado.getPath();
+        string = new ToString(url);
+        OrdenCompra n = new OrdenCompra(string.Lectura());
+        n.escribir();
         extraerTexto.setText(string.Lectura());
-        
     }
     @FXML
     private void salirButtonaction(){
