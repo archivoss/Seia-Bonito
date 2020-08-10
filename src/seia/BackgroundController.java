@@ -168,6 +168,8 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void RecTextButtonAction(ActionEvent event){
+        ArrayList<String> contenido = new ArrayList();
+        ArrayList<String> nameRec = new ArrayList();   
         try { 
             Robot r = new Robot(); 
             String path = "ScreenShot\\text.png"; 
@@ -179,12 +181,23 @@ public class BackgroundController implements Initializable {
                 BufferedImage Image = r.createScreenCapture(capture); 
                 ImageIO.write(Image, "png", new File(path)); 
                 string = new ToString(path);
-                System.out.println(string.Lectura());
-            }          
+                contenido.add(string.Lectura());
+                nameRec.add(nombres.get(i));
+            }  
         } 
         catch (AWTException | IOException ex) { 
             System.out.println(ex); 
-        }
+        }      
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Interfaz nueva = new Interfaz();
+                nueva.nuevaColumna("Rectangulo", nameRec);
+                nueva.nuevaColumna("Contenido", contenido);
+
+                nueva.terminarTabla();
+                nueva.setVisible(true);
+            }
+        });
     }
     
     @FXML
@@ -809,23 +822,7 @@ public class BackgroundController implements Initializable {
         disableButton.setPrefWidth(screenWidth);
         disableButton.setPrefHeight(screenHeight);
         jsonFile = new JsonRec();
-        nombres = new ArrayList();
-        
-        ArrayList<String> prueba = new ArrayList();
-        for (int i = 0; i < 10; i++) {
-            prueba.add("alskjals");
-        }
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Interfaz nueva = new Interfaz();
-                nueva.nuevaColumna("PENE",prueba );
-                nueva.nuevaColumna("ssss", prueba);
-
-                nueva.terminarTabla();
-                nueva.setVisible(true);
-            }
-        });
+        nombres = new ArrayList();       
     }       
 }
 

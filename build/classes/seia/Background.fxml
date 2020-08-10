@@ -120,7 +120,7 @@
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
                <image>
-                  <Image url="@../Resources/RectangleText.png" />
+                  <Image url="@../Resources/RecText.png" />
                </image>
             </ImageView>
          </graphic>
