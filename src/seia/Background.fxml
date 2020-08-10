@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: #202225;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seia.BackgroundController">
    <children>
       <Button fx:id="addFileButton" layoutX="25.0" layoutY="115.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#addFileButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="ELEGIR ARCHIVO" textAlignment="RIGHT">
          <font>
@@ -34,7 +34,14 @@
       <Button fx:id="drawButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="166.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#drawButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
          <font>
             <Font name="System Bold" size="12.0" />
-         </font></Button>
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/pencilIcon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Button fx:id="deleteButton" disable="true" graphicTextGap="10.0" layoutX="137.0" layoutY="166.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deleteButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ccd0e6;">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -216,11 +223,6 @@
             <Button fx:id="cancelButton" layoutX="299.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelNameButton" prefHeight="48.0" prefWidth="130.0" text="Cancelar" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="30.0" fitWidth="50.0" layoutX="57.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/pencilIcon.png" />
-         </image>
-      </ImageView>
       <AnchorPane layoutX="25.0" layoutY="520.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #acb5bd;">
          <children>
             <Text fill="#202225" layoutX="10.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plantilla actual: " wrappingWidth="97.50000349804759">
