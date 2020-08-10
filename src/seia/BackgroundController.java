@@ -340,7 +340,7 @@ public class BackgroundController implements Initializable {
                 pagina.add(bim);                            
             }           
         }
-        url = archivoSeleccionado.getPath();
+        
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
@@ -777,6 +777,7 @@ public class BackgroundController implements Initializable {
     private void extraerTextoButton(){
         panelTexto.setVisible(true);
         panelTexto.toFront();
+        url = archivoSeleccionado.getPath();
         string = new ToString(url);
         OrdenCompra n = new OrdenCompra(string.Lectura());
         n.escribir();
