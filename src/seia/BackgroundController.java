@@ -40,6 +40,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException; 
 import java.io.File; 
 import javax.imageio.ImageIO; 
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 /**
  * FXML Controller class
@@ -165,7 +167,16 @@ public class BackgroundController implements Initializable {
     
     @FXML
     private void RecTextButtonAction(ActionEvent event){
-        try { 
+        
+        try {
+            PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+            stripper.setSortByPosition(true);
+            System.out.println(archivoSeleccionado.getPath());
+            PDDocument document = PDDocument.load(archivoSeleccionado);
+            stripper.addRegion("wea", listRec.get(0));
+            PDPage firstPage = document.getPage(0);
+            stripper.extractRegions(firstPage);
+            System.out.println(stripper.getTextForRegion("wea"));
             Robot r = new Robot(); 
             String path = "ScreenShot\\text.png"; 
             Rectangle capture;
