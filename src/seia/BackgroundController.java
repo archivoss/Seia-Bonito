@@ -6,7 +6,13 @@
 package seia;
 
 
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +37,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javax.swing.JFileChooser;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import java.awt.AWTException; 
-import java.awt.Rectangle; 
-import java.awt.Robot; 
-import java.awt.image.BufferedImage; 
-import java.io.IOException; 
-import java.io.File; 
-import javax.imageio.ImageIO; 
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 /**
  * FXML Controller class
@@ -168,29 +164,26 @@ public class BackgroundController implements Initializable {
     @FXML
     private void RecTextButtonAction(ActionEvent event){
         
-        try {
-            PDFTextStripperByArea stripper = new PDFTextStripperByArea();
-            stripper.setSortByPosition(true);
-            System.out.println(archivoSeleccionado.getPath());
-            PDDocument document = PDDocument.load(archivoSeleccionado);
-            stripper.addRegion("wea", listRec.get(0));
-            PDPage firstPage = document.getPage(0);
-            stripper.extractRegions(firstPage);
-            System.out.println(stripper.getTextForRegion("wea"));
-            Robot r = new Robot(); 
-            String path = "ScreenShot\\text.png"; 
-            Rectangle capture;
-            for (int i = 0; i < listRec.size(); i++) {
-                capture = new Rectangle(listRec.get(i));
-                capture.x = (int) (capture.getX() + 240);
-                capture.y = (int) (capture.getY() + 40);
-                BufferedImage Image = r.createScreenCapture(capture); 
-                ImageIO.write(Image, "png", new File(path)); 
-                string = new ToString(path);
-            }          
-        } 
-        catch (AWTException | IOException ex) { 
-            System.out.println(ex); 
+        try (PDDocument document = PDDocument.load(archivoSeleccionado)) {
+
+            if (!document.isEncrypted()) {
+
+                PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+                stripper.setSortByPosition(true);
+                Rectangle rect = new Rectangle(listRec.get(0));
+                rect.x = rect.x/2;
+                rect.y = rect.y/2;
+                rect.width = rect.width/2;
+                rect.height = rect.height/2;
+                stripper.addRegion("rec", rect);
+                PDPage firstPage = document.getPage(0);
+                stripper.extractRegions(firstPage);
+                System.out.println("-------------------------------------------");
+                System.out.println(stripper.getTextForRegion("rec"));
+                System.out.println("-------------------------------------------");
+            }
+        } catch (IOException e){
+            System.err.println("Exception while trying to read pdf document - " + e);
         }
     }
     
@@ -369,7 +362,7 @@ public class BackgroundController implements Initializable {
                 bim = pdfRenderer.renderImage(page, 2);
                 pagina.add(bim);                            
             }           
-        }
+        }         
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
@@ -666,7 +659,7 @@ public class BackgroundController implements Initializable {
     }
     
     @FXML
-    private void drawDragged(MouseEvent event) {  
+    private void drawDragged(MouseEvent event) {
         gc = drawPane.getGraphicsContext2D();
         // Abajo derecha
         if (event.getX() > x && event.getY() > y) {
