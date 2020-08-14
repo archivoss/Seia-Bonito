@@ -468,11 +468,7 @@ public class BackgroundController implements Initializable {
                     modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());
                     gc.strokeRect(modificarRec.get(j).getX(), modificarRec.get(j).getY(),
                     modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());        
-                }
-                
-                System.out.println(i);
-                System.out.println(nombres.toString());
-                System.out.println(nombres.get(i));
+                }              
                 nameRec.setText(nombres.get(i));
                 nameRec.setVisible(true);
                 nameRec.toFront();
