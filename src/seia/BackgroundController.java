@@ -44,6 +44,8 @@ import java.io.IOException;
 import java.io.File; 
 import javafx.scene.control.TabPane;
 import javax.imageio.ImageIO; 
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 /**
  * FXML Controller class
@@ -173,25 +175,27 @@ public class BackgroundController implements Initializable {
     @FXML
     private void RecTextButtonAction(ActionEvent event){
         ArrayList<String> contenido = new ArrayList();
-        ArrayList<String> nameRec = new ArrayList();   
-        try { 
-            Robot r = new Robot(); 
-            String path = "ScreenShot\\text.png"; 
-            Rectangle capture;
+        ArrayList<String> nameRec = new ArrayList();     
+        try (PDDocument document = PDDocument.load(archivoSeleccionado)) {
+            PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+            stripper.setSortByPosition(true);
+            Rectangle rect;
+            PDPage firstPage = document.getPage(0);
             for (int i = 0; i < listRec.size(); i++) {
-                capture = new Rectangle(listRec.get(i));
-                capture.x = (int) (capture.getX() + 240);
-                capture.y = (int) (capture.getY() + 60);
-                BufferedImage Image = r.createScreenCapture(capture); 
-                ImageIO.write(Image, "png", new File(path)); 
-                string = new ToString(path);
-                contenido.add(string.Lectura());
+                rect = new Rectangle(listRec.get(i));
+                rect.x = rect.x/2;
+                rect.y = rect.y/2;
+                rect.width = rect.width/2;
+                rect.height = rect.height/2;
+                stripper.addRegion("rec", rect);             
+                stripper.extractRegions(firstPage);
+                contenido.add(stripper.getTextForRegion("rec"));
                 nameRec.add(nombres.get(i));
             }  
         } 
-        catch (AWTException | IOException ex) { 
-            System.out.println(ex); 
-        }      
+        catch (IOException e){
+            System.err.println("Exception while trying to read pdf document - " + e);
+        }   
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Interfaz nueva = new Interfaz();
