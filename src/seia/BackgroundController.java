@@ -201,7 +201,6 @@ public class BackgroundController implements Initializable {
                 Interfaz nueva = new Interfaz();
                 nueva.nuevaColumna("Rectangulo", nameRec);
                 nueva.nuevaColumna("Contenido", contenido);
-
                 nueva.terminarTabla();
                 nueva.setVisible(true);
             }
@@ -384,15 +383,13 @@ public class BackgroundController implements Initializable {
                 pagina.add(bim);                            
             }           
         }
-        tamañoPDF.setPrefWidth(bim.getWidth()-60);
-        drawPane.setWidth(bim.getWidth()-60);
+        tamañoPDF.setPrefWidth(bim.getWidth());
+        drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
-        contenidoPDF.setWidth(bim.getWidth()-60);
-        contenidoPDF.setHeight(bim.getHeight());
-        
+        contenidoPDF.setWidth(bim.getWidth());
+        contenidoPDF.setHeight(bim.getHeight());       
         tabPane.setPrefHeight(bim.getHeight());
-        tabPane.setPrefWidth(bim.getWidth()-60);
-        
+        tabPane.setPrefWidth(bim.getWidth());
         Image i = SwingFXUtils.toFXImage(bim, null);
         ImageView v = new ImageView(i);
         panelPDF.getChildren().add(v);
@@ -856,7 +853,6 @@ class Interfaz extends javax.swing.JFrame{
         JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -870,7 +866,6 @@ class Interfaz extends javax.swing.JFrame{
             }
         ));
         jScrollPane2.setViewportView(jTable1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -895,7 +890,6 @@ class Interfaz extends javax.swing.JFrame{
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-
         pack();
     }// </editor-fold> 
 }
