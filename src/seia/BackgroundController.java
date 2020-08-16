@@ -41,10 +41,24 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import java.awt.AWTException; 
 import java.awt.Rectangle; 
 import java.awt.Robot; 
+import javafx.scene.control.ScrollPane;
 import java.awt.image.BufferedImage; 
 import java.io.IOException; 
 import java.io.File; 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import static javafx.scene.paint.Color.WHITE;
+import javafx.util.Callback;
 import javax.imageio.ImageIO; 
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
@@ -79,7 +93,10 @@ public class BackgroundController implements Initializable {
     Stack stackredo = new Stack<>();
     ToString string;
     JsonRec jsonFile;
-
+    TableView<info> tabla;
+    TableColumn<info,String> columnaNombre;
+    TableColumn<info, String> columnaContenido;
+    ObservableList<info> rectangulos;
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
     
@@ -175,6 +192,12 @@ public class BackgroundController implements Initializable {
     private TabPane tabPane;
     
     @FXML
+    private AnchorPane camposPane;
+    
+    @FXML
+    private ScrollPane scrollCampos;
+    
+    @FXML
     private void RecTextButtonAction(ActionEvent event){
         ArrayList<String> contenido = new ArrayList();
         ArrayList<String> nameRec = new ArrayList();     
@@ -197,20 +220,92 @@ public class BackgroundController implements Initializable {
                 }
                 contenido.add(stripper.getTextForRegion("rec"));
                 nameRec.add(nombres.get(i));
-            }  
+            }
+            for (int i = 0; i < nameRec.size(); i++) {
+                System.out.println(nameRec.get(i));
+            }
+            rectangulos = FXCollections.observableArrayList();
+            info nueva;
+            for (int i = 0; i < nameRec.size(); i++) {
+                nueva = new info(contenido.get(i),nameRec.get(i));
+                rectangulos.add(nueva);
+            }
+            tabla = new TableView<>(rectangulos);
+            tabla.setPrefSize(650, 400);
+            tabla.setLayoutY(45);
+            columnaNombre = new TableColumn("NOMBRE RECTANGULO");
+            columnaNombre.setPrefWidth(tabla.getPrefWidth()*0.25);
+            columnaNombre.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<info, String>, ObservableValue<String>>(){
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<info, String> param) {
+                return param.getValue().getNombreRecProperty();
+            }
+        });
+            
+            columnaContenido = new TableColumn("CONTENIDO");
+            columnaContenido.setPrefWidth(tabla.getPrefWidth()*0.75);
+            columnaContenido.setCellValueFactory(new PropertyValueFactory<>("contenido"));
+            columnaContenido.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<info, String>, ObservableValue<String>>(){
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<info, String> param) {
+                return param.getValue().getContenidoProperty();
+            }
+        });
+            tabla.getColumns().addAll(columnaNombre,columnaContenido);
+            
+            //tabla.setPrefSize(camposPane.getWidth(), camposPane.getHeight());
+            TextField name = new TextField();
+
+            TextArea contenidoa = new TextArea();
+            contenidoa.setPrefSize(200, 100);
+            contenidoa.setWrapText(true);
+
+
+        Button commit = new Button("Editar Item");
+        commit.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                info p = tabla.getSelectionModel().getSelectedItem();
+                
+                p.setNameRec(name.getText());
+                p.setContenido(contenidoa.getText().trim());
+            }
+
+        });
+
+        // listen for changes in the selection to update the data in the textfields
+        tabla.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<info>() {
+
+            @Override
+            public void changed(ObservableValue<? extends info> observable, info oldValue, info newValue) {
+                commit.setDisable(newValue == null);
+                if (newValue != null) {
+                    contenidoa.setText(newValue.getContenido());
+                    
+                    name.setText(newValue.getNombreRec());
+                    
+                }
+            }
+
+        });
+        Label nuevo1 = new Label("Nombre:");
+        Label nuevo2 = new Label("Contenido: ");
+        nuevo1.setTextFill(WHITE);
+        nuevo2.setTextFill(WHITE);
+        
+        HBox editors = new HBox(5, nuevo1, name, nuevo2, contenidoa, commit);
+            editors.setLayoutX(5);
+            editors.setLayoutY(465);
+            camposPane.getChildren().addAll(tabla,editors);
+            
         } 
         catch (IOException e){
             System.err.println("Exception while trying to read pdf document - " + e);
         }   
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Interfaz nueva = new Interfaz();
-                nueva.nuevaColumna("Rectangulo", nameRec);
-                nueva.nuevaColumna("Contenido", contenido);
-                nueva.terminarTabla();
-                nueva.setVisible(true);
-            }
-        });
+        
     }
     
     @FXML
@@ -832,108 +927,40 @@ public class BackgroundController implements Initializable {
         disableButton.setPrefWidth(screenWidth);
         disableButton.setPrefHeight(screenHeight);
         jsonFile = new JsonRec();
-        nombres = new ArrayList();       
+        nombres = new ArrayList();
+        tabla = new TableView<>();
+        
     }       
 }
-class Interfaz extends javax.swing.JFrame{
-    private DefaultTableModel modeltabla;
-    private JTable jTable1;
-    public Interfaz(){
-        initComponents();
-        this.modeltabla = new DefaultTableModel();
+class info{
+    private final SimpleStringProperty contenido;
+    private final SimpleStringProperty nombreRec;
+    
+    
+    public info(String contenido, String nombreRec){
+        this.contenido = new SimpleStringProperty(this,"contenido",contenido);
+        this.nombreRec = new SimpleStringProperty(this,"nombreRec",nombreRec);   
     }
-    public void nuevaColumna(String titulo, ArrayList n){
-        String col[]  = new String[n.size()];
-        for (int i = 0; i < n.size(); i++) {
-            col[i] = (String) n.get(i);
-        }
-        modeltabla.addColumn(titulo,col);
-    }
-    public void terminarTabla(){
-        jTable1.setModel(modeltabla); 
-        
-    }
-        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
-        JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "", "", "", ""
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+    public StringProperty getContenidoProperty() {
+        return this.contenido;
+    }
+    public final String getContenido() {
+        return this.contenido.get();
+    }
 
-class Interfaz extends javax.swing.JFrame{
-    private DefaultTableModel modeltabla;
-    private JTable jTable1;
-    public Interfaz(){
-        initComponents();
-        this.modeltabla = new DefaultTableModel();
+    public final void setContenido(String value) {
+        this.contenido.set(value);
     }
-    public void nuevaColumna(String titulo, ArrayList n){
-        String col[]  = new String[n.size()];
-        for (int i = 0; i < n.size(); i++) {
-            col[i] = (String) n.get(i);
-        }
-        modeltabla.addColumn(titulo,col);
+    public StringProperty getNombreRecProperty() {
+        return nombreRec;
     }
-    public void terminarTabla(){
-        jTable1.setModel(modeltabla); 
-        
+    public final String getNombreRec() {
+        return this.nombreRec.get();
     }
-        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
-        JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-        JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "", "", "", ""
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, (int) Screen.getPrimary().getBounds().getWidth(), javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, (int) Screen.getPrimary().getBounds().getHeight(), javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        pack();
-    }// </editor-fold> 
+
+    public final void setNameRec(String value) {
+        this.nombreRec.set(value);
+    }
+    
 }
-

@@ -1,44 +1,43 @@
-[ ““‘* Orden de Compra
-gﬁwgm  
-IANSA GRO S.A.
-RUT:96. 772.810- 1 Fecha 14.07.2016
-Rosario Norte 615 Pisa 23 Las Condes, Santiago. N°Proveedor 4023421
-Giro .' Fébrica de azdcar y edulcorantes RUT 96670840-9
-Fono 223855000
-*recwndeligmveedm Moneda CLP
-DIMERC S.A. Cond.Pago a 60 dies de Ia fecha de recep
-ALBERTO PEPPER 1784 ‘ Comprador PLANT AZUC LINARES
-V Santiago-SANTIAGO ‘ Fecha entrega 12.07.2016 ‘
-: FAX:
-|
-. ., . ENVIAR FACTURA A ROSARIO NORTE 615, Pisa 23,
-_D'recc'°“ “naﬁes LAS 00111053, SANTIA GO, INDICANDO NUMERO DE
-de entrega: Clamlno a'Yerbas Buenas s/n ORDEN DE COMPRA
-I Llnares, Lmares _
-, 0010 102490030002 , 600,00 CU 1.386 415.800
-JABON DE TOCADOR ' per [2
-Requisition #: 10210894
-_ U80 .- PERSONAL PERMANENTE Y TEMPORADA
-Cotizacién N°6083690 ‘
-Z472768 JABON TOCADOR LE SANCY 1506/? X2 §
-, Valor $ 1.386.- pack de dos
-Despachar : A la brevedad.
-Cotizado por: Bernardiz‘a Ouiroz.
-' bquimz©dimerc. cl ’
-Conrado: Oscar Cea. ~
-Valor neto total sin IVA enCLP 415.800,00
-I ntes e acturar Heera Ingresar a porta e proveeores ‘ ‘ ‘ en ttps: porta.1ansa.c 1r] porta y generar a
-,. proforma que 1e daré un‘JnL’Jmero de atencién, solicitar clave de acceso a consultaproveedores©iansa.cl - - Si
-l genera factura manual incluir el nL’Jmero de orden de compra IANSA y nL’Jmero de atencién portal en el cuerpo del
-I documento - - En 91 0330 de emitir facturacién electrénica, e1. XML en los campos de referencia debe contener en
-' el 801 (NL’Imero de Orden de Compra IANSA) y 802 (Namero de Atencién obtenido al generar Ia proforma en el
-portal), de no contar con estos datos el XML seré rechazado de manera- automética — — ayuda informativa en
-http://www.iansa.cl/portaE-proveedores/.- ‘
-Toda entrega de material en bodegas y oficinas se deberé realizar con guia de (jgspa/cﬁb (no con factura).
-Plazo para reclamar Ias facturas que se emitan en: base a esta orden de comma”, serﬁ-—"de 30 dl'as corridos, segL’Jn
-el n°2 del artl’culo 3 de la Ley N°19.983. ,x/
-El cumplimiento de la presente orden de compra, impiica Ia aoeptacién/d/e todas‘ﬁas condicio’nes establecidas en la
-misma. " / 2K::_:‘/gf/Ff__.. {/1 _ \9-7 cg_2.
-W
+Des . acho via lm . resora
+Universidad Nacional Andrés Bello Orden de Compra Fecha P g
+Repﬂblica Na 252 CHLOl—OOOOll4186 30/05/2016 1
+Santiago Condic Pago Cond Flete Mét Env
+R.U.T.: 71.540.100-2 Net 30 Orien COMUN
+Comprador Teléfono: Moneda
+Balbontin Simonetti,Bere CLP
+Entregar bienes en: 0508
+Proveedor: 96670840-9 Quillota 910
+DIMERC S.A Viﬁa del Mar 05
+Direccién: ALBERTO PEPPER 1784 CHILE
+SANTIAGO STGO
+CHILE Entregar factura en: Barcelona 2077 Piso 5 Providencia
+E-Mail: cbriones@dimerc.cl Santiago STGO
+Teléfono: (02) 23858010 CHILE
+Contact: CINDY BRIONES
+Lin-Env ArtlDescri ocién Id Fabricante Cantidad Precio U. Neto Total Neto
+enviar a calle quillota 980 torre C piso 6, escuela de Derecho, Srta Susana Morales
+1 - 1 H310120 1.00 5,033.00 5,033.00
+H310120 PAPEL OPALINA LISA 25OHJ CARTA BLANCO 14OGR DIAZOL
+2 - 1 H401391 20.00 1,922.00 38,440.00
+H401391 PAPEL FOTOCOPIA CARTA 500HJ DIMERC
+3 - 1 H401393 10.00 2,265.00 22,650.00
+H401393 PAPEL FOTOCOPIA OFICIO 500HJ DIMERC
+4 - 1 L300412 3.00 441.00 1,323.00
+L300412 DESTACADOR ESCRITORIO AMARILLO BOSS 70 STABILO
+5 - 1 R107114 5.00 1,355.00 6,775.00
+R107114 VISORES PORTALEYENDA 50UN/CJA. RHEIN
+6 - 1 R385911 2.00 3,700.00 7,400.00
+R385911 FUNDA POLIPROPILENO OF AZUL DIMERC (100)
+7 - 1 R509226 6.00 373.00 2,238.00
+R509226 CORCHETE ESTANDAR 26/06 5000UN TORRE
+Monto Neto 83,859.00
+IVA
+Monto Total 99,792.00
+Estimado Proveedor, favor cumplir con Ias siguientes exigencies:
+1. La mercaderl’a debe ser despachada a nombre y direccién del campo “Entregar bienes en:"
+2. Las facturas deberén ser entregadas en la direccién del campo “Entregar Facturas en:"
+3. La factura debe tener adjunta la Orden de Compra o hacer mencién de ella, para agilizar el pago, de lo contrario no se procesara el page.
+4. El detalle de la Orden de Compra esté expresada en valores Netos. Y es va’lida por un méximo de 90 dias calendario a partir de la fecha de emisién
+5. Consultas de Pago de Facturas, contactar a mesadeservicosaro@serviciosandinos.net 0 al fono 56—28191600
 
 
