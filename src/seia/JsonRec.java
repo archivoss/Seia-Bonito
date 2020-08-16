@@ -13,8 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-//import javafx.scene.shape.Rectangle;
 import java.awt.Rectangle;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
@@ -89,6 +87,7 @@ public class JsonRec {
         }
         
     }
+    
     public void sobreEscritura(ArrayList<Rectangle> n){
         File archivo1 = new File(this.ruta);
         archivo1.delete();
@@ -109,6 +108,7 @@ public class JsonRec {
             System.out.println("Error al escribir");
         }
     }
+    
     public ArrayList<Rectangle> lectura(String nombre){
         String fichero = "";
         try (BufferedReader br = new BufferedReader(new FileReader(nombre))) {

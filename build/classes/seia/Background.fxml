@@ -80,7 +80,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="sobreEscritura" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="430.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#sobreEscritura" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="GUARDAR">
+      <Button fx:id="sobreEscritura" disable="true" graphicTextGap="15.0" layoutX="25.0" layoutY="378.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#sobreEscritura" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="GUARDAR">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -92,7 +92,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="borrarButton" disable="true" graphicTextGap="30.0" layoutX="24.0" layoutY="481.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deletePButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="BORRAR PLANTILLA">
+      <Button fx:id="borrarButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="426.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#deletePButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="BORRAR PLANTILLA">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
@@ -100,6 +100,18 @@
             <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
                <image>
                   <Image url="@../Resources/pencilIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="RecTextButton" disable="true" graphicTextGap="30.0" layoutX="25.0" layoutY="474.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#RecTextButtonAction" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="TEXTO RECTANGULOS">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="10.0">
+               <image>
+                  <Image url="@../Resources/RecText.png" />
                </image>
             </ImageView>
          </graphic>
@@ -142,6 +154,64 @@
             <Image url="@../Resources/ICONO%20FLECHAA.jpg" />
          </image>
       </ImageView>
+      <TabPane fx:id="tabPane" layoutX="240.0" layoutY="5.0" prefHeight="750.0" prefWidth="1030.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="EDITOR">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane fx:id="scrollPDF" style="-fx-background-color: #202225;">
+                          <content>
+                            <AnchorPane fx:id="tamañoPDF" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #202225;">
+                                 <children>
+                                    <StackPane fx:id="panelPDF" />
+                                    <Canvas fx:id="contenidoPDF" height="750.0" onMouseClicked="#selectRectangle" onMouseDragged="#modifyDragged" onMousePressed="#modifyPressed" width="1030.0" />
+                                    <Canvas fx:id="drawPane" disable="true" height="750.0" onMouseDragged="#drawDragged" onMousePressed="#drawPressed" onMouseReleased="#drawReleased" width="1030.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="TEXTO">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="panelTexto" prefHeight="721.0" prefWidth="511.0" style="-fx-background-color: #202225;">
+                           <children>
+                              <Text fill="WHITE" layoutX="170.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXTO EXTRAIDO">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="salirButton" layoutX="436.0" layoutY="14.0" mnemonicParsing="false" onAction="#salirButtonaction" prefHeight="6.0" prefWidth="61.0" text="Salir" visible="false" />
+                              <TextArea fx:id="extraerTexto" layoutX="5.0" layoutY="49.0" prefHeight="576.0" prefWidth="502.0" wrapText="true">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </TextArea>
+                              <Button fx:id="extraer" disable="true" graphicTextGap="15.0" layoutX="156.0" layoutY="652.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#extraerTextoButton" onMouseEntered="#enter" onMouseExited="#exit" onMousePressed="#press" onMouseReleased="#release" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ccd0e6;" text="EXTRAER TEXTO">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Resources/lupaa.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
       <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="160.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/ICONO%20FLECHA.jpg" />
@@ -192,7 +262,7 @@
             <Button fx:id="cancelButton" layoutX="299.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelNameButton" prefHeight="48.0" prefWidth="130.0" text="Cancelar" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="25.0" layoutY="520.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #acb5bd;">
+      <AnchorPane layoutX="25.0" layoutY="522.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #acb5bd;">
          <children>
             <Text fill="#202225" layoutX="10.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plantilla actual: " wrappingWidth="97.50000349804759">
                <font>

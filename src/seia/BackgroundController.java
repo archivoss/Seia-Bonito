@@ -7,9 +7,6 @@ package seia;
 
 
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,20 +27,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import java.awt.Rectangle;
-import java.util.Vector;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import java.awt.AWTException; 
+import java.awt.Rectangle; 
+import java.awt.Robot; 
+import java.awt.image.BufferedImage; 
+import java.io.IOException; 
+import java.io.File; 
+import javafx.scene.control.TabPane;
+import javax.imageio.ImageIO; 
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 /**
  * FXML Controller class
@@ -108,6 +112,9 @@ public class BackgroundController implements Initializable {
     private Button button;
     
     @FXML
+    private Button RecTextButton;
+    
+    @FXML
     private Button saveButton;
     
     @FXML
@@ -165,10 +172,53 @@ public class BackgroundController implements Initializable {
     private Button cancelButtonP;
     
     @FXML
+    private TabPane tabPane;
+    
+    @FXML
+    private void RecTextButtonAction(ActionEvent event){
+        ArrayList<String> contenido = new ArrayList();
+        ArrayList<String> nameRec = new ArrayList();     
+        try (PDDocument document = PDDocument.load(archivoSeleccionado)) {
+            PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+            stripper.setSortByPosition(true);
+            Rectangle rect;
+            PDPage firstPage = document.getPage(0);
+            for (int i = 0; i < listRec.size(); i++) {
+                rect = new Rectangle(listRec.get(i));
+                rect.x = rect.x/2;
+                rect.y = rect.y/2;
+                rect.width = rect.width/2;
+                rect.height = rect.height/2;
+                stripper.addRegion("rec", rect);             
+                stripper.extractRegions(firstPage);
+                char[] caracteres = stripper.getTextForRegion("rec").toCharArray();
+                for (int j = 0; j < caracteres.length; j++) {
+                    System.out.print(caracteres[j]);
+                }
+                contenido.add(stripper.getTextForRegion("rec"));
+                nameRec.add(nombres.get(i));
+            }  
+        } 
+        catch (IOException e){
+            System.err.println("Exception while trying to read pdf document - " + e);
+        }   
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Interfaz nueva = new Interfaz();
+                nueva.nuevaColumna("Rectangulo", nameRec);
+                nueva.nuevaColumna("Contenido", contenido);
+                nueva.terminarTabla();
+                nueva.setVisible(true);
+            }
+        });
+    }
+    
+    @FXML
     private void deletePButtonAction(ActionEvent event){
         eliminarPane.toFront();
         eliminarPane.setVisible(true);
     }
+    
     @FXML
     private void acptButonnPlantilla(ActionEvent event){
         String ruta = jsonFile.getRuta();
@@ -194,12 +244,11 @@ public class BackgroundController implements Initializable {
     } 
     
     @FXML
-    private void acceptNameButton(ActionEvent event){
+    private void acceptNameButton(ActionEvent event) throws InterruptedException{
         disableButton.setVisible(false);
         savePane1.setVisible(false);
-        nombres.add(nombreRec.getText());
+        nombres.add(nombreRec.getText());        
         nombreRec.clear();
-  
     }
     
     @FXML
@@ -325,6 +374,7 @@ public class BackgroundController implements Initializable {
             }
         }
     }
+    
     @FXML
     private void addFileButtonAction(ActionEvent event) throws IOException{
         pagina = new ArrayList<>();
@@ -340,12 +390,13 @@ public class BackgroundController implements Initializable {
                 pagina.add(bim);                            
             }           
         }
-        
         tamañoPDF.setPrefWidth(bim.getWidth());
         drawPane.setWidth(bim.getWidth());
         drawPane.setHeight(bim.getHeight());
         contenidoPDF.setWidth(bim.getWidth());
-        contenidoPDF.setHeight(bim.getHeight());
+        contenidoPDF.setHeight(bim.getHeight());       
+        tabPane.setPrefHeight(bim.getHeight());
+        tabPane.setPrefWidth(bim.getWidth());
         Image i = SwingFXUtils.toFXImage(bim, null);
         ImageView v = new ImageView(i);
         panelPDF.getChildren().add(v);
@@ -358,25 +409,8 @@ public class BackgroundController implements Initializable {
         cargaButton.setDisable(false);
         sobreEscritura.setDisable(false);
         borrarButton.setDisable(false);
+        RecTextButton.setDisable(false);
     }
-    /*@FXML
-    private void backPagebuttonAction(ActionEvent event){
-        if (num < pagina.size()) {
-            num = num + 1;
-            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
-            ImageView v = new ImageView(i);
-            panelPDF.getChildren().add(v);
-        }
-    }
-    @FXML
-    private void forwardPagebuttonAction(ActionEvent event){
-        if (num >= 0) {
-            num = num - 1;
-            Image i = SwingFXUtils.toFXImage(pagina.get(num), null);
-            ImageView v = new ImageView(i);
-            panelPDF.getChildren().add(v);
-        }
-    }*/
     
     @FXML
     private void deleteButtonAction(ActionEvent event){
@@ -438,16 +472,16 @@ public class BackgroundController implements Initializable {
                     modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());
                     gc.strokeRect(modificarRec.get(j).getX(), modificarRec.get(j).getY(),
                     modificarRec.get(j).getWidth(), modificarRec.get(j).getHeight());        
-                }
-                
+                }              
                 nameRec.setText(nombres.get(i));
                 nameRec.setVisible(true);
                 nameRec.toFront();
                 
             }
-            else{
+            /*else{
                 nameRec.setVisible(false);
-            }
+              
+            }*/
             
         }
         
@@ -490,8 +524,7 @@ public class BackgroundController implements Initializable {
                 gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {   
-                    rec.setRect(auxX + auxW, event.getY(), event.getX() - (auxX + auxW),(auxY + auxH) - event.getY() );
-                     
+                    rec.setRect(auxX + auxW, event.getY(), event.getX() - (auxX + auxW),(auxY + auxH) - event.getY() );                    
                     if (rec.getWidth() < 0) {
                         rec.setRect(event.getX(), auxY + auxH, (auxX + auxW) - event.getX(), event.getY() - (auxY + auxH));
                     }
@@ -500,21 +533,19 @@ public class BackgroundController implements Initializable {
                     }
                     gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
-                }
-               
-                
+                }                            
                 break;
             case 2:
                 rec.setRect(auxX, event.getY(), event.getX() - auxX, (auxY + auxH) - event.getY());            
                 gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                 gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());                
                 if (rec.getWidth() < 0 || rec.getHeight() < 0) {
-                    rec.setRect(event.getX(),event.getY(),auxX - event.getX(),(auxH + auxY) - event.getY()); 
+                    rec.setRect(event.getX(),event.getY(), auxX - event.getX(),(auxH + auxY) - event.getY()); 
                     if (rec.getWidth() < 0) {
-                        rec.setRect(auxX,auxY + auxH,event.getX() - auxX,event.getY() - (auxY + auxH));
+                        rec.setRect(auxX, auxY + auxH, event.getX() - auxX, event.getY() - (auxY + auxH));
                     }
                     else if (rec.getHeight() < 0) {
-                        rec.setRect(x, auxH + auxY, event.getX() - auxX, event.getY() - (auxY + auxH));
+                        rec.setRect(event.getX(), auxH + auxY, auxX - event.getX(), event.getY() - (auxY + auxH));
                     }
                     gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
@@ -552,33 +583,37 @@ public class BackgroundController implements Initializable {
                     gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());
                 }
                 break;
+                
             case 5:
-                for (int i = 0; i < listRec.size(); i++) {
-                    if (auxY < y && auxX < x && auxY + auxH > y && auxX + auxW > x) {
-                        //arriba izquierda
-                        if (event.getX() <= x && event.getY() <= y) {
-                            rec.setRect(auxX - (x - event.getX()),auxY - (y - event.getY()),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-                        }
-                        
-                        //arriba derecha
-                        if (event.getX() >= x && event.getY() <= y) {
-                            rec.setRect(auxX + (event.getX() - x),auxY - (y - event.getY()),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-                        }
-                        
-                        //abajo izquierda
-                        if (event.getX() <= x && event.getY() >= y) {
-                            rec.setRect(auxX - (x - event.getX()),auxY + (event.getY() - y),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-
-                        }
-                                                                      
-                        //abajo derecha
-                        if (event.getX() >= x && event.getY() >= y) {
-                            rec.setRect(auxX + (event.getX() - x),auxY + (event.getY() - y),(auxX + auxW) - event.getX(), (auxY + auxH) - event.getY());
-                        }
+                for (int i = 0; i < listRec.size(); i++) { 
+                    if (auxY < y && auxX < x && auxY + auxH > y && auxX + auxW > x) { 
+                        //arriba izquierda 
+                        if (event.getX() <= x && event.getY() <= y) { 
+                            rec.x = (int) (auxX - (x - event.getX())); 
+                            rec.y = (int) (auxY - (y - event.getY())); 
+                        } 
+                         
+                        //arriba derecha 
+                        if (event.getX() >= x && event.getY() <= y) { 
+                            rec.x = (int) (auxX + (event.getX() - x)); 
+                            rec.y = (int) (auxY - (y - event.getY())); 
+                        } 
+                         
+                        //abajo izquierda 
+                        if (event.getX() <= x && event.getY() >= y) { 
+                            rec.x = (int) (auxX - (x - event.getX())); 
+                            rec.y = (int) (auxY + (event.getY() - y)); 
+                        } 
+                                                                       
+                        //abajo derecha 
+                        if (event.getX() >= x && event.getY() >= y) { 
+                            rec.x = (int) (auxX + (event.getX() - x)); 
+                            rec.y = (int) (auxY + (event.getY() - y)); 
+                        } 
                         gc.clearRect(0, 0, bim.getWidth(), bim.getHeight());
-                        gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());           
-                    }
-                }
+                        gc.strokeRect(rec.getX(), rec.getY(), rec.getWidth(), rec.getHeight());            
+                    } 
+                } 
             default:
                 break;
         }
@@ -634,6 +669,7 @@ public class BackgroundController implements Initializable {
         savePane.toBack();
         savePane1.setVisible(false);
         savePane1.toBack();
+       
         
         
         gc = contenidoPDF.getGraphicsContext2D();
@@ -775,14 +811,13 @@ public class BackgroundController implements Initializable {
     }
     @FXML
     private void extraerTextoButton(){
+        url = archivoSeleccionado.getPath();
         panelTexto.setVisible(true);
         panelTexto.toFront();
-        url = archivoSeleccionado.getPath();
         string = new ToString(url);
         OrdenCompra n = new OrdenCompra(string.Lectura());
         n.escribir();
         extraerTexto.setText(string.Lectura());
-        
     }
     @FXML
     private void salirButtonaction(){
@@ -797,20 +832,7 @@ public class BackgroundController implements Initializable {
         disableButton.setPrefWidth(screenWidth);
         disableButton.setPrefHeight(screenHeight);
         jsonFile = new JsonRec();
-        ArrayList<String> prueba = new ArrayList();
-        for (int i = 0; i < 10; i++) {
-            prueba.add("alskjals");
-        }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Interfaz nueva = new Interfaz();
-                nueva.nuevaColumna("PENE",prueba );
-                nueva.nuevaColumna("ssss", prueba);
-                
-                nueva.terminarTabla();
-                nueva.setVisible(true);
-            }
-        });
+        nombres = new ArrayList();       
     }       
 }
 class Interfaz extends javax.swing.JFrame{
@@ -851,6 +873,42 @@ class Interfaz extends javax.swing.JFrame{
         ));
         jScrollPane2.setViewportView(jTable1);
 
+class Interfaz extends javax.swing.JFrame{
+    private DefaultTableModel modeltabla;
+    private JTable jTable1;
+    public Interfaz(){
+        initComponents();
+        this.modeltabla = new DefaultTableModel();
+    }
+    public void nuevaColumna(String titulo, ArrayList n){
+        String col[]  = new String[n.size()];
+        for (int i = 0; i < n.size(); i++) {
+            col[i] = (String) n.get(i);
+        }
+        modeltabla.addColumn(titulo,col);
+    }
+    public void terminarTabla(){
+        jTable1.setModel(modeltabla); 
+        
+    }
+        // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+        JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+        JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "", "", ""
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -860,7 +918,7 @@ class Interfaz extends javax.swing.JFrame{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, (int) Screen.getPrimary().getBounds().getWidth(), javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -871,13 +929,11 @@ class Interfaz extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, (int) Screen.getPrimary().getBounds().getHeight(), javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-
         pack();
     }// </editor-fold> 
 }
-
 
