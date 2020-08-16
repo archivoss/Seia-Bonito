@@ -189,6 +189,10 @@ public class BackgroundController implements Initializable {
                 rect.height = rect.height/2;
                 stripper.addRegion("rec", rect);             
                 stripper.extractRegions(firstPage);
+                char[] caracteres = stripper.getTextForRegion("rec").toCharArray();
+                for (int j = 0; j < caracteres.length; j++) {
+                    System.out.print(caracteres[j]);
+                }
                 contenido.add(stripper.getTextForRegion("rec"));
                 nameRec.add(nombres.get(i));
             }  
