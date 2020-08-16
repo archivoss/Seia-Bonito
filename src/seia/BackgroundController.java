@@ -904,6 +904,7 @@ public class BackgroundController implements Initializable {
             button.setStyle("-fx-background-color: #AAAAAA;");
         }       
     }
+    
     @FXML
     private void extraerTextoButton(){
         url = archivoSeleccionado.getPath();
