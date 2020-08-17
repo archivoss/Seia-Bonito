@@ -30,17 +30,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import java.awt.AWTException; 
 import java.awt.Rectangle; 
-import java.awt.Robot; 
 import javafx.scene.control.ScrollPane;
 import java.awt.image.BufferedImage; 
 import java.io.IOException; 
@@ -59,7 +52,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import static javafx.scene.paint.Color.WHITE;
 import javafx.util.Callback;
-import javax.imageio.ImageIO; 
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 
@@ -216,9 +208,6 @@ public class BackgroundController implements Initializable {
                 stripper.extractRegions(firstPage);
                 contenido.add(stripper.getTextForRegion("rec"));
                 nameRec.add(nombres.get(i));
-            }
-            for (int i = 0; i < nameRec.size(); i++) {
-                System.out.println(nameRec.get(i));
             }
             rectangulos = FXCollections.observableArrayList();
             info nueva;
