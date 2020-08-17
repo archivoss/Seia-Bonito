@@ -52,6 +52,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import static javafx.scene.paint.Color.WHITE;
 import javafx.util.Callback;
+import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 
@@ -192,21 +193,18 @@ public class BackgroundController implements Initializable {
     @FXML
     private void RecTextButtonAction(ActionEvent event){
         ArrayList<String> contenido = new ArrayList();
-        ArrayList<String> nameRec = new ArrayList();     
+        ArrayList<String> nameRec = new ArrayList(); 
+        BufferedImage screenShot;
+        String path = "ScreenShot\\Shot.jpg"; 
         try (PDDocument document = PDDocument.load(archivoSeleccionado)) {
             PDFTextStripperByArea stripper = new PDFTextStripperByArea();
             stripper.setSortByPosition(true);
             Rectangle rect;
-            PDPage firstPage = document.getPage(0);
             for (int i = 0; i < listRec.size(); i++) {
                 rect = new Rectangle(listRec.get(i));
-                rect.x = rect.x/2;
-                rect.y = rect.y/2;
-                rect.width = rect.width/2;
-                rect.height = rect.height/2;
-                stripper.addRegion("rec", rect);             
-                stripper.extractRegions(firstPage);
-                contenido.add(stripper.getTextForRegion("rec"));
+                screenShot = bim.getSubimage(rect.x, rect.y,  rect.width, rect.height);
+                ImageIO.write(screenShot, "png", new File(path));
+                contenido.add(new ToString(path).Lectura());
                 nameRec.add(nombres.get(i));
             }
             rectangulos = FXCollections.observableArrayList();
