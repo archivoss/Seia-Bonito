@@ -203,7 +203,7 @@ public class BackgroundController implements Initializable {
             for (int i = 0; i < listRec.size(); i++) {
                 rect = new Rectangle(listRec.get(i));
                 screenShot = bim.getSubimage(rect.x, rect.y,  rect.width, rect.height);
-                ImageIO.write(screenShot, "png", new File(path));
+                ImageIO.write(screenShot, "JPG", new File(path));
                 contenido.add(new ToString(path).Lectura());
                 nameRec.add(nombres.get(i));
             }
